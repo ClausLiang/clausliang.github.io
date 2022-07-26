@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>梁永刚</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f5f5d5;
+        }
+
+        .wrapper {
+            width: 1000px;
+            box-sizing: border-box;
+            margin: 15px auto;
+            padding: 120px 90px 50px;
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 2px 2px 8px 1px #888;
+        }
+
+        /* 个人简历大标题 */
+        .page-title {
+            margin: 0 auto;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        /* 段落小标题 */
+        .title_name {
+            margin-top: 10px;
+            color: #236fbb;
+            font-size: 20px;
+            line-height: 40px;
+        }
+
+        .title_line {
+            display: flex;
+        }
+
+        .title_line_left {
+            width: 100px;
+            height: 3px;
+            background-color: #236fbb;
+        }
+
+        .title_line_right {
+            flex: 1;
+            height: 3px;
+            background-color: #ccc;
+        }
+
+        /* 个人资料 */
+        .info-wrapper {
+            padding: 10px 0 10px 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            width: 50%;
+            display: flex;
+            line-height: 30px;
+        }
+
+        .info-item-label {
+            width: 80px;
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-item-content {
+            flex: 1;
+        }
+
+        /* 专业技能 */
+        .skill-wrapper {
+            margin: 0;
+            padding: 16px;
+        }
+
+        .skill-item {
+            line-height: 28px;
+        }
+
+        /* 工作经验 */
+        .experience-wrapper {
+            padding: 10px;
+        }
+
+        .experience-item {
+            display: flex;
+            line-height: 2;
+        }
+
+        .experience-item-left {
+            width: 300px;
+        }
+        .experience-item-content{
+            flex: 1;
+            display: flex;
+        }
+        .experience-item-middle {
+            flex: 1;
+        }
+
+        .experience-item-right {
+            width: 100px;
+            text-align: right;
+        }
+        /* 项目经验 */
+        .project-wrapper{
+            padding: 10px 5px 0;
+        }
+        .project-title{
+            display: flex;
+            line-height: 1.6;
+        }
+        .project-title-name{
+            font-weight: bold;
+        }
+        p{
+            margin: 0;
+            padding-left: 5px;
+            line-height: 1.5;
+        }
+        .divider{
+            border-bottom: 1px dashed #dcdfe6;
+            margin: 30px 0;
+        }
+        .project-show{
+            margin: 20px 0;
+            font-weight: bold;
+            color: #bbb;
+        }
+        
+        /* 教育经历 */
+        .education{
+            display: flex;
+            line-height: 2;
+        }
+        .education-i{
+            padding-right: 40px;
+        }
+        .education-content{
+            display: flex;
+        }
+
+        /* 手机 */
+        @media (max-width: 1000px) {
+            .wrapper {
+                width: 92%;
+                padding: 40px 25px 50px;
+                font-size: 14px;
+            }
+
+            /* 个人简历大标题 */
+            .page-title {
+                font-size: 20px;
+            }
+
+            /* 段落小标题 */
+            .title_name {
+                margin-top: 8px;
+                line-height: 24px;
+                font-size: 14px;
+            }
+
+            .title_line_left {
+                width: 60px;
+                height: 3px;
+                background-color: #236fbb;
+            }
+
+            /* 个人资料-手机 */
+            .info-wrapper {
+                padding: 10px 0 10px 6px;
+            }
+
+            .info-item {
+                width: 100%;
+            }
+
+            .info-item-label {
+                width: 70px;
+            }
+
+            /* 专业技能 */
+            .skill-wrapper {
+                padding: 13px;
+            }
+
+            .skill-item {
+                line-height: 1.3;
+                margin-bottom: 10px;
+            }
+            /* 工作经验 */
+            .experience-wrapper{
+                padding: 10px 0 10px 5px;
+            }
+            .experience-item {
+                display: block;
+                line-height: 1.2;
+                margin-bottom: 10px;
+            }
+            /* 项目经验 */
+            .project-wrapper{
+                padding: 10px 0 0;
+            }
+            .project-title-name{
+                white-space: nowrap;
+            }
+            p{
+                padding-left: 0;
+            }
+            /* 教育经历 */
+            .education{
+                display: block;
+                line-height: 1.2;
+                padding-top: 10px;
+            }
+        }
+
+        /* 电脑 1000px 以上 */
+        @media (min-width: 1001px) {}
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="page-title">个人简历</div>
+        <div class="title">
+            <div class="title_name">个人资料</div>
+            <div class="title_line">
+                <div class="title_line_left"></div>
+                <div class="title_line_right"></div>
+            </div>
+        </div>
+        <!-- 个人资料 -->
+        <div class="info-wrapper">
+            <div class="info-item">
+                <div class="info-item-label"><span>姓</span><span>名：</span></div>
+                <div class="info-item-content">梁永刚</div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-label"><span>性</span><span>别：</span></div>
+                <div class="info-item-content">男</div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-label"><span>学</span><span>历：</span></div>
+                <div class="info-item-content">本科</div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-label">工作经验：</div>
+                <div class="info-item-content">9年</div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-label">联系方式：</div>
+                <div class="info-item-content">17610018891</div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-label">电子邮箱：</div>
+                <div class="info-item-content">yonggangliang@sina.cn</div>
+            </div>
+        </div>
+        <div class="title">
+            <div class="title_name">专业技能</div>
+            <div class="title_line">
+                <div class="title_line_left"></div>
+                <div class="title_line_right"></div>
+            </div>
+        </div>
+        <!-- 专业技能 -->
+        <ul class="skill-wrapper">
+            <li class="skill-item">熟练掌握 es6 语法，JavaScript 基本功扎实，熟练使用 HTML5+CSS3 进行 web 开发</li>
+            <li class="skill-item">熟练掌握 vue，使用经验丰富。对封装组件、提高代码利用率有深刻认识，熟练掌握组件之间传值、数 据流向、各种特性等使用方法。熟练使用 vuex</li>
+            <li class="skill-item">熟练使用 vue 相关 UI 框架，element、vant 等</li>
+            <li class="skill-item">熟练微前端技术</li>
+            <li class="skill-item">熟练使用微信小程序原生语言开发小程序，也使用过 uni-app</li>
+            <li class="skill-item">了解 nodejs，react 等</li>
+            <li class="skill-item">熟练使用 git 版本控制工具</li>
+        </ul>
+        <div class="title">
+            <div class="title_name">工作经历</div>
+            <div class="title_line">
+                <div class="title_line_left"></div>
+                <div class="title_line_right"></div>
+            </div>
+        </div>
+        <!-- 工作经历 -->
+        <div class="experience-wrapper">
+            <div class="experience-item">
+                <div class="experience-item-left">2018.08--至今</div>
+                <div class="experience-item-content">
+                    <div class="experience-item-middle">优选好生活科技(北京)有限公司</div>
+                    <div class="experience-item-right">前端工程师</div>
+                </div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-item-left">2016.05--2018.07</div>
+                <div class="experience-item-content">
+                    <div class="experience-item-middle">家园网络科技有限公司</div>
+                    <div class="experience-item-right">前端工程师</div>
+                </div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-item-left">2015.04--2016.04</div>
+                <div class="experience-item-content">
+                    <div class="experience-item-middle">山西百得科技开发股份有限公司</div>
+                    <div class="experience-item-right">全栈工程师</div>
+                </div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-item-left">2013.04--2015.03</div>
+                <div class="experience-item-content">
+                    <div class="experience-item-middle">广州中软信息技术有限公司</div>
+                    <div class="experience-item-right">全栈工程师</div>
+                </div>
+            </div>
+        </div>
+        <div class="title">
+            <div class="title_name">项目经验</div>
+            <div class="title_line">
+                <div class="title_line_left"></div>
+                <div class="title_line_right"></div>
+            </div>
+        </div>
+        <div class="project-wrapper">
+            <!-- 好生活的项目经验 6 个-->
+            <div class="project-show">优选好生活科技(北京)有限公司</div>
+            <!-- 项目经验 1-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">好房运营后台管理系统</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2018年至今（一直有版本迭代）</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.vue+element 搭建项目，封装 store，封装路由拦截等。</p>
+                <p>2.封装 axios 请求后端接口。通过使用 axios 的拦截器对请求头进行统一设置、对接口返回的数据根据状态码 统一处理。</p>
+                <p>3.封装公共方法，如时间戳处理函数，数字处理函数，手机号脱敏函数等。</p>
+                <p>4.通过登录后请求返回的权限数据动态渲染用户所属角色的菜单。</p>
+                <p>5.封装公共组件 tags 并使用 keep-alive，保留用户打开的多个菜单。</p>
+                <p>6.通过使用 vuex 完成给项目添加数据权限的改造。</p>
+                <p>7.使用微前端 qiankun 框架对项目进行改造。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 2-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">好生活 UI 组件库</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2021.10 - 2021.11</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.定义各种业务组件、基础组件，为别的项目可以通过 vue.use 使用组件定义各个组件的 install 方法。打包，上传到 npm。</p>
+                <p>2.使用 vuepress 搭建组件库文档。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 3-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">内嵌 APP 的 H5</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.移动端适配利用了 postcss-px-to-viewport</p>
+                <p>2.调用移动端的方法与原生 app 实现交互</p>
+                <p>3.前端采用 vue 单页应用的架构，后期改为多页应用更加解耦。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 4-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">在线抢房三端</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2018.08 - 2018.09</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目简介：</div>
+                </div>
+                <p>该系统为现场开盘使用的一套系统，开发商将购房者的手机号提前录入到后台系统，用户通过链接打开 H5 页面进行现场抢房。大屏上实时展示楼盘的销售情况</p>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.三端分别为大屏端，用户端，后台端。</p>
+                <p>2.vue-cli 搭建项目，后台使用了 vue+element，用户端 vue+vant，大屏端没有使用 UI 框架。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 5-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">好生活官网</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2018 - 2018</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.利用 jquery 插件做了一些动效。</p>
+                <p>2.判断屏幕宽度跳转不同的页面，以做到对 pc 端和移动端的适配。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 6-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">珠江好房小程序、微楼盘小程序、经纪人小程序</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2018 - 2019</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.自定义组件底部 tabbar，这样做可以自定义 tab 样式，并且可以进行点击控制，比如可添加跳转前的逻辑判断，未登录不可以切到推荐客户页面。</p>
+                <p>2.自定义了小程序页面左上角的返回按钮。</p>
+                <p>3.根据业务封装可复用的自定义组件，自定义模版等。</p>
+                <p>4.封装请求方法，公共方法，wxs 等。</p>
+                <p>5.熟悉小程序的登录流程，获取用户手机号进行登录，静默登录等。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 家园网的项目经验 3 个-->
+            <div class="project-show">家园网络科技有限公司</div>
+            <!-- 项目经验 1-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">家园云（pc）</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2016 - 2018</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.技术选⽤VUE+element。</p>
+                <p>2.前端驱动项⽬，根据原型定义后台接⼝格式。</p>
+                <p>3.抽离复杂的公⽤组件。</p>
+                <div class="project-title">
+                    <div class="project-title-name">项目收获：</div>
+                </div>
+                <p>1.在项⽬的使⽤中加深了对 VUE 语法及技巧的理解，掌握了组件之间传值、⽗组件如何调⽤⼦组件⽅法、⼦组件如何调⽤⽗组件⽅法、全局数据仓库 vuex 等技能。打磨了我的 VUE 熟练程度。</p>
+                <p>2.深刻理解了封装组件的重要性。好处有两点：</p>
+                <p>①封装公共组件可以增加代码的可复⽤性和可维护性，只需⼀处修改，各页面调⽤的地⽅都会发⽣变化。</p>
+                <p>②将复杂功能或⽐较独⽴的功能抽离成组件，⽅便后期的维护，及团队中其他成员的阅读及修改。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 2-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">框架云（pc）</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2017 - 2018</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.react+antd 开发页面，还原设计稿。</p>
+                <p>2.收获到 react dva 的技能。react 为专注 VIEW 层的框架，⼤型项⽬的数据层最好是⽤ dva 这样的框架处理，⼀个模块对应⼀个 dva 的 model，数据只能单向流动，避免了数据污染。</p>
+                <p>3.熟悉了 antd ui 组件的使用方法。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目经验 3-->
+            <div class="project-info">
+                <div class="project-title">
+                    <div class="project-title-name">项目名称：</div>
+                    <div class="project-title-content">收吧云店（pc）、收吧云店小程序</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">项目周期：</div>
+                    <div class="project-title-content">2017 - 2017</div>
+                </div>
+                <div class="project-title">
+                    <div class="project-title-name">技术概述：</div>
+                </div>
+                <p>1.⽤VUE+element 开发云店 pc 端的页面。</p>
+                <p>2.完成商品管理，景区管理等页面的开发。</p>
+                <p>3.用小程序原生语言，参与开发了小程序中店铺页面及商品详情页面等。</p>
+            </div>
+            <!-- 分割线 -->
+            <div class="divider"></div>
+            <!-- 项目略-->
+            <div class="project-show">山西百得科技开发股份有限公司（项目略）</div>
+            <div class="project-show">广州中软信息技术有限公司（项目略）</div>
+        </div>
+        <div class="title">
+            <div class="title_name">教育经历</div>
+            <div class="title_line">
+                <div class="title_line_left"></div>
+                <div class="title_line_right"></div>
+            </div>
+        </div>
+        <!-- 教育经历 -->
+        <div class="education">
+            <div class="education-i">2019.09-2013.07</div>
+            <div class="education-content">
+                <div class="education-i">山西大学</div>
+                <div class="education-i">计算机科学与技术</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
