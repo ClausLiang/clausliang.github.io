@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>欢迎来到梁永刚的站点 - 梁永刚的个人网站</title>
+    <meta name="keywords" content="梁永刚,liangyonggang">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>泛白的天空</title>
     <script>
         // 百度统计的脚本
         var _hmt = _hmt || [];
@@ -30,6 +31,7 @@
             bottom: 0;
             z-index: -1;
             filter: blur(2px);
+            font-size: 0;
         }
 
         .back-img .home-img {
@@ -161,18 +163,27 @@
         /* 备案号 */
         .page-footer {
             position: absolute;
+            left: 0;
+            right: 0;
             bottom: 0;
             width: 100%;
-            height: 20px;
+            height: 40px;
             font-size: 12px;
             text-align: center;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .page-footer a {
             text-decoration: none;
-            color: #333;
-            background: rgba(250, 250, 250, 0.5);
-            padding: 0 5px;
+            color: #fff;
+            line-height: 20px;
+        }
+        .la-data-widget__container{
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
         }
     </style>
 </head>
@@ -219,5 +230,9 @@
         alert('send me email yonggangliang@sina.cn')
     }
 </script>
-
+<!-- 51la统计 -->
+<script>
+!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jlm3fppUanuJifZL",ck:"Jlm3fppUanuJifZL"});
+</script>
+<script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8" src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=1,0,0,0,0,0,1,1"></script>
 </html>
