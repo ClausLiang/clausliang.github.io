@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎来到梁永刚的站点 - 梁永刚的个人网站</title>
+    <meta name="keywords" content="梁永刚,liangyonggang">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+    <style>
+        .gohome{
+            position: fixed;
+            left: 10px;
+            top: 4px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid #42b983;
+            text-align: center;
+            line-height: 48px;
+            color: #42b983;
+            font-weight: bolder;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+    <a href="/"><div class="gohome">HOME</div></a>
+    <div id="app">加载中</div>
+    <script>
+    window.$docsify = {
+        loadSidebar: true,
+        subMaxLevel: 1
+    }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+</body>
+</html>
