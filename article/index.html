@@ -25,14 +25,28 @@
     </style>
 </head>
 <body>
-    <a href="/"><div class="gohome">HOME</div></a>
+    <!-- <a href="/"><div class="gohome">HOME</div></a> -->
+    <div style="height: 52px; position: fixed; top: 0; left: 10px; z-index: 99;">
+        <a href="/" style="text-decoration: none; line-height: 52px; font-size: 20px; color: #363636;">
+            <img width="20" height="16" src="http://cdn.liangyonggang.com/img/home.png" alt="">
+            梁永刚的个人网站
+        </a>
+    </div>
     <div id="app">加载中</div>
     <script>
     window.$docsify = {
         loadSidebar: true,
-        subMaxLevel: 1
+        subMaxLevel: 1,
+        auto2top: true,
+        homepage: 'high/qiankun.md',
     }
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+    <!-- 统计字数 -->
+    <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+    <script>
+        // 打印Docsify的版本号
+        console.log('Docsify.version:',window.Docsify.version)
+    </script>
 </body>
 </html>
