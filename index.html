@@ -12,7 +12,7 @@
         }
         /* 背景图 */
         .back-img {
-            position: absolute;
+            position: fixed;
             left: 0;
             right: 0;
             top: 0;
@@ -26,11 +26,18 @@
             width: 100%;
             height: 100%;
         }
-
+        /* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
+        .page-content{
+            min-height: 100vh;
+            /* 为了解决高度塌陷问题 */
+            border-top: 1px solid transparent;
+            box-sizing: border-box;
+        }
         /* 内容 */
         .content {
             position: relative;
             margin: 90px auto 0;
+            padding-bottom: 40px;
             width: 40%;
         }
         @media (max-width: 500px) {
@@ -50,16 +57,10 @@
         }
         @keyframes goup{
             0%   {margin: 90px auto 0;}
-            25%  {margin: 70px auto 0;}
-            50%  {margin: 50px auto 0;}
-            75%  {margin: 30px auto 0;}
             100% {margin: 10px auto 0;}
         }
         @keyframes godown{
             0%   {margin: 10px auto 0;}
-            25%  {margin: 30px auto 0;}
-            50%  {margin: 50px auto 0;}
-            75%  {margin: 70px auto 0;}
             100% {margin: 90px auto 0;}
         }
         .content.up{
@@ -85,25 +86,19 @@
             overflow: hidden;
         }
         @keyframes short{
-            0%   {height: auto;}
-            25%  {height: 270px;}/* 4/6 */
-            50%  {height: 200px;}/* 3/6 */
-            75%  {height: 130px;}/* 2/6 */
-            100% {height: 60px;}/* 1/6 */
+            0%   {height: 357px;}
+            100% {height: 60px;}
         }
         @keyframes tall{
             0%   {height: 60px;}
-            25%  {height: 130px;}
-            50%  {height: 200px;}
-            75%  {height: 270px;}
-            100% {height: auto;}
+            100% {height: 357px;}
         }
         .catalogue-wrapper.up{
             height: 60px;
             animation: short 0.6s linear;
         }
         .catalogue-wrapper.down{
-            height: auto;
+            height: 357px;
             animation: tall 0.6s linear;
         }
         .catalogue-head {
@@ -182,7 +177,7 @@
         /* 文章 */
         .article-wrapper{
             position: relative;
-            margin-top: 20px;
+            margin: 20px 0 20px;
             background: rgba(0, 0, 0, 0.3);
             padding: 15px 40px;
             border-radius: 10px;
@@ -207,11 +202,8 @@
         }
         /* 页脚 */
         .page-footer {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
+            position: relative;
+            margin-top: -40px;
             height: 40px;
             font-size: 12px;
             text-align: center;
@@ -238,68 +230,71 @@
     <div class="back-img">
         <img class="home-img" src="https://liangyonggang.com/img/bg2.jpg" alt="">
     </div>
-    <div class="content">
-        <div class="up-down">
-            <img src="https://liangyonggang.com/img/pull_up.png" alt="" style="cursor: n-resize" class="up-icon" onclick="upHandle()">
-            <img src="https://liangyonggang.com/img/pull_down.png" alt="" style="cursor: s-resize; display: none;" class="down-icon" onclick="downHandle()">
-        </div>
-        <div class="catalogue-wrapper">
-            <div class="catalogue-head">
-                <h1>梁永刚的个人网站</h1>
-                <h2 class="sub-title">clausliang's website</h2>
+    <!-- 内容外面又套了一个div 高度100vh sticky footer -->
+    <div class="page-content">
+        <div class="content">
+            <div class="up-down">
+                <img src="https://liangyonggang.com/img/pull_up.png" alt="" style="cursor: n-resize" class="up-icon" onclick="upHandle()">
+                <img src="https://liangyonggang.com/img/pull_down.png" alt="" style="cursor: s-resize; display: none;" class="down-icon" onclick="downHandle()">
             </div>
-            <div class="catalogue-container">
-                <ul class="product">
-                    <li>
-                        <a href="/article/index.html">
-                            <span class="symbol">&gt;</span>文章
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/projectlist.html">
-                            <span class="symbol">&gt;</span>作品
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/life.html">
-                            <span class="symbol">&gt;</span>生活
-                        </a>
-                    </li>
-                </ul>
+            <div class="catalogue-wrapper">
+                <div class="catalogue-head">
+                    <h1>梁永刚的个人网站</h1>
+                    <h2 class="sub-title">clausliang's website</h2>
+                </div>
+                <div class="catalogue-container">
+                    <ul class="product">
+                        <li>
+                            <a href="/article/index.html">
+                                <span class="symbol">&gt;</span>文章
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/projectlist.html">
+                                <span class="symbol">&gt;</span>作品
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/life.html">
+                                <span class="symbol">&gt;</span>生活
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="catalogue-footer">
+                    <span class="contact-btn" onclick="contact()">contact me</span> | <span class="contact-url">liangyonggang.com</span>
+                </div>
             </div>
-            <div class="catalogue-footer">
-                <span class="contact-btn" onclick="contact()">contact me</span> | <span class="contact-url">liangyonggang.com</span>
-            </div>
-        </div>
-        <div class="article-wrapper">
-            <div class="article-head">文章</div>
-            <div class="article-item">
-                <span class="article-time">2022年04月24日</span>
-                <a href="/article/index.html#/high/vuepack">vue项目打包优化---首屏优化</a>
-            </div>
-            <div class="article-item">
-                <span class="article-time">2022年02月22日</span>
-                <a href="/article/index.html#/high/gulp">用gulp4.0搭建一个项目</a>
-            </div>
-            <div class="article-item">
-                <span class="article-time">2022年02月18日</span>
-                <a href="/article/index.html#/vue/eltranfer">结合el-tree和el-transfer做一个树形穿梭框</a>
-            </div>
-            <div class="article-item">
-                <span class="article-time">2022年01月04日</span>
-                <a href="/article/index.html#/high/qiankun">qiankun通信方式及子应用引用百度地图的修改</a>
-            </div>
-            <div class="article-item">
-                <span class="article-time">2022年01月04日</span>
-                <a href="/article/index.html#/high/vuepress">用vuepress搭建一个文档项目的踩坑记录</a>
-            </div>
-            <div class="article-item">
-                <span class="article-time">2021年12月23日</span>
-                <a href="/article/index.html#/high/vueui">创建一个vue的UI组件库</a>
-            </div>
-            <div class="article-item">
-                <span class="article-time">2021年08月03日</span>
-                <a href="/article/index.html#/high/npmpackage">npm发布一个自己的包</a>
+            <div class="article-wrapper">
+                <div class="article-head">文章</div>
+                <div class="article-item">
+                    <span class="article-time">2022年04月24日</span>
+                    <a href="/article/index.html#/high/vuepack">vue项目打包优化---首屏优化</a>
+                </div>
+                <div class="article-item">
+                    <span class="article-time">2022年02月22日</span>
+                    <a href="/article/index.html#/high/gulp">用gulp4.0搭建一个项目</a>
+                </div>
+                <div class="article-item">
+                    <span class="article-time">2022年02月18日</span>
+                    <a href="/article/index.html#/vue/eltranfer">结合el-tree和el-transfer做一个树形穿梭框</a>
+                </div>
+                <div class="article-item">
+                    <span class="article-time">2022年01月04日</span>
+                    <a href="/article/index.html#/high/qiankun">qiankun通信方式及子应用引用百度地图的修改</a>
+                </div>
+                <div class="article-item">
+                    <span class="article-time">2022年01月04日</span>
+                    <a href="/article/index.html#/high/vuepress">用vuepress搭建一个文档项目的踩坑记录</a>
+                </div>
+                <div class="article-item">
+                    <span class="article-time">2021年12月23日</span>
+                    <a href="/article/index.html#/high/vueui">创建一个vue的UI组件库</a>
+                </div>
+                <div class="article-item">
+                    <span class="article-time">2021年08月03日</span>
+                    <a href="/article/index.html#/high/npmpackage">npm发布一个自己的包</a>
+                </div>
             </div>
         </div>
     </div>
