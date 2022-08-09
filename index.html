@@ -37,7 +37,7 @@
         .content {
             position: relative;
             margin: 90px auto 0;
-            padding-bottom: 40px;
+            padding-bottom: 41px;
             width: 40%;
         }
         @media (max-width: 500px) {
@@ -57,6 +57,7 @@
         }
         @keyframes goup{
             0%   {margin: 90px auto 0;}
+            60%  {margin: 90px auto 0;}
             100% {margin: 10px auto 0;}
         }
         @keyframes godown{
@@ -65,11 +66,11 @@
         }
         .content.up{
             margin: 10px auto 0;
-            animation: goup 0.6s linear;
+            animation: goup 0.5s linear;
         }
         .content.down{
             margin: 90px auto 0;
-            animation: godown 0.6s linear;
+            animation: godown 0.5s linear;
         }
         .up-down{
             position: absolute;
@@ -95,11 +96,11 @@
         }
         .catalogue-wrapper.up{
             height: 60px;
-            animation: short 0.6s linear;
+            animation: short 0.5s linear;
         }
         .catalogue-wrapper.down{
             height: 357px;
-            animation: tall 0.6s linear;
+            animation: tall 0.5s linear;
         }
         .catalogue-head {
             text-align: center;
@@ -179,15 +180,31 @@
             position: relative;
             margin: 20px 0 20px;
             background: rgba(0, 0, 0, 0.3);
-            padding: 15px 40px;
+            padding: 15px 40px 30px;
             border-radius: 10px;
             box-sizing: border-box;
             color: #fefefe;
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.6s;
         }
+        .article-wrapper.fold{
+            max-height: 45px;
+        }
+        .article-wrapper.unfold{
+            max-height: 500px;
+        }
+        /* 标题-文章 */
         .article-head{
             margin-bottom: 10px;
             padding: 5px;
             border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+        }
+        /* 文章折叠 */
+        .fold-unfold{
+            position: absolute;
+            right: 28px;
+            top: 20px;
         }
         .article-item{
             margin-top: 8px;
@@ -200,11 +217,36 @@
         .article-item a{
             color: #fefefe;
         }
+
+        /* 文章-更多 */
+        .article-more-wrapper{
+            position: relative;
+            height: 2px;
+        }
+        .article-more{
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 14px;
+        }
+        .article-more a{
+            font-style: oblique;
+            color: #fefefe;
+        }
+        /* 诗 */
+        .poetry1{
+            margin: 60px 0 10px;
+            text-align: center;
+        }
+        .poetry2{
+            margin: 10px 0 40px;
+            text-align: center;
+        }
         /* 页脚 */
         .page-footer {
             position: relative;
-            margin-top: -40px;
-            height: 40px;
+            margin-top: -41px;
+            height: 20px;
             font-size: 12px;
             text-align: center;
             background: rgba(0, 0, 0, 0.5);
@@ -215,27 +257,19 @@
             color: #fff;
             line-height: 20px;
         }
-        /* 页脚-51la数据挂件 */
-        .la-data-widget__container{
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            text-align: center;
-        }
     </style>
 </head>
 
 <body>
     <div class="back-img">
-        <img class="home-img" src="https://liangyonggang.com/img/bg2.jpg" alt="">
+        <img class="home-img" src="https://cdn.liangyonggang.com/img/bg2.jpg" alt="">
     </div>
     <!-- 内容外面又套了一个div 高度100vh sticky footer -->
     <div class="page-content">
         <div class="content">
             <div class="up-down">
-                <img src="https://liangyonggang.com/img/pull_up.png" alt="" style="cursor: n-resize" class="up-icon" onclick="upHandle()">
-                <img src="https://liangyonggang.com/img/pull_down.png" alt="" style="cursor: s-resize; display: none;" class="down-icon" onclick="downHandle()">
+                <img src="https://cdn.liangyonggang.com/img/pull_up.png" alt="" style="cursor: n-resize" class="up-icon" onclick="upHandle()">
+                <img src="https://cdn.liangyonggang.com/img/pull_down.png" alt="" style="cursor: s-resize; display: none;" class="down-icon" onclick="downHandle()">
             </div>
             <div class="catalogue-wrapper">
                 <div class="catalogue-head">
@@ -267,6 +301,10 @@
             </div>
             <div class="article-wrapper">
                 <div class="article-head">文章</div>
+                <div class="fold-unfold">
+                    <img src="https://cdn.liangyonggang.com/img/up_white.png" alt="" width="24" style="cursor: n-resize" class="fold-icon" onclick="foldHandle()">
+                    <img src="https://cdn.liangyonggang.com/img/down_white.png" alt="" width="24" style="cursor: s-resize; display: none;" class="unfold-icon" onclick="unfoldHandle()">
+                </div>
                 <div class="article-item">
                     <span class="article-time">2022年04月24日</span>
                     <a href="/article/index.html#/high/vuepack">vue项目打包优化---首屏优化</a>
@@ -277,7 +315,7 @@
                 </div>
                 <div class="article-item">
                     <span class="article-time">2022年02月18日</span>
-                    <a href="/article/index.html#/vue/eltranfer">结合el-tree和el-transfer做一个树形穿梭框</a>
+                    <a href="/article/index.html#/vue/eltransfer">结合el-tree和el-transfer做一个树形穿梭框</a>
                 </div>
                 <div class="article-item">
                     <span class="article-time">2022年01月04日</span>
@@ -295,7 +333,12 @@
                     <span class="article-time">2021年08月03日</span>
                     <a href="/article/index.html#/high/npmpackage">npm发布一个自己的包</a>
                 </div>
+                <div class="article-more-wrapper">
+                    <div class="article-more"><a href="/article/index.html">更多</a></div>
+                </div>
             </div>
+            <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
+            <div class="poetry2">若无闲事挂心头，便是人间好时节。</div>
         </div>
     </div>
     <div class="page-footer">
@@ -310,17 +353,34 @@
     var upIcon = document.querySelector('.up-icon')
     var downIcon = document.querySelector('.down-icon')
     var catalogue = document.querySelector('.catalogue-wrapper') // 目录
+    var foldIcon = document.querySelector('.fold-icon')
+    var unfoldIcon = document.querySelector('.unfold-icon')
+    var article = document.querySelector('.article-wrapper') // 文章
+    // 折叠目录
     function upHandle(){
         content.className = 'content up'
         catalogue.className = 'catalogue-wrapper up'
         upIcon.style.display = 'none'
         downIcon.style.display = 'block'
     }
+    // 折叠目录
     function downHandle(){
         content.className = 'content down'
         catalogue.className = 'catalogue-wrapper down'
         upIcon.style.display = 'block'
         downIcon.style.display = 'none'
+    }
+    // 折叠文章
+    function foldHandle(){
+        article.className = 'article-wrapper fold'
+        foldIcon.style.display = 'none'
+        unfoldIcon.style.display = 'block'
+    }
+    // 折叠文章
+    function unfoldHandle(){
+        article.className = 'article-wrapper unfold'
+        foldIcon.style.display = 'block'
+        unfoldIcon.style.display = 'none'
     }
 </script>
 <!-- 百度统计 -->
@@ -339,4 +399,14 @@
 </script>
 <!-- 51la数据挂件 -->
 <script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8" src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
+<script>
+    var ladata = document.querySelector('.la-data-widget__container')
+    setTimeout(function(){
+        ladata.style='postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
+    },0)
+    // 第二遍是防止网络慢 数据挂件回来的晚就无法设置样式了
+    setTimeout(function(){
+        ladata.style='postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
+    },1000)
+</script>
 </html>
