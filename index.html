@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>欢迎来到梁永刚的个人网站</title>
@@ -7,9 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body{
+        body {
             margin: 0;
         }
+
         /* 背景图 */
         .back-img {
             position: fixed;
@@ -21,18 +23,21 @@
             /* filter: blur(2px); */
             font-size: 0;
         }
+
         .back-img .home-img {
             object-fit: cover;
             width: 100%;
             height: 100%;
         }
+
         /* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
-        .page-content{
+        .page-content {
             min-height: 100vh;
             /* 为了解决高度塌陷问题 */
             border-top: 1px solid transparent;
             box-sizing: border-box;
         }
+
         /* 内容 */
         .content {
             position: relative;
@@ -40,45 +45,67 @@
             padding-bottom: 41px;
             width: 40%;
         }
+
         @media (max-width: 500px) {
             .content {
                 width: 90%;
             }
         }
+
         @media (min-width: 501px) and (max-width: 800px) {
             .content {
                 width: 70%;
             }
         }
+
         @media (min-width: 801px) and (max-width: 1000px) {
             .content {
                 width: 60%;
             }
         }
-        @keyframes goup{
-            0%   {margin: 90px auto 0;}
-            60%  {margin: 90px auto 0;}
-            100% {margin: 10px auto 0;}
+
+        @keyframes goup {
+            0% {
+                margin: 90px auto 0;
+            }
+
+            60% {
+                margin: 90px auto 0;
+            }
+
+            100% {
+                margin: 10px auto 0;
+            }
         }
-        @keyframes godown{
-            0%   {margin: 10px auto 0;}
-            100% {margin: 90px auto 0;}
+
+        @keyframes godown {
+            0% {
+                margin: 10px auto 0;
+            }
+
+            100% {
+                margin: 90px auto 0;
+            }
         }
-        .content.up{
+
+        .content.up {
             margin: 10px auto 0;
             animation: goup 0.5s linear;
         }
-        .content.down{
+
+        .content.down {
             margin: 90px auto 0;
             animation: godown 0.5s linear;
         }
-        .up-down{
+
+        .up-down {
             position: absolute;
             right: 10px;
             top: 10px;
         }
+
         /* 目录 */
-        .catalogue-wrapper{
+        .catalogue-wrapper {
             background: rgba(0, 0, 0, 0.3);
             padding: 15px 40px;
             border-radius: 10px;
@@ -86,47 +113,67 @@
             color: #fefefe;
             overflow: hidden;
         }
-        @keyframes short{
-            0%   {height: 357px;}
-            100% {height: 60px;}
+
+        @keyframes short {
+            0% {
+                height: 357px;
+            }
+
+            100% {
+                height: 60px;
+            }
         }
-        @keyframes tall{
-            0%   {height: 60px;}
-            100% {height: 357px;}
+
+        @keyframes tall {
+            0% {
+                height: 60px;
+            }
+
+            100% {
+                height: 357px;
+            }
         }
-        .catalogue-wrapper.up{
+
+        .catalogue-wrapper.up {
             height: 60px;
             animation: short 0.5s linear;
         }
-        .catalogue-wrapper.down{
+
+        .catalogue-wrapper.down {
             height: 357px;
             animation: tall 0.5s linear;
         }
+
         .catalogue-head {
             text-align: center;
             border-bottom: 1px solid rgba(250, 250, 250, 0.6);
             padding-bottom: 10px;
         }
+
         .catalogue-head h1 {
             font-size: 24px;
             line-height: 25px;
             margin: 12px 0 10px 0;
         }
+
         .catalogue-head .sub-title {
             margin: 0 0 8px 0;
             font-size: 14px;
             line-height: 20px;
             font-weight: normal;
         }
+
         /* 目录-内容区 */
         .catalogue-container {
             border-bottom: 1px solid rgba(250, 250, 250, 0.6);
         }
+
         .catalogue-container .product {
             margin: 0;
             padding: 30px 0 20px 0;
             list-style: none;
         }
+
         .catalogue-container .product li {
             margin-bottom: 15px;
             font-size: 16px;
@@ -136,6 +183,7 @@
             border-radius: 5px;
             padding-left: 10px;
         }
+
         .catalogue-container .product li a {
             width: 100%;
             color: #fefefe;
@@ -143,13 +191,16 @@
             display: flex;
             align-items: center;
         }
+
         .catalogue-container .product li a .symbol {
             font-size: 12px;
             margin-right: 10px;
         }
+
         .catalogue-container .product li:hover {
             background: rgba(250, 250, 250, 0.9);
         }
+
         .catalogue-container .product li:hover a {
             color: #333;
             font-weight: bold;
@@ -162,21 +213,25 @@
             font-size: 14px;
             line-height: 30px;
         }
+
         .catalogue-footer .contact-btn {
             padding: 5px;
             border-radius: 3px;
             cursor: pointer;
         }
+
         .catalogue-footer .contact-btn:hover {
             background: rgba(250, 250, 250, 0.7);
             color: #333;
             font-weight: bold;
         }
+
         .catalogue-footer .contact-url {
             padding-left: 5px;
         }
+
         /* 文章 */
-        .article-wrapper{
+        .article-wrapper {
             position: relative;
             margin: 20px 0 20px;
             background: rgba(0, 0, 0, 0.3);
@@ -188,60 +243,72 @@
             overflow: hidden;
             transition: max-height 0.6s;
         }
-        .article-wrapper.fold{
+
+        .article-wrapper.fold {
             max-height: 45px;
         }
-        .article-wrapper.unfold{
+
+        .article-wrapper.unfold {
             max-height: 500px;
         }
+
         /* 标题-文章 */
-        .article-head{
+        .article-head {
             margin-bottom: 10px;
             padding: 5px;
             border-bottom: 1px solid rgba(250, 250, 250, 0.6);
         }
+
         /* 文章折叠 */
-        .fold-unfold{
+        .fold-unfold {
             position: absolute;
             right: 28px;
             top: 20px;
         }
-        .article-item{
+
+        .article-item {
             margin-top: 8px;
             padding-left: 10px;
             font-size: 14px;
         }
-        .article-item .article-time{
+
+        .article-item .article-time {
             margin-right: 5px;
         }
-        .article-item a{
+
+        .article-item a {
             color: #fefefe;
         }
 
         /* 文章-更多 */
-        .article-more-wrapper{
+        .article-more-wrapper {
             position: relative;
             height: 2px;
         }
-        .article-more{
+
+        .article-more {
             position: absolute;
             right: 0;
             top: 0;
             font-size: 14px;
         }
-        .article-more a{
+
+        .article-more a {
             font-style: oblique;
             color: #fefefe;
         }
+
         /* 诗 */
-        .poetry1{
+        .poetry1 {
             margin: 60px 0 10px;
             text-align: center;
         }
-        .poetry2{
+
+        .poetry2 {
             margin: 10px 0 40px;
             text-align: center;
         }
+
         /* 页脚 */
         .page-footer {
             position: relative;
@@ -251,6 +318,7 @@
             text-align: center;
             background: rgba(0, 0, 0, 0.5);
         }
+
         /* 页脚-备案号 */
         .page-footer a {
             text-decoration: none;
@@ -266,14 +334,16 @@
     </div>
     <!-- 内容外面又套了一个div 高度100vh sticky footer -->
     <div class="page-content">
-        <div class="content">
+        <div class="content down">
             <div class="up-down">
-                <img src="http://liangyonggang.com/img/icon_up_white.png" width="24" alt="icon" style="cursor: n-resize" class="up-icon" onclick="upHandle()">
-                <img src="http://liangyonggang.com/img/icon_down_white.png" width="24" alt="icon" style="cursor: s-resize; display: none;" class="down-icon" onclick="downHandle()">
+                <img src="http://liangyonggang.com/img/icon_up_white.png" width="24" alt="icon" style="cursor: n-resize"
+                    class="up-icon" onclick="upHandle()">
+                <img src="http://liangyonggang.com/img/icon_down_white.png" width="24" alt="icon"
+                    style="cursor: s-resize; display: none;" class="down-icon" onclick="upHandle()">
             </div>
-            <div class="catalogue-wrapper">
+            <div class="catalogue-wrapper down">
                 <div class="catalogue-head">
-                    <h1>梁永刚的个人网站</h1>
+                    <h1 onclick="upHandle()">梁永刚的个人网站</h1>
                     <h2 class="sub-title">clausliang's website</h2>
                 </div>
                 <div class="catalogue-container">
@@ -296,24 +366,17 @@
                     </ul>
                 </div>
                 <div class="catalogue-footer">
-                    <span class="contact-btn" onclick="contact()">contact me</span> | <span class="contact-url">liangyonggang.com</span>
+                    <span class="contact-btn" onclick="contact()">contact me</span> | <span
+                        class="contact-url">liangyonggang.com</span>
                 </div>
             </div>
             <div class="article-wrapper fold">
-                <div class="article-head">文章</div>
+                <div class="article-head" onclick="foldHandle()">文章</div>
                 <div class="fold-unfold">
-                    <img src="http://liangyonggang.com/img/icon_up_white.png"
-                        alt="icon"
-                        width="24"
-                        style="cursor: n-resize; display: none;"
-                        class="fold-icon"
-                        onclick="foldHandle()">
-                    <img src="http://liangyonggang.com/img/icon_down_white.png"
-                        alt="icon"
-                        width="24"
-                        style="cursor: s-resize;"
-                        class="unfold-icon"
-                        onclick="unfoldHandle()">
+                    <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24"
+                        style="cursor: n-resize; display: none;" class="fold-icon" onclick="foldHandle()">
+                    <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24"
+                        style="cursor: s-resize;" class="unfold-icon" onclick="foldHandle()">
                 </div>
                 <div class="article-item">
                     <span class="article-time">2022年04月24日</span>
@@ -325,7 +388,8 @@
                 </div>
                 <div class="article-item">
                     <span class="article-time">2022年02月18日</span>
-                    <a href="http://blog.liangyonggang.com/2022/02/18/el-tree-transfer/">结合el-tree和el-transfer做一个树形穿梭框</a>
+                    <a
+                        href="http://blog.liangyonggang.com/2022/02/18/el-tree-transfer/">结合el-tree和el-transfer做一个树形穿梭框</a>
                 </div>
                 <div class="article-item">
                     <span class="article-time">2022年01月04日</span>
@@ -367,56 +431,59 @@
     var unfoldIcon = document.querySelector('.unfold-icon')
     var article = document.querySelector('.article-wrapper') // 文章
     // 折叠目录
-    function upHandle(){
-        content.className = 'content up'
-        catalogue.className = 'catalogue-wrapper up'
-        upIcon.style.display = 'none'
-        downIcon.style.display = 'block'
-    }
-    // 折叠目录
-    function downHandle(){
-        content.className = 'content down'
-        catalogue.className = 'catalogue-wrapper down'
-        upIcon.style.display = 'block'
-        downIcon.style.display = 'none'
-    }
-    // 折叠文章
-    function foldHandle(){
-        article.className = 'article-wrapper fold'
-        foldIcon.style.display = 'none'
-        unfoldIcon.style.display = 'block'
+    function upHandle() {
+        if (content.className == 'content down') {
+            content.className = 'content up'
+            catalogue.className = 'catalogue-wrapper up'
+            upIcon.style.display = 'none'
+            downIcon.style.display = 'block'
+        } else {
+            content.className = 'content down'
+            catalogue.className = 'catalogue-wrapper down'
+            upIcon.style.display = 'block'
+            downIcon.style.display = 'none'
+        }
     }
     // 折叠文章
-    function unfoldHandle(){
-        article.className = 'article-wrapper unfold'
-        foldIcon.style.display = 'block'
-        unfoldIcon.style.display = 'none'
+    function foldHandle() {
+        if (article.className == 'article-wrapper unfold') {
+            article.className = 'article-wrapper fold'
+            foldIcon.style.display = 'none'
+            unfoldIcon.style.display = 'block'
+        } else {
+            article.className = 'article-wrapper unfold'
+            foldIcon.style.display = 'block'
+            unfoldIcon.style.display = 'none'
+        }
+
     }
 </script>
 <!-- 百度统计 -->
 <script>
     var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
     })();
 </script>
 <!-- 51la统计 -->
 <script>
-    !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jlm3fppUanuJifZL",ck:"Jlm3fppUanuJifZL"});
+    !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "Jlm3fppUanuJifZL", ck: "Jlm3fppUanuJifZL" });
 </script>
 <!-- 51la数据挂件 -->
-<script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8" src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
+<script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8"
+    src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
 <script>
     var ladata = document.querySelector('.la-data-widget__container')
-    setTimeout(function(){
-        ladata.style='postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-    },0)
+    setTimeout(function () {
+        ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
+    }, 0)
     // 第二遍是防止网络慢 数据挂件回来的晚就无法设置样式了
-    setTimeout(function(){
-        ladata.style='postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-    },1000)
+    setTimeout(function () {
+        ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
+    }, 1000)
 </script>
+
 </html>
