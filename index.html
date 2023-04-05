@@ -51,20 +51,76 @@
                         class="contact-url">liangyonggang.com</span>
                 </div>
             </div>
-            <div class="article-wrapper fold">
-                <div class="article-head" onclick="foldHandle()">
-                    <div>视频</div>
+            <div class="video-wrapper unfold">
+                <div class="video-head" onclick="foldHandle()">
+                    <span class="symbol">&gt;</span>
+                    <span class="video-title">视频</span>
                     <div class="fold-unfold">
                         <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24"
-                            style="cursor: n-resize; display: none;" class="fold-icon">
+                            style="cursor: n-resize; " class="fold-icon">
                         <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24"
-                            style="cursor: s-resize;" class="unfold-icon">
+                            style="cursor: s-resize; display: none;" class="unfold-icon">
                     </div>
                 </div>
+                <div class="video-list">
+                    <a href="https://www.bilibili.com/video/BV1vV4y1S7vg/" target="_blank">
+                        <div class="video-item">
+                            <div class="video-img-wrapper">
+                                <img src="https://liangyonggang.com/imgasset/video3-tianjin-23-4-2.jpg" alt="">
+                                <div class="duration">04:03</div>
+                            </div>
+                            <div class="video-item-content">
+                                <div class="video-item-title">天津一日游</div>
+                                <div class="video-item-tags">
+                                    <div class="tag">旅游</div>
+                                    <div class="tag">天津</div>
+                                    <div class="tag">春游户外</div>
+                                </div>
+                                <div></div>
+                                <div class="video-item-time">2023-04-02 22:49:56</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://www.bilibili.com/video/BV1Us4y1U7Dv/" target="_blank">
+                        <div class="video-item">
+                            <div class="video-img-wrapper">
+                                <img src="https://liangyonggang.com/imgasset/video2-tangping-23-4-1-2.jpg" alt="">
+                                <div class="duration">02:26</div>
+                            </div>
+                            <div class="video-item-content">
+                                <div class="video-item-title">躺平吗？No！</div>
+                                <div class="video-item-tags">
+                                    <div class="tag">打工人的日常</div>
+                                    <div class="tag">生活</div>
+                                    <div class="tag">原创</div>
+                                </div>
+                                <div></div>
+                                <div class="video-item-time">2023-04-01 11:44:03</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://www.bilibili.com/video/BV1yX4y1o7mH/" target="_blank">
+                        <div class="video-item">
+                            <div class="video-img-wrapper">
+                                <img src="https://liangyonggang.com/imgasset/video1-fedead-23-3-19.jpg" alt="">
+                                <div class="duration">04:46</div>
+                            </div>
+                            <div class="video-item-content">
+                                <div class="video-item-title">前端未死</div>
+                                <div class="video-item-tags">
+                                    <div class="tag">职场人</div>
+                                    <div class="tag">前端</div>
+                                    <div class="tag">生活</div>
+                                </div>
+                                <div></div>
+                                <div class="video-item-time">2023-03-19 10:53:27</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 
-                
-                <div class="article-more-wrapper">
-                    <div class="article-more"><a href="http://blog.liangyonggang.com/">更多</a></div>
+                <div class="video-more-wrapper">
+                    <div class="video-more"><a href="https://space.bilibili.com/550034433" target="_blank">更多</a></div>
                 </div>
             </div>
             <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
@@ -84,7 +140,7 @@
     var upIcon = document.querySelector('.up-icon')
     var downIcon = document.querySelector('.down-icon')
     
-    var article = document.querySelector('.article-wrapper') // 文章
+    var video = document.querySelector('.video-wrapper') // 视频
     var foldIcon = document.querySelector('.fold-icon')
     var unfoldIcon = document.querySelector('.unfold-icon')
     
@@ -102,14 +158,14 @@
             downIcon.style.display = 'none'
         }
     }
-    // 折叠文章
+    // 折叠视频
     function foldHandle() {
-        if (article.className == 'article-wrapper unfold') {
-            article.className = 'article-wrapper fold'
+        if (video.className == 'video-wrapper unfold') {
+            video.className = 'video-wrapper fold'
             foldIcon.style.display = 'none'
             unfoldIcon.style.display = 'block'
         } else {
-            article.className = 'article-wrapper unfold'
+            video.className = 'video-wrapper unfold'
             foldIcon.style.display = 'block'
             unfoldIcon.style.display = 'none'
         }

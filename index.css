@@ -17,41 +17,6 @@ body {
   width: 100%;
   height: 100%;
 }
-@keyframes goup {
-  0% {
-    margin: 90px auto 0;
-  }
-  60% {
-    margin: 90px auto 0;
-  }
-  100% {
-    margin: 10px auto 0;
-  }
-}
-@keyframes godown {
-  0% {
-    margin: 10px auto 0;
-  }
-  100% {
-    margin: 90px auto 0;
-  }
-}
-@keyframes short {
-  0% {
-    height: 357px;
-  }
-  100% {
-    height: 60px;
-  }
-}
-@keyframes tall {
-  0% {
-    height: 60px;
-  }
-  100% {
-    height: 357px;
-  }
-}
 /* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
 .page-content {
   min-height: 100vh;
@@ -62,7 +27,6 @@ body {
 }
 .page-content .content {
   position: relative;
-  margin: 90px auto 0;
   padding-bottom: 41px;
   width: 40%;
   /* 目录 */
@@ -71,11 +35,11 @@ body {
 }
 .page-content .content.up {
   margin: 10px auto 0;
-  animation: goup 0.5s linear;
+  transition: margin 0.6s;
 }
 .page-content .content.down {
   margin: 90px auto 0;
-  animation: godown 0.5s linear;
+  transition: margin 0.6s;
 }
 .page-content .content .up-down {
   position: absolute;
@@ -84,7 +48,7 @@ body {
 }
 .page-content .content .catalogue-wrapper {
   background: rgba(0, 0, 0, 0.3);
-  padding: 15px 40px;
+  padding: 15px 40px 0;
   border-radius: 10px;
   box-sizing: border-box;
   color: #fefefe;
@@ -93,12 +57,13 @@ body {
   /* 目录-脚 */
 }
 .page-content .content .catalogue-wrapper.up {
-  height: 60px;
-  animation: short 0.5s linear;
+  height: 45px;
+  padding-top: 0;
+  transition: all 0.6s;
 }
 .page-content .content .catalogue-wrapper.down {
-  height: 357px;
-  animation: tall 0.5s linear;
+  height: 345px;
+  transition: all 0.6s;
 }
 .page-content .content .catalogue-wrapper .catalogue-head {
   position: relative;
@@ -132,7 +97,7 @@ body {
 }
 .page-content .content .catalogue-wrapper .catalogue-container ul {
   margin: 0;
-  padding: 30px 0 20px 0;
+  padding: 30px 0 15px 0;
   list-style: none;
 }
 .page-content .content .catalogue-wrapper .catalogue-container ul li {
@@ -181,9 +146,9 @@ body {
 .page-content .content .catalogue-wrapper .catalogue-footer .contact-url {
   padding-left: 5px;
 }
-.page-content .content .article-wrapper {
+.page-content .content .video-wrapper {
   margin: 20px 0 20px;
-  padding: 0 40px 30px 45px;
+  padding: 0 40px 30px 40px;
   border-radius: 10px;
   box-sizing: border-box;
   color: #fefefe;
@@ -194,16 +159,32 @@ body {
   /* 标题 */
   /* 更多 */
 }
-.page-content .content .article-wrapper.fold {
+.page-content .content .video-wrapper.fold {
   max-height: 34px;
 }
-.page-content .content .article-wrapper.unfold {
+.page-content .content .video-wrapper.fold .video-head .symbol {
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.page-content .content .video-wrapper.fold .video-head .video-title {
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.page-content .content .video-wrapper.unfold {
   max-height: 500px;
   padding-top: 10px;
 }
-.page-content .content .article-wrapper .article-head {
+.page-content .content .video-wrapper.unfold .video-head .symbol {
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+.page-content .content .video-wrapper.unfold .video-head .video-title {
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+.page-content .content .video-wrapper .video-head {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 35px;
   box-sizing: border-box;
@@ -211,25 +192,91 @@ body {
   border-bottom: 1px solid rgba(250, 250, 250, 0.6);
   cursor: pointer;
 }
-.page-content .content .article-wrapper .article-head .fold-unfold {
-  position: relative;
-  top: 0;
-  right: -10px;
+.page-content .content .video-wrapper .video-head .fold-unfold {
+  position: absolute;
+  top: 5px;
+  right: -30px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.page-content .content .article-wrapper .article-more-wrapper {
+.page-content .content .video-wrapper .video-head .symbol {
+  font-size: 12px;
+  margin-right: 10px;
+}
+.page-content .content .video-wrapper .video-list {
+  padding: 20px 0 0;
+}
+.page-content .content .video-wrapper .video-list a {
+  text-decoration: none;
+}
+.page-content .content .video-wrapper .video-list .video-item {
+  margin-bottom: 25px;
+  font-size: 0;
+  display: flex;
+  border-radius: 4px;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-img-wrapper {
+  position: relative;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-img-wrapper img {
+  width: 154px;
+  height: 96px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-img-wrapper .duration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 4px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 6px 0 6px 0;
+  font-size: 12px;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-item-content {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-title {
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-tags {
+  display: flex;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-tags .tag {
+  height: 20px;
+  margin-right: 5px;
+  padding: 0 8px;
+  line-height: 20px;
+  font-size: 13px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.4);
+  color: #666;
+  border-radius: 4px;
+}
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-time {
+  font-size: 14px;
+  color: #fff;
+}
+.page-content .content .video-wrapper .video-more-wrapper {
   position: relative;
   height: 2px;
 }
-.page-content .content .article-wrapper .article-more-wrapper .article-more {
+.page-content .content .video-wrapper .video-more-wrapper .video-more {
   position: absolute;
   right: 0;
   top: 0;
   font-size: 14px;
 }
-.page-content .content .article-wrapper .article-more-wrapper .article-more a {
+.page-content .content .video-wrapper .video-more-wrapper .video-more a {
   font-style: oblique;
   color: #fefefe;
 }
@@ -245,13 +292,44 @@ body {
   .page-content .content {
     width: 90%;
   }
+  .page-content .content.down {
+    margin: 40px auto 0;
+  }
+  .page-content .content.up {
+    margin: 10px auto 0;
+  }
+  .page-content .content .video-wrapper {
+    padding: 0 30px 30px 30px;
+  }
+  .page-content .content .video-wrapper .video-head .fold-unfold {
+    right: -20px;
+  }
+  .page-content .content .video-wrapper .video-list .video-item .video-img-wrapper img {
+    width: 123px;
+    height: 76px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  .page-content .content .video-wrapper .video-list .video-item .video-item-content {
+    margin-left: 10px;
+  }
+  .page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-tags .tag {
+    font-size: 10px;
+    padding: 0 2px;
+    height: 18px;
+    margin-right: 4px;
+    line-height: 18px;
+  }
+  .page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-time {
+    font-size: 12px;
+  }
 }
 @media (min-width: 501px) and (max-width: 800px) {
   .page-content .content {
     width: 70%;
   }
 }
-@media (min-width: 801px) and (max-width: 1000px) {
+@media (min-width: 801px) and (max-width: 1200px) {
   .page-content .content {
     width: 60%;
   }
