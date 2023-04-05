@@ -1,0 +1,273 @@
+body {
+  margin: 0;
+}
+/* 背景图 */
+.back-img {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  /* filter: blur(2px); */
+  font-size: 0;
+}
+.back-img .home-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+@keyframes goup {
+  0% {
+    margin: 90px auto 0;
+  }
+  60% {
+    margin: 90px auto 0;
+  }
+  100% {
+    margin: 10px auto 0;
+  }
+}
+@keyframes godown {
+  0% {
+    margin: 10px auto 0;
+  }
+  100% {
+    margin: 90px auto 0;
+  }
+}
+@keyframes short {
+  0% {
+    height: 357px;
+  }
+  100% {
+    height: 60px;
+  }
+}
+@keyframes tall {
+  0% {
+    height: 60px;
+  }
+  100% {
+    height: 357px;
+  }
+}
+/* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
+.page-content {
+  min-height: 100vh;
+  /* 为了解决高度塌陷问题 */
+  border-top: 1px solid transparent;
+  box-sizing: border-box;
+  /* 内容 */
+}
+.page-content .content {
+  position: relative;
+  margin: 90px auto 0;
+  padding-bottom: 41px;
+  width: 40%;
+  /* 目录 */
+  /* 视频 */
+  /* 诗 */
+}
+.page-content .content.up {
+  margin: 10px auto 0;
+  animation: goup 0.5s linear;
+}
+.page-content .content.down {
+  margin: 90px auto 0;
+  animation: godown 0.5s linear;
+}
+.page-content .content .up-down {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.page-content .content .catalogue-wrapper {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 40px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #fefefe;
+  overflow: hidden;
+  /* 目录-内容区 */
+  /* 目录-脚 */
+}
+.page-content .content .catalogue-wrapper.up {
+  height: 60px;
+  animation: short 0.5s linear;
+}
+.page-content .content .catalogue-wrapper.down {
+  height: 357px;
+  animation: tall 0.5s linear;
+}
+.page-content .content .catalogue-wrapper .catalogue-head {
+  position: relative;
+  text-align: center;
+  border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+  padding-bottom: 10px;
+}
+.page-content .content .catalogue-wrapper .catalogue-head h1 {
+  font-size: 24px;
+  line-height: 25px;
+  margin: 12px 0 10px 0;
+}
+.page-content .content .catalogue-wrapper .catalogue-head .sub-title {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+}
+.page-content .content .catalogue-wrapper .catalogue-head::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  bottom: 0;
+  left: -40px;
+  right: -40px;
+  z-index: 0;
+  cursor: pointer;
+}
+.page-content .content .catalogue-wrapper .catalogue-container {
+  border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+}
+.page-content .content .catalogue-wrapper .catalogue-container ul {
+  margin: 0;
+  padding: 30px 0 20px 0;
+  list-style: none;
+}
+.page-content .content .catalogue-wrapper .catalogue-container ul li {
+  margin-bottom: 15px;
+  font-size: 16px;
+  height: 35px;
+  line-height: 35px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.page-content .content .catalogue-wrapper .catalogue-container ul li a {
+  width: 100%;
+  color: #fefefe;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.page-content .content .catalogue-wrapper .catalogue-container ul li a .symbol {
+  font-size: 12px;
+  margin-right: 10px;
+}
+.page-content .content .catalogue-wrapper .catalogue-container ul li:hover {
+  background: rgba(250, 250, 250, 0.9);
+}
+.page-content .content .catalogue-wrapper .catalogue-container ul li:hover a {
+  color: #333;
+  font-weight: bold;
+}
+.page-content .content .catalogue-wrapper .catalogue-footer {
+  margin-top: 10px;
+  text-align: right;
+  font-size: 14px;
+  line-height: 30px;
+}
+.page-content .content .catalogue-wrapper .catalogue-footer .contact-btn {
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.page-content .content .catalogue-wrapper .catalogue-footer .contact-btn:hover {
+  background: rgba(250, 250, 250, 0.7);
+  color: #333;
+  font-weight: bold;
+}
+.page-content .content .catalogue-wrapper .catalogue-footer .contact-url {
+  padding-left: 5px;
+}
+.page-content .content .article-wrapper {
+  margin: 20px 0 20px;
+  padding: 0 40px 30px 45px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #fefefe;
+  background: rgba(0, 0, 0, 0.3);
+  max-height: 500px;
+  overflow: hidden;
+  transition: all 0.6s;
+  /* 标题 */
+  /* 更多 */
+}
+.page-content .content .article-wrapper.fold {
+  max-height: 34px;
+}
+.page-content .content .article-wrapper.unfold {
+  max-height: 500px;
+  padding-top: 10px;
+}
+.page-content .content .article-wrapper .article-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 5px;
+  border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+  cursor: pointer;
+}
+.page-content .content .article-wrapper .article-head .fold-unfold {
+  position: relative;
+  top: 0;
+  right: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-content .content .article-wrapper .article-more-wrapper {
+  position: relative;
+  height: 2px;
+}
+.page-content .content .article-wrapper .article-more-wrapper .article-more {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 14px;
+}
+.page-content .content .article-wrapper .article-more-wrapper .article-more a {
+  font-style: oblique;
+  color: #fefefe;
+}
+.page-content .content .poetry1 {
+  margin: 60px 0 10px;
+  text-align: center;
+}
+.page-content .content .poetry2 {
+  margin: 10px 0 40px;
+  text-align: center;
+}
+@media (max-width: 500px) {
+  .page-content .content {
+    width: 90%;
+  }
+}
+@media (min-width: 501px) and (max-width: 800px) {
+  .page-content .content {
+    width: 70%;
+  }
+}
+@media (min-width: 801px) and (max-width: 1000px) {
+  .page-content .content {
+    width: 60%;
+  }
+}
+/* 页脚 */
+.page-footer {
+  position: relative;
+  margin-top: -41px;
+  height: 20px;
+  font-size: 12px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  /* 页脚-备案号 */
+}
+.page-footer a {
+  text-decoration: none;
+  color: #fff;
+  line-height: 20px;
+}
