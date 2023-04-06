@@ -298,6 +298,9 @@ body {
   .page-content .content.up {
     margin: 10px auto 0;
   }
+  .page-content .content .catalogue-wrapper {
+    padding: 15px 30px 0;
+  }
   .page-content .content .video-wrapper {
     padding: 0 30px 30px 30px;
   }
