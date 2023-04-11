@@ -130,6 +130,7 @@
     <div class="page-footer">
         <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
     </div>
+    <!-- <div style="height: 21px; background: rgba(0,0,0,0.5);"></div> -->
 </body>
 <script>
     function contact() {
@@ -199,5 +200,12 @@
         ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
     }, 1000)
 </script>
-
+<script>
+    // 当不是部在我的域名下时，动态创建一个footer以优化样式
+    if(location.hostname != 'liangyonggang.com') {
+        const footer = document.createElement('div')
+        footer.style = 'height: 21px; background: rgba(0,0,0,0.5);'
+        document.body.appendChild(footer)
+    }
+</script>
 </html>

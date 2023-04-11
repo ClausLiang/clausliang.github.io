@@ -1,4 +1,5 @@
-# 泛白的天空
+# 个人网站的首页
 
-## 文章部分用了docsify将md编译为html
+## docsify的使用
+可以用docsify将md编译为html
 
