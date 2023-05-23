@@ -1,211 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>欢迎来到梁永刚的个人网站</title>
-    <meta name="keywords" content="梁永刚,liangyonggang">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
+  <meta charset="UTF-8">
+  <title>欢迎来到梁永刚的个人网站</title>
+  <meta name="keywords" content="梁永刚,liangyonggang">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-    <div class="back-img">
-        <img class="home-img" src="http://liangyonggang.com/img/bg2.jpg" alt="bg">
-    </div>
-    <!-- 内容外面又套了一个div 高度100vh sticky footer -->
-    <div class="page-content">
-        <div class="content down">
-            <div class="up-down">
-                <img src="http://liangyonggang.com/img/icon_up_white.png" width="24" alt="icon"
-                    style="cursor: n-resize" class="up-icon">
-                <img src="http://liangyonggang.com/img/icon_down_white.png" width="24" alt="icon"
-                    style="cursor: s-resize; display: none;" class="down-icon">
-            </div>
-            <div class="catalogue-wrapper down">
-                <div class="catalogue-head" onclick="upHandle()">
-                    <h1>梁永刚的个人网站</h1>
-                    <h2 class="sub-title">clausliang's website</h2>
-                </div>
-                <div class="catalogue-container">
-                    <ul>
-                        <li>
-                            <a href="http://blog.liangyonggang.com/">
-                                <span class="symbol">&gt;</span>技术文章｜工作总结
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/projectlist.html">
-                                <span class="symbol">&gt;</span>作品（建设中）
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/life.html">
-                                <span class="symbol">&gt;</span>生活感悟
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="catalogue-footer">
-                    <span class="contact-btn" onclick="contact()">contact me</span> | <span
-                        class="contact-url">liangyonggang.com</span>
-                </div>
-            </div>
-            <div class="video-wrapper unfold">
-                <div class="video-head" onclick="foldHandle()">
-                    <span class="symbol">&gt;</span>
-                    <span class="video-title">视频</span>
-                    <div class="fold-unfold">
-                        <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24"
-                            style="cursor: n-resize; " class="fold-icon">
-                        <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24"
-                            style="cursor: s-resize; display: none;" class="unfold-icon">
-                    </div>
-                </div>
-                <div class="video-list">
-                    <a href="https://www.bilibili.com/video/BV1vV4y1S7vg/" target="_blank">
-                        <div class="video-item">
-                            <div class="video-img-wrapper">
-                                <img src="https://liangyonggang.com/imgasset/video3-tianjin-23-4-2.jpg" alt="">
-                                <div class="duration">04:03</div>
-                            </div>
-                            <div class="video-item-content">
-                                <div class="video-item-title">天津一日游</div>
-                                <div class="video-item-tags">
-                                    <div class="tag">旅游</div>
-                                    <div class="tag">天津</div>
-                                    <div class="tag">春游户外</div>
-                                </div>
-                                <div></div>
-                                <div class="video-item-time">2023-04-02 22:49:56</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="https://www.bilibili.com/video/BV1Us4y1U7Dv/" target="_blank">
-                        <div class="video-item">
-                            <div class="video-img-wrapper">
-                                <img src="https://liangyonggang.com/imgasset/video2-tangping-23-4-1-2.jpg" alt="">
-                                <div class="duration">02:26</div>
-                            </div>
-                            <div class="video-item-content">
-                                <div class="video-item-title">躺平吗？No！</div>
-                                <div class="video-item-tags">
-                                    <div class="tag">打工人的日常</div>
-                                    <div class="tag">生活</div>
-                                    <div class="tag">原创</div>
-                                </div>
-                                <div></div>
-                                <div class="video-item-time">2023-04-01 11:44:03</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="https://www.bilibili.com/video/BV1yX4y1o7mH/" target="_blank">
-                        <div class="video-item">
-                            <div class="video-img-wrapper">
-                                <img src="https://liangyonggang.com/imgasset/video1-fedead-23-3-19.jpg" alt="">
-                                <div class="duration">04:46</div>
-                            </div>
-                            <div class="video-item-content">
-                                <div class="video-item-title">前端未死</div>
-                                <div class="video-item-tags">
-                                    <div class="tag">职场人</div>
-                                    <div class="tag">前端</div>
-                                    <div class="tag">生活</div>
-                                </div>
-                                <div></div>
-                                <div class="video-item-time">2023-03-19 10:53:27</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="video-more-wrapper">
-                    <div class="video-more"><a href="https://space.bilibili.com/550034433" target="_blank">更多</a></div>
-                </div>
-            </div>
-            <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
-            <div class="poetry2">若无闲事挂心头，便是人间好时节。</div>
+  <div class="back-img">
+    <img class="home-img" src="http://liangyonggang.com/img/bg2.jpg" alt="bg">
+  </div>
+  <!-- 内容外面又套了一个div 高度100vh sticky footer -->
+  <div class="page-content">
+    <div class="content">
+      <!-- 第一部分 -->
+      <div class="catalogue-wrapper">
+        <div class="catalogue-head">
+          <h1>梁永刚的个人网站</h1>
+          <h2 class="sub-title">clausliang's website</h2>
         </div>
+        <div class="catalogue-container">
+          <ul>
+            <li>
+              <a href="http://blog.liangyonggang.com/">
+                <span class="symbol">&gt;</span>技术文章｜工作总结
+              </a>
+            </li>
+            <li>
+              <a href="/projectlist.html">
+                <span class="symbol">&gt;</span>作品（建设中）
+              </a>
+            </li>
+            <li>
+              <a href="/life.html">
+                <span class="symbol">&gt;</span>生活感悟
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="catalogue-footer">
+          <span class="contact-btn" onclick="contact()">contact me</span> | <span
+            class="contact-url">liangyonggang.com</span>
+        </div>
+      </div>
+      <!-- 视频-卡片2 -->
+      <div class="card-wrapper unfold">
+        <div class="card-head" onclick="foldHandle()">
+          <span class="symbol">&gt;</span>
+          <span class="card-title">视频</span>
+          <div class="fold-unfold">
+            <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24" style="cursor: n-resize; "
+              class="fold-icon">
+            <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24"
+              style="cursor: s-resize; display: none;" class="unfold-icon">
+          </div>
+        </div>
+        <div class="video-list">
+          <a href="https://www.bilibili.com/video/BV1vV4y1S7vg/" target="_blank">
+            <div class="video-item">
+              <div class="video-img-wrapper">
+                <img src="https://liangyonggang.com/imgasset/video3-tianjin-23-4-2.jpg" alt="">
+                <div class="duration">04:03</div>
+              </div>
+              <div class="video-item-content">
+                <div class="video-item-title">天津一日游</div>
+                <div class="video-item-tags">
+                  <div class="tag">旅游</div>
+                  <div class="tag">天津</div>
+                  <div class="tag">春游户外</div>
+                </div>
+                <div></div>
+                <div class="video-item-time">2023-04-02 22:49:56</div>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.bilibili.com/video/BV1Us4y1U7Dv/" target="_blank">
+            <div class="video-item">
+              <div class="video-img-wrapper">
+                <img src="https://liangyonggang.com/imgasset/video2-tangping-23-4-1-2.jpg" alt="">
+                <div class="duration">02:26</div>
+              </div>
+              <div class="video-item-content">
+                <div class="video-item-title">躺平吗？No！</div>
+                <div class="video-item-tags">
+                  <div class="tag">打工人的日常</div>
+                  <div class="tag">生活</div>
+                  <div class="tag">原创</div>
+                </div>
+                <div></div>
+                <div class="video-item-time">2023-04-01 11:44:03</div>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.bilibili.com/video/BV1yX4y1o7mH/" target="_blank">
+            <div class="video-item">
+              <div class="video-img-wrapper">
+                <img src="https://liangyonggang.com/imgasset/video1-fedead-23-3-19.jpg" alt="">
+                <div class="duration">04:46</div>
+              </div>
+              <div class="video-item-content">
+                <div class="video-item-title">前端未死</div>
+                <div class="video-item-tags">
+                  <div class="tag">职场人</div>
+                  <div class="tag">前端</div>
+                  <div class="tag">生活</div>
+                </div>
+                <div></div>
+                <div class="video-item-time">2023-03-19 10:53:27</div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="video-more-wrapper">
+          <div class="video-more"><a href="https://space.bilibili.com/550034433" target="_blank">更多</a></div>
+        </div>
+      </div>
     </div>
-    <div class="page-footer">
-        <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
+    <div class="content">
+      <!-- 卡片3 -->
+      <div class="card-wrapper unfold">
+        <div class="card-head" onclick="foldHandle()">
+          <span class="symbol">&gt;</span>
+          <span class="card-title">作品</span>
+          <div class="fold-unfold">
+            <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24" style="cursor: n-resize; "
+              class="fold-icon">
+            <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24"
+              style="cursor: s-resize; display: none;" class="unfold-icon">
+          </div>
+        </div>
+        <div class="project-list">
+          <a href="https://clausliang.gitee.io/claus-ui-docs/" target="_blank">
+            <div class="project">创建一个UI组件库</div>
+          </a>
+          <a href="https://clausliang.gitee.io/claus-ui-docs/" target="_blank">
+            <div class="project">贪吃蛇游戏</div>
+          </a>
+          <a href="https://clausliang.gitee.io/claus-ui-docs/" target="_blank">
+            <div class="project">后台系统列表</div>
+          </a>
+        </div>
+      </div>
+      <!-- 卡片4 -->
+      <div class="card-wrapper unfold">
+        <div class="card-head">
+          <span class="symbol">&gt;</span>
+          <span class="card-title">生活感悟</span>
+          <div class="fold-unfold">
+            <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24" style="cursor: n-resize; "
+              class="fold-icon">
+            <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24"
+              style="cursor: s-resize; display: none;" class="unfold-icon">
+          </div>
+        </div>
+        <div class="life-list">
+          <ol>
+            <li>
+                <a href="https://mp.weixin.qq.com/s/VDM9dWOxCMSJu9z3yK_KeQ" target="_blank">分享一个减肥10kg的经历</a>
+            </li>
+            <li>
+                <a href="https://mp.weixin.qq.com/s/JYbq7iCuACr_HBIZoG76UA" target="_blank">在北京的这几年</a>
+            </li>
+            <li>
+                <a href="https://mp.weixin.qq.com/s/Xu_SQuVHJFJAh68n-2xzeg" target="_blank">那么多可以改变人生的机会，一次都没有把握</a>
+            </li>
+            <li>
+                <a href="https://mp.weixin.qq.com/s/I5RxSMQKNPlDb47gDCNitA" target="_blank">生活那么不顺，但我其实可以选择乐观</a>
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
-    <!-- <div style="height: 21px; background: rgba(0,0,0,0.5);"></div> -->
+    
+    <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
+    <div class="poetry2">若无闲事挂心头，便是人间好时节。</div>
+  </div>
+  <div class="page-footer">
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
+  </div>
+  <!-- <div style="height: 21px; background: rgba(0,0,0,0.5);"></div> -->
 </body>
 <script>
-    function contact() {
-        alert('send me email: yonggangliang@sina.cn')
-    }
-    var content = document.querySelector('.content') // 总的内容
-    var catalogue = document.querySelector('.catalogue-wrapper') // 目录
-    var upIcon = document.querySelector('.up-icon')
-    var downIcon = document.querySelector('.down-icon')
-    
-    var video = document.querySelector('.video-wrapper') // 视频
-    var foldIcon = document.querySelector('.fold-icon')
-    var unfoldIcon = document.querySelector('.unfold-icon')
-    
-    // 折叠目录
-    function upHandle() {
-        if (content.className == 'content down') {
-            content.className = 'content up'
-            catalogue.className = 'catalogue-wrapper up'
-            upIcon.style.display = 'none'
-            downIcon.style.display = 'block'
-        } else {
-            content.className = 'content down'
-            catalogue.className = 'catalogue-wrapper down'
-            upIcon.style.display = 'block'
-            downIcon.style.display = 'none'
-        }
-    }
-    // 折叠视频
-    function foldHandle() {
-        if (video.className == 'video-wrapper unfold') {
-            video.className = 'video-wrapper fold'
-            foldIcon.style.display = 'none'
-            unfoldIcon.style.display = 'block'
-        } else {
-            video.className = 'video-wrapper unfold'
-            foldIcon.style.display = 'block'
-            unfoldIcon.style.display = 'none'
-        }
+  function contact() {
+    alert('send me email: yonggangliang@sina.cn')
+  }
+  var content = document.querySelector('.content') // 总的内容
+  var catalogue = document.querySelector('.catalogue-wrapper') // 目录
+  var upIcon = document.querySelector('.up-icon')
+  var downIcon = document.querySelector('.down-icon')
 
+  // 折叠目录
+  function upHandle() {
+    if (content.className == 'content down') {
+      content.className = 'content up'
+      catalogue.className = 'catalogue-wrapper up'
+      upIcon.style.display = 'none'
+      downIcon.style.display = 'block'
+    } else {
+      content.className = 'content down'
+      catalogue.className = 'catalogue-wrapper down'
+      upIcon.style.display = 'block'
+      downIcon.style.display = 'none'
     }
+  }
+
+  var video = document.querySelector('.card-wrapper') // 视频
+  var foldIcon = document.querySelector('.fold-icon')
+  var unfoldIcon = document.querySelector('.unfold-icon')
+  // 折叠视频
+  function foldHandle() {
+    if (video.className == 'card-wrapper unfold') {
+      video.className = 'card-wrapper fold'
+      foldIcon.style.display = 'none'
+      unfoldIcon.style.display = 'block'
+    } else {
+      video.className = 'card-wrapper unfold'
+      foldIcon.style.display = 'block'
+      unfoldIcon.style.display = 'none'
+    }
+  }
 </script>
 <!-- 百度统计 -->
 <script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
 </script>
 <!-- 51la统计 -->
 <script>
-    !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "Jlm3fppUanuJifZL", ck: "Jlm3fppUanuJifZL" });
+  !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "Jlm3fppUanuJifZL", ck: "Jlm3fppUanuJifZL" });
 </script>
 <!-- 51la数据挂件 -->
 <script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8"
-    src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
+  src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
 <script>
-    var ladata = document.querySelector('.la-data-widget__container')
-    setTimeout(function () {
-        ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-    }, 0)
-    // 第二遍是防止网络慢 数据挂件回来的晚就无法设置样式了
-    setTimeout(function () {
-        ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-    }, 1000)
+  var ladata = document.querySelector('.la-data-widget__container')
+  setTimeout(function () {
+    ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
+  }, 0)
+  // 第二遍是防止网络慢 数据挂件回来的晚就无法设置样式了
+  setTimeout(function () {
+    ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
+  }, 1000)
 </script>
 <script>
-    // 当不是部在我的域名下时，动态创建一个footer以优化样式
-    if(location.hostname != 'liangyonggang.com') {
-        const footer = document.createElement('div')
-        footer.style = 'height: 21px; background: rgba(0,0,0,0.5);'
-        document.body.appendChild(footer)
-    }
+  // 当不是部在我的域名下时，动态创建一个footer以优化样式
+  if (location.hostname != 'liangyonggang.com') {
+    const footer = document.createElement('div')
+    footer.style = 'height: 21px; background: rgba(0,0,0,0.5);'
+    document.body.appendChild(footer)
+  }
 </script>
+
 </html>
