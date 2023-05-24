@@ -1,9 +1,6 @@
 body {
   margin: 0;
 }
-body a {
-  text-decoration: none;
-}
 /* 背景图 */
 .back-img {
   position: fixed;
@@ -27,16 +24,34 @@ body a {
   border-top: 1px solid transparent;
   box-sizing: border-box;
   /* 内容 */
-  /* 诗 */
+}
+.page-content .change-version {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  cursor: pointer;
 }
 .page-content .content {
-  margin: 0 auto;
-  padding-top: 20px;
-  width: 1000px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  position: relative;
+  padding-bottom: 41px;
+  width: 40%;
   /* 目录 */
+  /* 视频 */
+  /* 诗 */
+}
+.page-content .content.up {
+  margin: 10px auto 0;
+  transition: margin 0.6s;
+}
+.page-content .content.down {
+  margin: 90px auto 0;
+  transition: margin 0.6s;
+}
+.page-content .content .up-down {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 .page-content .content .catalogue-wrapper {
   background: rgba(0, 0, 0, 0.3);
@@ -47,6 +62,15 @@ body a {
   overflow: hidden;
   /* 目录-内容区 */
   /* 目录-脚 */
+}
+.page-content .content .catalogue-wrapper.up {
+  height: 45px;
+  padding-top: 0;
+  transition: all 0.6s;
+}
+.page-content .content .catalogue-wrapper.down {
+  height: 345px;
+  transition: all 0.6s;
 }
 .page-content .content .catalogue-wrapper .catalogue-head {
   position: relative;
@@ -64,6 +88,16 @@ body a {
   font-size: 14px;
   line-height: 20px;
   font-weight: normal;
+}
+.page-content .content .catalogue-wrapper .catalogue-head::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  bottom: 0;
+  left: -40px;
+  right: -40px;
+  z-index: 0;
+  cursor: pointer;
 }
 .page-content .content .catalogue-wrapper .catalogue-container {
   border-bottom: 1px solid rgba(250, 250, 250, 0.6);
@@ -85,6 +119,7 @@ body a {
 .page-content .content .catalogue-wrapper .catalogue-container ul li a {
   width: 100%;
   color: #fefefe;
+  text-decoration: none;
   display: flex;
   align-items: center;
 }
@@ -118,8 +153,9 @@ body a {
 .page-content .content .catalogue-wrapper .catalogue-footer .contact-url {
   padding-left: 5px;
 }
-.page-content .content .card-wrapper {
-  padding: 0 40px 30px;
+.page-content .content .video-wrapper {
+  margin: 20px 0 20px;
+  padding: 0 40px 30px 40px;
   border-radius: 10px;
   box-sizing: border-box;
   color: #fefefe;
@@ -127,33 +163,17 @@ body a {
   max-height: 500px;
   overflow: hidden;
   transition: all 0.6s;
-  /* 卡片标题 */
+  /* 标题 */
   /* 更多 */
 }
-.page-content .content .card-wrapper.fold {
+.page-content .content .video-wrapper.fold {
   max-height: 34px;
 }
-.page-content .content .card-wrapper.fold .card-head .symbol {
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-.page-content .content .card-wrapper.fold .card-head .card-title {
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-.page-content .content .card-wrapper.unfold {
+.page-content .content .video-wrapper.unfold {
   max-height: 500px;
   padding-top: 10px;
 }
-.page-content .content .card-wrapper.unfold .card-head .symbol {
-  opacity: 1;
-  transition: opacity 0.6s;
-}
-.page-content .content .card-wrapper.unfold .card-head .card-title {
-  opacity: 1;
-  transition: opacity 0.6s;
-}
-.page-content .content .card-wrapper .card-head {
+.page-content .content .video-wrapper .video-head {
   position: relative;
   display: flex;
   align-items: center;
@@ -163,7 +183,7 @@ body a {
   border-bottom: 1px solid rgba(250, 250, 250, 0.6);
   cursor: pointer;
 }
-.page-content .content .card-wrapper .card-head .fold-unfold {
+.page-content .content .video-wrapper .video-head .fold-unfold {
   position: absolute;
   top: 5px;
   right: -30px;
@@ -171,29 +191,32 @@ body a {
   justify-content: center;
   align-items: center;
 }
-.page-content .content .card-wrapper .card-head .symbol {
+.page-content .content .video-wrapper .video-head .symbol {
   font-size: 12px;
   margin-right: 10px;
 }
-.page-content .content .card-wrapper .video-list {
+.page-content .content .video-wrapper .video-list {
   padding: 20px 0 0;
 }
-.page-content .content .card-wrapper .video-list .video-item {
+.page-content .content .video-wrapper .video-list a {
+  text-decoration: none;
+}
+.page-content .content .video-wrapper .video-list .video-item {
   margin-bottom: 25px;
   font-size: 0;
   display: flex;
   border-radius: 4px;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-img-wrapper {
+.page-content .content .video-wrapper .video-list .video-item .video-img-wrapper {
   position: relative;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-img-wrapper img {
+.page-content .content .video-wrapper .video-list .video-item .video-img-wrapper img {
   width: 154px;
   height: 96px;
   border-radius: 6px;
   object-fit: cover;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-img-wrapper .duration {
+.page-content .content .video-wrapper .video-list .video-item .video-img-wrapper .duration {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -205,21 +228,21 @@ body a {
   border-radius: 6px 0 6px 0;
   font-size: 12px;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-item-content {
+.page-content .content .video-wrapper .video-list .video-item .video-item-content {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-item-content .video-item-title {
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-title {
   font-size: 18px;
   color: #fff;
   font-weight: bold;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-item-content .video-item-tags {
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-tags {
   display: flex;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-item-content .video-item-tags .tag {
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-tags .tag {
   height: 20px;
   margin-right: 5px;
   padding: 0 8px;
@@ -230,61 +253,30 @@ body a {
   color: #666;
   border-radius: 4px;
 }
-.page-content .content .card-wrapper .video-list .video-item .video-item-content .video-item-time {
+.page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-time {
   font-size: 14px;
   color: #fff;
 }
-.page-content .content .card-wrapper .video-more-wrapper {
+.page-content .content .video-wrapper .video-more-wrapper {
   position: relative;
   height: 2px;
 }
-.page-content .content .card-wrapper .video-more-wrapper .video-more {
+.page-content .content .video-wrapper .video-more-wrapper .video-more {
   position: absolute;
   right: 0;
   top: 0;
   font-size: 14px;
 }
-.page-content .content .card-wrapper .video-more-wrapper .video-more a {
+.page-content .content .video-wrapper .video-more-wrapper .video-more a {
   font-style: oblique;
   color: #fefefe;
 }
-.page-content .content .card-wrapper .project-list {
-  display: flex;
-}
-.page-content .content .card-wrapper .project-list a {
-  color: #555;
-  font-size: 10px;
-}
-.page-content .content .card-wrapper .project-list .project {
-  width: 100px;
-  height: 100px;
-  margin: 10px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  background-color: rgba(250, 250, 250, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.page-content .content .card-wrapper .life-list ol {
-  padding-left: 20px;
-}
-.page-content .content .card-wrapper .life-list ol a {
-  color: #fff;
-  padding-bottom: 2px;
-  border-bottom: 1px solid #eee;
-}
-.page-content .content .card-wrapper .life-list ol li {
-  margin-top: 10px;
-}
-.page-content .poetry1 {
+.page-content .content .poetry1 {
   margin: 60px 0 10px;
   text-align: center;
 }
-.page-content .poetry2 {
-  margin: 10px 0 80px;
+.page-content .content .poetry2 {
+  margin: 10px 0 40px;
   text-align: center;
 }
 @media (max-width: 500px) {
@@ -300,30 +292,29 @@ body a {
   .page-content .content .catalogue-wrapper {
     padding: 15px 30px 0;
   }
-  .page-content .content .card-wrapper {
+  .page-content .content .video-wrapper {
     padding: 0 30px 30px 30px;
-    margin: 30px 0 0;
   }
-  .page-content .content .card-wrapper .card-head .fold-unfold {
+  .page-content .content .video-wrapper .video-head .fold-unfold {
     right: -20px;
   }
-  .page-content .content .card-wrapper .video-list .video-item .video-img-wrapper img {
+  .page-content .content .video-wrapper .video-list .video-item .video-img-wrapper img {
     width: 123px;
     height: 76px;
     border-radius: 6px;
     object-fit: cover;
   }
-  .page-content .content .card-wrapper .video-list .video-item .video-item-content {
+  .page-content .content .video-wrapper .video-list .video-item .video-item-content {
     margin-left: 10px;
   }
-  .page-content .content .card-wrapper .video-list .video-item .video-item-content .video-item-tags .tag {
+  .page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-tags .tag {
     font-size: 10px;
     padding: 0 2px;
     height: 18px;
     margin-right: 4px;
     line-height: 18px;
   }
-  .page-content .content .card-wrapper .video-list .video-item .video-item-content .video-item-time {
+  .page-content .content .video-wrapper .video-list .video-item .video-item-content .video-item-time {
     font-size: 12px;
   }
 }
@@ -348,6 +339,7 @@ body a {
   /* 页脚-备案号 */
 }
 .page-footer a {
+  text-decoration: none;
   color: #fff;
   line-height: 20px;
 }
