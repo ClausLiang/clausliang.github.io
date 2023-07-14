@@ -20,6 +20,17 @@ body a {
   width: 100%;
   height: 100%;
 }
+@keyframes mymove {
+  0% {
+    width: 56px;
+  }
+  50% {
+    width: 48px;
+  }
+  100% {
+    width: 56px;
+  }
+}
 /* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
 .page-content {
   min-height: 100vh;
@@ -43,89 +54,52 @@ body a {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  /* 目录 */
+  /* 第一部分 */
 }
-.page-content .content .catalogue-wrapper {
+.page-content .content .blog-wrapper {
+  width: 450px;
   background: rgba(0, 0, 0, 0.3);
   padding: 15px 40px 0;
   border-radius: 10px;
   box-sizing: border-box;
   color: #fefefe;
   overflow: hidden;
-  /* 目录-内容区 */
-  /* 目录-脚 */
 }
-.page-content .content .catalogue-wrapper .catalogue-head {
+.page-content .content .blog-wrapper .blog-head {
   position: relative;
   text-align: center;
   border-bottom: 1px solid rgba(250, 250, 250, 0.6);
   padding-bottom: 10px;
 }
-.page-content .content .catalogue-wrapper .catalogue-head h1 {
+.page-content .content .blog-wrapper .blog-head h1 {
   font-size: 24px;
   line-height: 25px;
   margin: 12px 0 10px 0;
 }
-.page-content .content .catalogue-wrapper .catalogue-head .sub-title {
+.page-content .content .blog-wrapper .blog-head .sub-title {
   margin: 0 0 8px 0;
   font-size: 14px;
   line-height: 20px;
   font-weight: normal;
 }
-.page-content .content .catalogue-wrapper .catalogue-container {
-  border-bottom: 1px solid rgba(250, 250, 250, 0.6);
-}
-.page-content .content .catalogue-wrapper .catalogue-container ul {
-  margin: 0;
-  padding: 30px 0 15px 0;
-  list-style: none;
-}
-.page-content .content .catalogue-wrapper .catalogue-container ul li {
-  margin-bottom: 15px;
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
-  padding-left: 10px;
-}
-.page-content .content .catalogue-wrapper .catalogue-container ul li a {
-  width: 100%;
-  color: #fefefe;
+.page-content .content .blog-wrapper .blog-container {
+  text-align: center;
+  font-size: 40px;
+  color: #fcfcfc;
+  height: 300px;
+  letter-spacing: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
-.page-content .content .catalogue-wrapper .catalogue-container ul li a .symbol {
-  font-size: 12px;
-  margin-right: 10px;
+.page-content .content .blog-wrapper .blog-container .finger-wrapper {
+  height: 68px;
 }
-.page-content .content .catalogue-wrapper .catalogue-container ul li:hover {
-  background: rgba(250, 250, 250, 0.9);
-}
-.page-content .content .catalogue-wrapper .catalogue-container ul li:hover a {
-  color: #333;
-  font-weight: bold;
-}
-.page-content .content .catalogue-wrapper .catalogue-footer {
-  margin-top: 10px;
-  text-align: right;
-  font-size: 14px;
-  line-height: 30px;
-}
-.page-content .content .catalogue-wrapper .catalogue-footer .contact-btn {
-  padding: 5px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.page-content .content .catalogue-wrapper .catalogue-footer .contact-btn:hover {
-  background: rgba(250, 250, 250, 0.7);
-  color: #333;
-  font-weight: bold;
-}
-.page-content .content .catalogue-wrapper .catalogue-footer .contact-url {
-  padding-left: 5px;
+.page-content .content .blog-wrapper .blog-container .finger {
+  animation: mymove 1.2s infinite;
 }
 .page-content .content .card-wrapper {
+  width: 450px;
   padding: 0 40px 30px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -303,9 +277,6 @@ body a {
   }
   .page-content .content.up {
     margin: 10px auto 0;
-  }
-  .page-content .content .catalogue-wrapper {
-    padding: 15px 30px 0;
   }
   .page-content .content .card-wrapper {
     padding: 0 30px 30px 30px;
