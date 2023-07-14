@@ -21,34 +21,20 @@
     </a>
     <div class="content">
       <!-- 第一部分 -->
-      <div class="catalogue-wrapper">
-        <div class="catalogue-head">
+      <div class="blog-wrapper">
+        <div class="blog-head">
           <h1>梁永刚的个人网站</h1>
           <h2 class="sub-title">clausliang's website</h2>
         </div>
-        <div class="catalogue-container">
-          <ul>
-            <li>
-              <a href="http://blog.liangyonggang.com/">
-                <span class="symbol">&gt;</span>技术文章｜工作总结
-              </a>
-            </li>
-            <li>
-              <a href="/projectlist.html">
-                <span class="symbol">&gt;</span>作品（建设中）
-              </a>
-            </li>
-            <li>
-              <a href="/life.html">
-                <span class="symbol">&gt;</span>生活感悟
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="catalogue-footer">
-          <span class="contact-btn" onclick="contact()">contact me</span> | <span
-            class="contact-url">liangyonggang.com</span>
-        </div>
+        <a href="http://blog.liangyonggang.com/">
+          <div class="blog-container">
+            <div>我的</div>
+            <div>技术博客</div>
+            <div class="finger-wrapper">
+              <img class="finger" src="https://liangyonggang.com/img/icon_finger.png" alt="">
+            </div>
+          </div>
+        </a>
       </div>
       <!-- 视频-卡片2 -->
       <div class="card-wrapper unfold">
@@ -163,22 +149,22 @@
         <div class="life-list">
           <ol>
             <li>
-                <a href="https://mp.weixin.qq.com/s/VDM9dWOxCMSJu9z3yK_KeQ" target="_blank">分享一个减肥10kg的经历</a>
+              <a href="https://mp.weixin.qq.com/s/VDM9dWOxCMSJu9z3yK_KeQ" target="_blank">分享一个减肥10kg的经历</a>
             </li>
             <li>
-                <a href="https://mp.weixin.qq.com/s/JYbq7iCuACr_HBIZoG76UA" target="_blank">在北京的这几年</a>
+              <a href="https://mp.weixin.qq.com/s/JYbq7iCuACr_HBIZoG76UA" target="_blank">在北京的这几年</a>
             </li>
             <li>
-                <a href="https://mp.weixin.qq.com/s/Xu_SQuVHJFJAh68n-2xzeg" target="_blank">那么多可以改变人生的机会，一次都没有把握</a>
+              <a href="https://mp.weixin.qq.com/s/Xu_SQuVHJFJAh68n-2xzeg" target="_blank">那么多可以改变人生的机会，一次都没有把握</a>
             </li>
             <li>
-                <a href="https://mp.weixin.qq.com/s/I5RxSMQKNPlDb47gDCNitA" target="_blank">生活那么不顺，但我其实可以选择乐观</a>
+              <a href="https://mp.weixin.qq.com/s/I5RxSMQKNPlDb47gDCNitA" target="_blank">生活那么不顺，但我其实可以选择乐观</a>
             </li>
           </ol>
         </div>
       </div>
     </div>
-    
+
     <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
     <div class="poetry2">若无闲事挂心头，便是人间好时节。</div>
   </div>
@@ -188,28 +174,7 @@
   <!-- <div style="height: 21px; background: rgba(0,0,0,0.5);"></div> -->
 </body>
 <script>
-  function contact() {
-    alert('send me email: yonggangliang@sina.cn')
-  }
   var content = document.querySelector('.content') // 总的内容
-  var catalogue = document.querySelector('.catalogue-wrapper') // 目录
-  var upIcon = document.querySelector('.up-icon')
-  var downIcon = document.querySelector('.down-icon')
-
-  // 折叠目录
-  function upHandle() {
-    if (content.className == 'content down') {
-      content.className = 'content up'
-      catalogue.className = 'catalogue-wrapper up'
-      upIcon.style.display = 'none'
-      downIcon.style.display = 'block'
-    } else {
-      content.className = 'content down'
-      catalogue.className = 'catalogue-wrapper down'
-      upIcon.style.display = 'block'
-      downIcon.style.display = 'none'
-    }
-  }
 
   var video = document.querySelector('.card-wrapper') // 视频
   var foldIcon = document.querySelector('.fold-icon')
