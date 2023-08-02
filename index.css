@@ -32,6 +32,15 @@ body {
   z-index: 99;
   cursor: pointer;
 }
+.page-content .change-version .tip {
+  position: absolute;
+  left: -3px;
+  right: 25px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 12px;
+  transform: rotate(-45deg);
+}
 .page-content .content {
   position: relative;
   padding-bottom: 41px;
