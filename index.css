@@ -289,6 +289,9 @@ body {
   text-align: center;
 }
 @media (max-width: 500px) {
+  .page-content .change-version .tip {
+    font-size: 10px;
+  }
   .page-content .content {
     width: 90%;
   }
