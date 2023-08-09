@@ -287,13 +287,18 @@ body a {
 .page-content .content .other-wrapper .article-wrapper ol {
   padding-left: 20px;
 }
-.page-content .content .other-wrapper .article-wrapper ol a {
+.page-content .content .other-wrapper .article-wrapper ol li {
+  margin-top: 10px;
+}
+.page-content .content .other-wrapper .article-wrapper ol li a {
   color: #fff;
   padding-bottom: 2px;
   border-bottom: 1px solid #eee;
 }
-.page-content .content .other-wrapper .article-wrapper ol li {
-  margin-top: 10px;
+.page-content .content .other-wrapper .article-wrapper ol li .time {
+  display: inline-block;
+  width: 100px;
+  color: rgba(255, 255, 255, 0.7);
 }
 .page-content .content .poetry1 {
   margin: 60px 0 10px;
@@ -343,6 +348,9 @@ body a {
   }
   .page-content .content .other-wrapper .video-list .video-item .video-item-content .video-item-time {
     font-size: 12px;
+  }
+  .page-content .content .other-wrapper .article-wrapper ol li .time {
+    width: 80px;
   }
 }
 @media (min-width: 501px) and (max-width: 800px) {

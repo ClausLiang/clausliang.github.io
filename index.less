@@ -332,14 +332,21 @@ body {
         ol {
           padding-left: 20px;
 
-          a {
-            color: #fff;
-            padding-bottom: 2px;
-            border-bottom: 1px solid #eee;
-          }
-
           li {
             margin-top: 10px;
+
+            a {
+              color: #fff;
+              padding-bottom: 2px;
+              border-bottom: 1px solid #eee;
+              
+            }
+            .time {
+              display: inline-block;
+              width: 100px;
+              color: rgba(255, 255, 255, 0.7);
+            }
+            
           }
         }
       }
@@ -356,7 +363,6 @@ body {
       text-align: center;
     }
   }
-
 
 }
 
@@ -392,7 +398,7 @@ body {
             right: -20px;
           }
         }
-
+        // 视频
         .video-list {
           .video-item {
             .video-img-wrapper {
@@ -419,6 +425,16 @@ body {
 
               .video-item-time {
                 font-size: 12px;
+              }
+            }
+          }
+        }
+        // 文章
+        .article-wrapper {
+          ol {
+            li {
+              .time {
+                width: 80px;
               }
             }
           }
