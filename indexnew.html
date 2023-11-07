@@ -221,6 +221,11 @@
   setTimeout(function () {
     ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
   }, 1000)
+  setTimeout(function () {
+    if(ladata){
+      ladata.children[2].querySelector('span').innerHTML = '首页访问量'
+    }
+  }, 1200)
 </script>
 <script>
   // 当不是部在我的域名下时，动态创建一个footer以优化样式
