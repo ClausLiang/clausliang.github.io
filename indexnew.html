@@ -215,17 +215,11 @@
 <script>
   var ladata = document.querySelector('.la-data-widget__container')
   setTimeout(function () {
-    ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-  }, 0)
-  // 第二遍是防止网络慢 数据挂件回来的晚就无法设置样式了
-  setTimeout(function () {
-    ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-  }, 1000)
-  setTimeout(function () {
     if(ladata){
+      ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
       ladata.children[2].querySelector('span').innerHTML = '首页访问量'
     }
-  }, 1200)
+  }, 100)
 </script>
 <script>
   // 当不是部在我的域名下时，动态创建一个footer以优化样式
