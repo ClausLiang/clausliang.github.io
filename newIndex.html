@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    #bg {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+    }
+
+    /* 介绍 */
+    #intro {
+      padding: 20px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+    }
+
+    #intro h2 {
+      margin: 0;
+      font-size: 3.25vmax;
+    }
+
+    #intro h1 {
+      margin: 0;
+      font-size: 7.25vmax;
+      background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+      background-clip: text;
+      color: transparent;
+    }
+
+    #intro h3 {
+      margin: 0;
+      font-size: 1.85vmax;
+      background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+      background-clip: text;
+      color: transparent;
+    }
+
+    #intro .introduce {
+      margin: 10px 0;
+    }
+
+    #intro h4 {
+      margin: 0;
+    }
+
+    #intro .school {
+      margin: 0.5em 0;
+    }
+
+    /* 第二页 */
+    #page2 {
+      padding: 20px;
+      height: 100vh;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+    }
+    #page2 p{
+      font-size: 4vmax;
+      margin: 0.3em 0;
+      width: 90%;
+    }
+    #page3{
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 简介 -->
+  <div id="intro">
+    <h2>你好啊，我是</h2>
+    <h1>liangyonggang</h1>
+    <h3>前端开发</h3>
+    <div class="introduce">
+      <h4>个人简介</h4>
+      <p class="school">北京 ｜ 山西大学 ｜ 2009-2013</p>
+      <p>我是一个工作10年+的程序员</p>
+      <p>我希望软件开发是一个能干到老的职业，不躺不卷，持续学习，持续提升。</p>
+    </div>
+  </div>
+  <div id="page2">
+    <p class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题</p>
+    <p class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题</p>
+    <p class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题</p>
+    <p class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题</p>
+  </div>
+  <img src="./wave.GIF" id="bg" alt="">
+  <div id="page3"></div>
+  <div id="page3"></div>
+</body>
+<script>
+  // 视窗高度
+  let clientHeight = document.documentElement.clientHeight
+  // 开始动画的位置
+  let animPosition = clientHeight / 2 - 100
+
+  // 要移动的
+  let a1List = document.querySelectorAll('.animation1')
+  // 动画1
+  function animation1fn() {
+    for (let i = 0; i < a1List.length; i++) {
+      if (a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
+        && a1List[i].getBoundingClientRect().top < animPosition) {
+        a1List[i].style.color = '#fff'
+      } else {
+        a1List[i].style.color = '#e4e4e44d'
+      }
+    }
+  }
+
+  // 动画2
+  let bg = document.getElementById('bg')
+  function animation2fn(){
+    console.log(document.documentElement.scrollTop)
+    if(document.documentElement.scrollTop > clientHeight * 2){
+      console.log('begin')
+    } else {
+      bg.style.position = 'fixed'
+    }
+  }
+  // 滚动动画
+  const scrollAnimation = function () {
+    animation1fn()
+    animation2fn()
+  }
+  const throttleHandle = throttle(scrollAnimation, 16) // 节流
+  function throttle(fn, delay) {
+    let args = arguments,
+      context = this,
+      timer = null,
+      remaining = 0,
+      previous = new Date();
+
+    return function (ttt) {
+      let now = new Date();
+      let args = arguments
+      remaining = now - previous;
+
+      if (remaining >= delay) {
+        if (timer) {
+          clearTimeout(timer);
+        }
+
+        fn.apply(context, args);
+        previous = now;
+      } else {
+        if (!timer) {
+          timer = setTimeout(function () {
+            fn.apply(context, args);
+            previous = new Date();
+          }, delay - remaining);
+        }
+      }
+    };
+  }
+  window.addEventListener('scroll', throttleHandle)
+</script>
+
+</html>
