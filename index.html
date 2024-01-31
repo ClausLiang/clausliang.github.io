@@ -2,244 +2,317 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
   <title>欢迎来到梁永刚的个人网站</title>
   <meta name="keywords" content="梁永刚,liangyonggang">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./index.css?t=2023080911">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      --progress: 0;
+      transform: scale(calc(1 - var(--progress)));
+    }
+
+    /* 介绍 */
+    #intro {
+      padding: 20px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+    }
+
+    #intro h2 {
+      margin: 0;
+      font-size: 3.25vmax;
+    }
+
+    #intro h1 {
+      margin: 0;
+      font-size: 7.25vmax;
+      background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+      background-clip: text;
+      color: transparent;
+    }
+
+    #intro h3 {
+      margin: 0;
+      font-size: 1.85vmax;
+      background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+      background-clip: text;
+      color: transparent;
+    }
+
+    #intro .introduce {
+      margin: 10px 0;
+    }
+
+    #intro h4 {
+      margin: 0;
+    }
+
+    #intro .school {
+      margin: 0.5em 0;
+    }
+
+    /* 第二页 */
+    #page2 {
+      padding: 20px;
+      height: 100vh;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+    }
+    #page2 p{
+      font-size: 4vmax;
+      margin: 0.3em 0;
+      width: 90%;
+    }
+    #page3{
+      height: 120vh;
+    }
+    /* 第四页 */
+    #page4{
+      height: 200vh;
+      background: rgba(0, 0, 0, 0.4);
+      --scale: 0;
+      position: relative;
+    }
+    #page4 p{
+      position: fixed;
+      display: none;
+      font-size: 3vmax;
+      text-align: center;
+      color: #fff;
+      top: 15vh;
+      left: 0;
+      width: 100%;
+      transform: scale(calc(1 + var(--scale)));
+    }
+    #page4 .page4-bg{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background-image: url('http://liangyonggang.com/img/bg2.jpg');
+      background-size: cover;
+      background-position: center center;
+      z-index: -9;
+    }
+    @keyframes mymove{
+      0% {transform: scale(1);}
+      50% {transform: scale(1.1);}
+      100% {transform: scale(1);}
+    }
+    #page4 .blog-enter{
+      display: none;
+      position: fixed;
+      bottom: 25vh;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 4vmax;
+      animation: mymove 2s infinite;
+    }
+    #page4 .blog-enter a{
+      color: #fff;
+    }
+    /* 页脚 */
+    .page-footer {
+      position: relative;
+      margin-top: -41px;
+      height: 20px;
+      font-size: 12px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .page-footer a {
+      text-decoration: none;
+      color: #fff;
+      line-height: 20px;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="back-img">
-    <img class="home-img" src="http://liangyonggang.com/img/bg2.jpg" alt="bg">
-  </div>
-  <!-- 内容外面又套了一个div 高度100vh sticky footer -->
-  <div class="page-content">
-    <a href="./indexnew.html" class="change-version">
-      <img src="http://liangyonggang.com/img/change-page-left.png" width="60" alt="">
-      <span class="tip">NEW</span>
-    </a>
-    <div class="content down">
-      <div class="up-down">
-        <img src="http://liangyonggang.com/img/icon_up_white.png" width="24" alt="icon" style="cursor: n-resize"
-          class="up-icon">
-        <img src="http://liangyonggang.com/img/icon_down_white.png" width="24" alt="icon"
-          style="cursor: s-resize; display: none;" class="down-icon">
-      </div>
-      <div class="catalogue-wrapper down">
-        <div class="catalogue-head" onclick="upHandle()">
-          <h1>梁永刚的个人网站</h1>
-          <h2 class="sub-title">clausliang's website</h2>
-        </div>
-        <div class="catalogue-container">
-          <ul>
-            <li>
-              <a href="http://blog.liangyonggang.com/">
-                <span class="symbol">&gt;</span>技术文章｜工作总结
-              </a>
-            </li>
-            <li>
-              <a href="https://clausliang.github.io/claus/">
-                <span class="symbol">&gt;</span>作品库
-              </a>
-            </li>
-            <li>
-              <b onclick="changeVideo(1)">
-                <span class="symbol">&gt;</span>视频
-              </b>
-            </li>
-            <li>
-              <b onclick="changeVideo(2)">
-                <span class="symbol">&gt;</span>生活感悟
-              </b>
-            </li>
-          </ul>
-        </div>
-        <div class="catalogue-footer">
-          <span class="contact-btn" onclick="contact()">contact me</span> | <span
-            class="contact-url">liangyonggang.com</span>
-        </div>
-      </div>
-      <div class="other-wrapper fold">
-        <div class="other-head" onclick="foldHandle()">
-          <span class="symbol">&gt;</span>
-          <span class="other-title">视频</span>
-          <div class="fold-unfold">
-            <img src="http://liangyonggang.com/img/icon_up_white.png" alt="icon" width="24"
-              style="cursor: n-resize; display: none" class="fold-icon">
-            <img src="http://liangyonggang.com/img/icon_down_white.png" alt="icon" width="24" style="cursor: s-resize;"
-              class="unfold-icon">
-          </div>
-        </div>
-        <!-- 视频列表 -->
-        <div class="video-wrapper">
-          <div class="video-list">
-            <a href="https://www.bilibili.com/video/BV1Eu41177YF/" target="_blank">
-              <div class="video-item">
-                <div class="video-img-wrapper">
-                  <img src="https://liangyonggang.com/imgasset/video4-cbd-23-8.avif" alt="">
-                  <div class="duration">01:16</div>
-                </div>
-                <div class="video-item-content">
-                  <div class="video-item-title">带你俯瞰北京CBD</div>
-                  <div class="video-item-tags">
-                    <div class="tag">北京</div>
-                    <div class="tag">CBD</div>
-                    <div class="tag">风景</div>
-                  </div>
-                  <div></div>
-                  <div class="video-item-time">2023-08-17</div>
-                </div>
-              </div>
-            </a>
-            <a href="https://www.bilibili.com/video/BV1vV4y1S7vg/" target="_blank">
-              <div class="video-item">
-                <div class="video-img-wrapper">
-                  <img src="https://liangyonggang.com/imgasset/video3-tianjin-23-4-2.jpg" alt="">
-                  <div class="duration">04:03</div>
-                </div>
-                <div class="video-item-content">
-                  <div class="video-item-title">天津一日游</div>
-                  <div class="video-item-tags">
-                    <div class="tag">旅游</div>
-                    <div class="tag">天津</div>
-                    <div class="tag">春游户外</div>
-                  </div>
-                  <div></div>
-                  <div class="video-item-time">2023-04-02 22:49:56</div>
-                </div>
-              </div>
-            </a>
-            
-            <a href="https://www.bilibili.com/video/BV1yX4y1o7mH/" target="_blank">
-              <div class="video-item">
-                <div class="video-img-wrapper">
-                  <img src="https://liangyonggang.com/imgasset/video1-fedead-23-3-19.jpg" alt="">
-                  <div class="duration">04:46</div>
-                </div>
-                <div class="video-item-content">
-                  <div class="video-item-title">前端未死</div>
-                  <div class="video-item-tags">
-                    <div class="tag">职场人</div>
-                    <div class="tag">前端</div>
-                    <div class="tag">生活</div>
-                  </div>
-                  <div></div>
-                  <div class="video-item-time">2023-03-19 10:53:27</div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="video-more-wrapper">
-            <div class="video-more"><a href="https://space.bilibili.com/550034433" target="_blank">更多</a></div>
-          </div>
-        </div>
-        <!-- 文章列表 -->
-        <div class="article-wrapper" style="display: none">
-          <ol>
-            <li>
-              <a href="https://mp.weixin.qq.com/s/rm-Vk9KMBK3XrVZk3--tzQ" target="_blank">
-                <span class="time">2023-09-11</span>
-                工资不涨真的是因为不够努力吗？
-              </a>
-            </li>
-            <li>
-              <a href="https://mp.weixin.qq.com/s/I5RxSMQKNPlDb47gDCNitA" target="_blank">
-                <span class="time">2023-01-01</span>
-                生活那么不顺，但我其实可以选择乐观
-              </a>
-            </li>
-            <li>
-              <a href="https://mp.weixin.qq.com/s/Xu_SQuVHJFJAh68n-2xzeg" target="_blank">
-                <span class="time">2022-12-21</span>
-                那么多可以改变人生的机会，一次都没有把握
-              </a>
-            </li>
-            <li>
-              <a href="https://mp.weixin.qq.com/s/JYbq7iCuACr_HBIZoG76UA" target="_blank">
-                <span class="time">2022-10-09</span>
-                在北京的这几年
-              </a>
-            </li>
-            <li>
-              <a href="https://mp.weixin.qq.com/s/VDM9dWOxCMSJu9z3yK_KeQ" target="_blank">
-                <span class="time">2020-01-05</span>
-                分享一个减肥10kg的经历
-              </a>
-            </li>
-          </ol>
-        </div>
-      </div>
-      <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
-      <div class="poetry2">若无闲事挂心头，便是人间好时节。</div>
+  <!-- 简介 -->
+  <div id="intro">
+    <h2>你好啊，我是</h2>
+    <h1>liangyonggang</h1>
+    <h3>前端开发</h3>
+    <div class="introduce">
+      <h4>个人简介</h4>
+      <p class="school">北京 ｜ 山西大学 ｜ 2009-2013</p>
+      <p>我是一个工作10年+的程序员</p>
+      <p>我希望软件开发是一个能干到老的职业，不躺不卷，持续学习，持续提升。</p>
     </div>
   </div>
+  <!-- 警世名言 -->
+  <div id="page2">
+    <p class="animation1">我最近看到一句醒世警句：悲观者永远正确，乐观者永远前行。</p>
+    <!-- 悲观者永远正确是没有用的，我宁愿做一个经常犯错的乐观者，也不要做一个经常正确的悲观者。 -->
+    <p class="animation1">如果说生命的尽头是一场虚无，也对也不对。</p>
+    <p class="animation1">尼采说过生命中每一个不曾起舞的日子都是对生命的辜负。</p>
+    <p class="animation1">戴着镣铐我依然可以跳舞。</p>
+    <p class="animation1">你是做受害者还是英雄，我不管，我是要做英雄的。</p>
+  </div>
+  <img src="./wave.GIF" id="bg" alt="">
+  <!-- 撑开背景区域 -->
+  <div id="page3"></div>
+  <!-- 展示blog入口 -->
+  <div id="page4">
+    <div class="page4-bg" alt=""></div>
+    <p class="page4-text">不仅是程序员</p>
+    <p class="page4-text">也想成为一个逍遥自在的诗人</p>
+    <p class="page4-text">欢迎阅读我的blog</p>
+    <div class="blog-enter">
+      <a href="http://blog.liangyonggang.com">点此进入</a>
+    </div>
+  </div>
+  <!-- 页脚 -->
   <div class="page-footer">
     <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
   </div>
-  <!-- <div style="height: 21px; background: rgba(0,0,0,0.5);"></div> -->
 </body>
 <script>
-  function contact() {
-    alert('send me email: yonggangliang@sina.cn')
-  }
-  var content = document.querySelector('.content') // 总的内容
-  var catalogue = document.querySelector('.catalogue-wrapper') // 目录
-  var upIcon = document.querySelector('.up-icon')
-  var downIcon = document.querySelector('.down-icon')
+  // 视窗高度
+  let clientHeight = document.documentElement.clientHeight
+  // 开始动画的位置
+  let animPosition = clientHeight / 2 - 100
 
-  var other = document.querySelector('.other-wrapper') // 视频/文章
-  var foldIcon = document.querySelector('.fold-icon')
-  var unfoldIcon = document.querySelector('.unfold-icon')
-
-  // 折叠目录
-  function upHandle() {
-    if (content.className == 'content down') {
-      content.className = 'content up' // 总的内容折起来
-      catalogue.className = 'catalogue-wrapper up' // 目录折起来
-      upIcon.style.display = 'none'
-      downIcon.style.display = 'block'
-      other.className = 'other-wrapper fold' // 视频折起来
-      foldIcon.style.display = 'none'
-      unfoldIcon.style.display = 'block'
-    } else {
-      content.className = 'content down'
-      catalogue.className = 'catalogue-wrapper down'
-      upIcon.style.display = 'block'
-      downIcon.style.display = 'none'
+  // 动画1--视线中间的字高亮
+  // 要移动的
+  let a1List = document.querySelectorAll('.animation1')
+  function animation1fn() {
+    for (let i = 0; i < a1List.length; i++) {
+      if (a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
+        && a1List[i].getBoundingClientRect().top < animPosition) {
+        a1List[i].style.color = '#fff'
+      } else {
+        a1List[i].style.color = '#e4e4e44d'
+      }
     }
   }
-  // 折叠视频
-  function foldHandle() {
-    if (other.className == 'other-wrapper unfold') {
-      other.className = 'other-wrapper fold' // 视频折起来
-      foldIcon.style.display = 'none'
-      unfoldIcon.style.display = 'block'
-    } else {
-      other.className = 'other-wrapper unfold'
-      foldIcon.style.display = 'block'
-      unfoldIcon.style.display = 'none'
-    }
 
-  }
-  function changeVideo(type) {
-    var title = document.querySelector('.other-title')
-    var videoList = document.querySelector('.video-wrapper')
-    var articleList = document.querySelector('.article-wrapper')
-    if (type == 1) {
-      title.innerHTML = '视频'
-      videoList.style.display = 'block'
-      articleList.style.display = 'none'
+  // 动画2--背景图缩放
+  let bg = document.getElementById('bg')
+  let scale2 = 0
+  function animation2fn(){
+    if(document.documentElement.scrollTop > clientHeight * 2){
+      scale2 = (document.documentElement.scrollTop - clientHeight * 2) / clientHeight
+      if(scale2 > 0.2) scale2 = 0.2
+      bg.style.borderRadius = '30px'
+      bg.style.setProperty('--progress', scale2)
+      if(scale2 >= 0.2){
+        bg.style.position = 'absolute'
+        bg.style.top = '220vh'
+      } else {
+        bg.style.position = 'fixed'
+        bg.style.top = 0
+      }
     } else {
-      title.innerHTML = '生活感悟'
-      videoList.style.display = 'none'
-      articleList.style.display = 'block'
+      scale2 = 0
+      bg.style.borderRadius = 0
+      bg.style.setProperty('--progress', scale2)
     }
-    other.className = 'other-wrapper unfold'
-    foldIcon.style.display = 'block'
-    unfoldIcon.style.display = 'none'
   }
+
+  // 动画3--动态展示字幕
+  let scale3 = 0
+  let page4Wrapper = document.getElementById('page4')
+  let page4TextList = document.querySelectorAll('.page4-text')
+  let page4bg = document.querySelector('.page4-bg')
+  let blogEnter = document.querySelector('.blog-enter')
+  function animation3fn(){
+    if(document.documentElement.scrollTop > clientHeight * 3.2){
+      // 计算滚动的比例
+      scale3 = (document.documentElement.scrollTop - clientHeight * 3.2) / clientHeight
+      // 开始移动时给page4的背景fixed定位
+      page4bg.style.position = 'fixed'
+
+      // 文字缩放
+      page4Wrapper.style.setProperty('--scale',scale3-0.1)
+      if(scale3 > 0 && scale3 < 0.15){
+        page4TextList[0].style.display = 'block'
+        page4TextList[1].style.display = 'none'
+        page4TextList[2].style.display = 'none'
+        blogEnter.style.display = 'none'
+      } else if(scale3 > 0.15 && scale3 < 0.3){
+        page4TextList[0].style.display = 'none'
+        page4TextList[1].style.display = 'block'
+        page4TextList[2].style.display = 'none'
+        blogEnter.style.display = 'none'
+      } else if(scale3 > 0.3 && scale3 < 0.55){
+        page4TextList[0].style.display = 'none'
+        page4TextList[1].style.display = 'none'
+        page4TextList[2].style.display = 'block'
+        blogEnter.style.display = 'none'
+      } else {
+        page4TextList[0].style.display = 'none'
+        page4TextList[1].style.display = 'none'
+        page4TextList[2].style.display = 'block'
+        blogEnter.style.display = 'block'
+      }
+    } else {
+      page4bg.style.position = 'absolute'
+      page4TextList[0].style.display = 'none'
+      page4TextList[1].style.display = 'none'
+      page4TextList[2].style.display = 'none'
+    }
+  }
+  // 滚动动画
+  const scrollAnimation = function () {
+    animation1fn()
+    animation2fn()
+    animation3fn()
+  }
+  const throttleHandle = throttle(scrollAnimation, 16) // 节流
+  function throttle(fn, delay) {
+    let args = arguments,
+      context = this,
+      timer = null,
+      remaining = 0,
+      previous = new Date();
+
+    return function (ttt) {
+      let now = new Date();
+      let args = arguments
+      remaining = now - previous;
+
+      if (remaining >= delay) {
+        if (timer) {
+          clearTimeout(timer);
+        }
+
+        fn.apply(context, args);
+        previous = now;
+      } else {
+        if (!timer) {
+          timer = setTimeout(function () {
+            fn.apply(context, args);
+            previous = new Date();
+          }, delay - remaining);
+        }
+      }
+    };
+  }
+  window.addEventListener('scroll', throttleHandle)
 </script>
 <!-- 百度统计 -->
 <script>
@@ -275,5 +348,4 @@
     document.body.appendChild(footer)
   }
 </script>
-
 </html>
