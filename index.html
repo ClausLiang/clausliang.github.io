@@ -31,6 +31,19 @@
       --progress: 0;
       transform: scale(calc(1 - var(--progress)));
     }
+    @keyframes upDown {
+      0% {bottom: 4vw;}
+      50% {bottom: 0;}
+      100% {bottom: 4vw;}
+    }
+    .down-icon{
+      width: 6vmax;
+      position: fixed;
+      right: 0;
+      bottom: 4vw;
+      animation: upDown 2s infinite;
+    }
+
 
     /* 介绍 */
     #intro {
@@ -182,6 +195,7 @@
     <p class="animation1">你是做受害者还是英雄，我不管，我是要做英雄的。</p>
   </div>
   <img src="./wave.GIF" id="bg" alt="">
+  <img src="https://liangyonggang.com/img/icon-up-down-arrow.png" alt="" class="down-icon">
   <!-- 撑开背景区域 -->
   <div id="page3"></div>
   <!-- 展示blog入口 -->
