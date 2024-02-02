@@ -214,18 +214,12 @@
   </div>
 </body>
 <script>
-  // 视窗高度
-  let clientHeight = window.innerHeight
-  // 解决移动端浏览器高度总是跳跃的问题
-  // document.body.style.setProperty('--myheight', clientHeight+'px')
-  
-  // 开始动画的位置
-  let animPosition = clientHeight / 2 - 100
-
   // 动画1--视线中间的字高亮
   // 要移动的
   let a1List = document.querySelectorAll('.animation1')
-  function animation1fn() {
+  function animation1fn(clientHeight) {
+    // 开始动画的位置
+    let animPosition = clientHeight / 2 - 100
     for (let i = 0; i < a1List.length; i++) {
       if (a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
         && a1List[i].getBoundingClientRect().top < animPosition) {
@@ -239,7 +233,7 @@
   // 动画2--背景图缩放
   let bg = document.getElementById('bg')
   let scale2 = 0
-  function animation2fn(){
+  function animation2fn(clientHeight){
     if(document.documentElement.scrollTop > clientHeight * 2){
       scale2 = (document.documentElement.scrollTop - clientHeight * 2) / clientHeight
       if(scale2 >= 0.2) scale2 = 0.2
@@ -265,7 +259,7 @@
   let page4TextList = document.querySelectorAll('.page4-text')
   let page4bg = document.querySelector('.page4-bg')
   let blogEnter = document.querySelector('.blog-enter')
-  function animation3fn(){
+  function animation3fn(clientHeight){
     if(document.documentElement.scrollTop > clientHeight * 3.2){
       // 计算滚动的比例
       scale3 = (document.documentElement.scrollTop - clientHeight * 3.2) / clientHeight
@@ -302,11 +296,14 @@
       page4TextList[2].style.display = 'none'
     }
   }
+  // 视窗高度
+  let getClientHeight = () => window.innerHeight
   // 滚动动画
   const scrollAnimation = function () {
-    animation1fn()
-    animation2fn()
-    animation3fn()
+    let clientHeight = getClientHeight()
+    animation1fn(clientHeight)
+    animation2fn(clientHeight)
+    animation3fn(clientHeight)
   }
   const throttleHandle = throttle(scrollAnimation, 16) // 节流
   function throttle(fn, delay) {
