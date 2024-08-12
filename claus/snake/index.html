@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇游戏</title>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font: bold 20px "Courier";
+}
+#main {
+  width: 360px;
+  height: 420px;
+  background-color: #b7d4a8;
+  margin: 30px auto 0;
+  border: 8px solid black;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+#main #stage {
+  width: 304px;
+  height: 304px;
+  border: 2px solid black;
+  position: relative;
+}
+#main #stage #snake > div {
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border: 1px solid #b7d4a8;
+  position: absolute;
+}
+#main #stage #food {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 40px;
+  top: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+#main #stage #food > div {
+  width: 4px;
+  height: 4px;
+  background-color: black;
+  transform: rotate(45deg);
+}
+#main #score-panel {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.btn-group {
+  width: 360px;
+  margin: 20px auto 0;
+  box-sizing: border-box;
+}
+.btn-group button {
+  font-size: 20px;
+}
+.btn-group .up {
+  width: 360px;
+  text-align: center;
+  line-height: 60px;
+}
+.btn-group .left-right {
+  display: flex;
+  margin: 5px 0;
+}
+.btn-group .left-right .left,
+.btn-group .left-right .right {
+  flex: 1;
+  text-align: center;
+  line-height: 80px;
+}
+.btn-group .left-right .left {
+  margin-right: 5px;
+}
+.btn-group .down {
+  width: 360px;
+  text-align: center;
+  line-height: 60px;
+}
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="stage">
+            <div id="snake">
+                <div style="background-color: red;"></div>
+            </div>
+            <!-- 食物 -->
+            <div id="food">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <!-- 游戏的记分牌 -->
+        <div id="score-panel">
+            <div>
+                SCORE: <span id="score">0</span>
+            </div>
+            <div>
+                level: <span id="level">1</span>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="up" onclick="btnClick('ArrowUp')">上</button>
+        <div class="left-right">
+            <button class="left" onclick="btnClick('ArrowLeft')">左</button>
+            <button class="right" onclick="btnClick('ArrowRight')">右</button>
+        </div>
+        <button class="down" onclick="btnClick('ArrowDown')">下</button>
+    </div>
+</body>
+<script>
+    // 食物类
+    class Food {
+        element
+        constructor() {
+            this.element = document.getElementById('food')
+        }
+        // 定义获取食物x坐标的方法
+        get X() {
+            return this.element.offsetLeft
+        }
+        get Y() {
+            return this.element.offsetTop
+        }
+        // 修改食物的位置
+        change() {
+            // 生成一个随机的位置
+            // 食物的位置最小是0 最大290
+            // 蛇移动一次是一格
+            let top = Math.round(Math.random() * 29) * 10 // 0-29包含0和29
+            let left = Math.round(Math.random() * 29) * 10 // 0-29包含0和29
+            this.element.style.left = left + 'px'
+            this.element.style.top = top + 'px'
+        }
+    }
+
+    // 分数控制的类
+    class ScorePanel {
+        score = 0
+        level = 1
+        scoreElement
+        levelElement
+
+        maxLevel // 最大级数
+        upScore // 每多少分升级
+        constructor(maxLevel = 10, upScore = 10) {
+            this.maxLevel = maxLevel
+            this.upScore = upScore
+            this.scoreElement = document.getElementById('score')
+            this.levelElement = document.getElementById('level')
+        }
+        // 加分
+        addScore() {
+            this.scoreElement.innerHTML = ++this.score + ''
+            if (this.score % this.upScore == 0) { // 每多少分升一级
+                this.levelUp()
+            }
+        }
+        // 升级
+        levelUp() {
+            if (this.level < this.maxLevel) {
+                this.levelElement.innerHTML = ++this.level + ''
+            }
+        }
+    }
+
+    // 蛇类
+    class Snake {
+        head // 头部
+        bodies // 身体包括头部
+        element // 蛇的容器
+        constructor() {
+            this.element = document.getElementById('snake')
+            this.head = document.querySelector('#snake>div') // querySeletor只获取一个
+            this.bodies = this.element.getElementsByTagName('div')
+        }
+        // 获取头部的坐标
+        get X() {
+            return this.head.offsetLeft
+        }
+        get Y() {
+            return this.head.offsetTop
+        }
+        // 设置头部坐标
+        set X(value) {
+            // 如果新值和旧值相等，不修改，提高性能
+            if (this.X === value) {
+                return
+            }
+            if (value < 0 || value > 290) {
+                throw new Error('撞墙了')
+            }
+            
+            // 移动身体
+            this.moveBody()
+            this.head.style.left = value + 'px'
+
+            // 检测有没有撞到自己身体
+            this.checkHeadBody()
+        }
+        set Y(value) {
+            // 如果新值和旧值相等，不修改，提高性能
+            if (this.Y === value) {
+                return
+            }
+            if (value < 0 || value > 290) {
+                throw new Error('撞墙了')
+            }
+
+            // 移动身体
+            this.moveBody()
+            this.head.style.top = value + 'px'
+            // 检测有没有撞到自己身体
+            this.checkHeadBody()
+        }
+        // 增加身体的方法
+        addBody() {
+            // 向element中添加div，加到最后
+            this.element.insertAdjacentHTML('beforeend', "<div></div>")
+        }
+        // 身体移动
+        moveBody(){
+            // 从最后一节开始，将后面一节的位置改为前一节的位置
+            for(let i = this.bodies.length-1; i>0; i--){
+                // 获取前一节的位置
+                let x = this.bodies[i-1].offsetLeft
+                let y = this.bodies[i-1].offsetTop
+                // 移动
+                this.bodies[i].style.left = x + 'px'
+                this.bodies[i].style.top = y + 'px'
+            }
+        }
+        // 检测有没有撞到自己身体
+        checkHeadBody(){
+            for(let i=1; i<this.bodies.length; i++){
+                if(this.X === this.bodies[i].offsetLeft && this.Y === this.bodies[i].offsetTop){
+                    throw new Error('撞到自己身体')
+                }
+            }
+        }
+    }
+
+    // 控制器
+    class GameControl {
+        snake
+        food
+        scorePanel
+        direction = 'ArrowRight' // 蛇的移动方向
+        isLive = true
+        initTime // 初始速度，每多少毫秒移动一次
+        constructor(initTime = 500) {
+            this.snake = new Snake()
+            this.food = new Food()
+            this.scorePanel = new ScorePanel()
+            this.initTime = initTime
+            this.init()
+        }
+
+        init() {
+            document.addEventListener('keydown', this.keydownHandle.bind(this))
+            this.run()
+        }
+        // 键盘按下的响应
+        keydownHandle(e) {
+            const key = e.key
+            this.changeDirection(key)
+        }
+        changeDirection(key){
+            // 检查key的值是否合法
+            if(key=="ArrowRight" || key=="ArrowLeft" || key=="ArrowUp" || key=="ArrowDown") {
+                if(!this.snake.bodies[1]){
+                    this.direction = key
+                } else {
+                    if(this.direction == 'ArrowLeft' && key == 'ArrowRight') {
+                    } else if (this.direction == 'ArrowRight' && key == 'ArrowLeft') {
+                    } else if (this.direction == 'ArrowUp' && key == 'ArrowDown') {
+                    } else if (this.direction == 'ArrowDown' && key == 'ArrowUp') {
+                    } else {
+                        this.direction = key
+                    }
+                }
+            } else {
+                console.log('按键不合法')
+            }
+        }
+        // 蛇的移动
+        run() {
+            let X = this.snake.X
+            let Y = this.snake.Y
+            // 根据按键的方向修改x y
+            switch (this.direction) {
+                case 'ArrowUp':
+                    Y -= 10;
+                    break;
+                case 'ArrowDown':
+                    Y += 10;
+                    break;
+                case 'ArrowLeft':
+                    X -= 10;
+                    break;
+                case 'ArrowRight':
+                    X += 10;
+                    break;
+                default:
+                    break;
+            }
+            // 判断吃到食物没
+            this.checkEat(X, Y)
+
+            // 修改蛇的xy
+            try {
+                this.snake.X = X
+                this.snake.Y = Y
+            } catch (error) {
+                alert(error.message + ' GAME OVER')
+                this.isLive = false
+            }
+            
+
+            // 开启定时调用
+            this.isLive && setTimeout(this.run.bind(this), this.initTime - (this.scorePanel.level - 1) * 30)
+        }
+        // 判断吃到食物没
+        checkEat(x,y){
+            if(x === this.food.X && y === this.food.Y){
+                this.food.change()
+                this.scorePanel.addScore()
+                this.snake.addBody()
+            }
+        }
+    }
+
+
+    const gc = new GameControl(400)
+    // 响应按钮点击
+    function btnClick(key){
+        gc.changeDirection(key)
+    }
+</script>
+
+</html>

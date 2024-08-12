@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>打印</title>
+  <style>
+    .no-print {
+      line-height: 100px;
+      text-align: center;
+      background-color: #d9ecff;
+      border: 1px solid #79bbff;
+      border-radius: 5px;
+    }
+
+    .print-btn {
+      position: absolute;
+      left: 10px;
+      top: 120px;
+      background-color: rgb(24, 144, 255);
+    }
+
+    .page-title {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .card {
+      margin-top: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .card-title {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .column {
+      display: block;
+      flex: 0 0 25%;
+      max-width: 25%;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .column .title {
+      color: rgba(0, 0, 0, 0.48);
+    }
+
+    table {
+      min-width: 100%;
+    }
+
+    thead {
+      height: 46px;
+      background-color: #fafafa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    th {
+      position: relative;
+      padding: 10px;
+      text-align: left;
+    }
+
+    td {
+      height: 46px;
+      padding: 10px;
+    }
+
+    @media print {
+      @page {
+        margin: 0.2cm;
+        /* landscape 横向 portrait 纵向*/
+        size: landscape;
+        /* size: A5 landscape; 纸张A5 横向 */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="no-print">
+    该部分内容不会被打印
+  </div>
+  <button class="print-btn" onclick="printHandle()">打印</button>
+
+  <div class="print-wrapper">
+    <div class="page-title">企业售后单</div>
+    <div class="card">
+      <div class="card-title">售后信息</div>
+      <div class="row">
+        <div class="column"><span class="title">售后编号：</span>1234567</div>
+        <div class="column"><span class="title">申请日期：</span>2023-8-1</div>
+        <div class="column"><span class="title">退款金额：</span>¥100</div>
+        <div class="column"><span class="title">退款状态：</span>已申请</div>
+        <div class="column"><span class="title">售后类型：</span>只退款</div>
+        <div class="column"><span class="title">申请理由：</span>不想要了</div>
+        <div class="column"><span class="title">联系人：</span>梁大人</div>
+        <div class="column"><span class="title">期望退款方式：</span>退到支付宝</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">订单信息</div>
+      <div class="row">
+        <div class="column"><span class="title">订单号：</span>1234567</div>
+        <div class="column"><span class="title">采购公司：</span>北京实业有限公司</div>
+        <div class="column"><span class="title">下单时间：</span>2023-7-5</div>
+        <div class="column"><span class="title">订单状态：</span>已申请退款</div>
+        <div class="column"><span class="title">买家：</span>皓月之心</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">商品信息</div>
+      <table>
+        <thead>
+          <tr>
+            <th>商品</th>
+            <th>采购价</th>
+            <th>数量信息</th>
+            <th>金额信息</th>
+            <th>零售单位</th>
+            <th>生产批号和有效期</th>
+            <th>特殊商品信息</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>生产材料</td>
+            <td>¥100</td>
+            <td>1</td>
+            <td>¥100</td>
+            <td>件</td>
+            <td>--</td>
+            <td>--</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    function printHandle() {
+      const dom = document.querySelector('.print-wrapper')
+      let oldStr = window.document.body.innerHTML; // 获取body原先的内容
+      window.document.body.innerHTML = dom.innerHTML; // 把需要打印的指定内容赋给body
+      window.print(); // 调用浏览器的打印功能打印指定区域
+      window.document.body.innerHTML = oldStr; // body替换为原来的内容
+    }
+  </script>
+</body>
+
+</html>

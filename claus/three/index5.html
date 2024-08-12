@@ -1,0 +1,146 @@
+<!-- 认识几何体 -->
+<!-- 三个点形成一个面，多个面构成一个体 -->
+<!-- 自定义一个几何体，用meshLambertMaterial材质，须定义几何体的每个顶点的法线，否则不可见 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    margin: 0;
+  }
+</style>
+
+<body>
+</body>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./three.js-r155/three.module.min.js",
+    "three/addons/": "./three.js-r155/jsm/"
+  }
+}
+</script>
+<script type="module">
+  import * as THREE from 'three';
+  // 1. 创建渲染器,指定渲染的分辨率和尺寸,然后添加到body中
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.pixelRatio = window.devicePixelRatio;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.append(renderer.domElement);
+
+  // 2.创建场景
+  const scene = new THREE.Scene();
+
+  // 3.创建相机
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  // 移动相机位置
+  camera.position.set(14, 14, 30);
+  // 设置相机看向原点的方向
+  camera.lookAt(0, 0, 0);
+
+  // 4. 创建物体
+  // 创建坐标轴
+  const axis = new THREE.AxesHelper(20);
+  scene.add(axis);
+
+  // vvvvvvvvvvvvvvvvvvv创建一个空的几何体对象vvvvvvvvvvvvvvvvvvvvvvvv
+  
+  // bufferGeometry是基础类，boxGeometry立方体、sphereGeometry球体等几何体都是基于bufferGeometry构建的。
+  const geometry = new THREE.BufferGeometry();
+  // 类型化数组创建顶点数据
+  const vertices = new Float32Array([
+    0, 0, 0, // 顶点1坐标
+    5, 0, 0,
+    5, 5, 0,
+    0, 5, 0,
+    2.5, 2.5, 2.5,
+  ]);
+  // 创建属性缓冲区对象
+  // 3个为一组，表示一个顶点的xyz坐标
+  const attribue = new THREE.BufferAttribute(vertices, 3);
+  // 设置几何体attributes属性的位置属性
+  geometry.attributes.position = attribue;
+
+  // 类型化数组创建顶点数据
+  const indexs = new Uint16Array([
+    0, 1, 2,
+    0, 2, 3,
+    0, 1, 4,
+    1, 2, 4,
+    2, 3, 4,
+    3, 0, 4
+  ])
+  // 构建每个面
+  geometry.index = new THREE.BufferAttribute(indexs, 1)
+
+  // 顶点法线
+  // 使用meshLambertMaterial作为材质，必须给每个顶点定义法线
+  const normals = new Float32Array([
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    1, 1, 1
+  ])
+  geometry.attributes.normal = new THREE.BufferAttribute(normals, 3)
+
+  //^^^^^^^^^^^^^^^^^^^^^以上是定义几何体^^^^^^^^^^^^^^^^^^
+
+
+  // 面--材质对象
+  const material = new THREE.MeshLambertMaterial({
+    color: 0x00ffff,
+    side: THREE.DoubleSide // 双面能看 默认正面能看FrontSide 还有一个背面能看BackSide
+  });
+  // 用网格模型mesh渲染自定义的几何体
+  const mesh = new THREE.Mesh(geometry, material)
+
+  scene.add(mesh);
+
+
+
+  // 5. 渲染
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // 6.添加交互
+  import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.update();
+
+  // 7.添加光源
+  // 7.1添加一个白色透明度为0.4的环境光
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambientLight);
+
+  // 点光源
+  const pointLight = new THREE.PointLight(0xffffff, 200, 100, 2)
+  pointLight.position.set(10, 10, 5);
+  scene.add(pointLight);
+  // 点光源辅助线
+  const sphereSize = 1;
+  const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
+  scene.add(pointLightHelper);
+
+  // 9. 浏览器缩放
+  window.onresize = function () {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix()
+  }
+</script>
+
+</html>

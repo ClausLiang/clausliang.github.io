@@ -1,0 +1,66 @@
+<!-- gui的使用 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body{
+    margin: 0;
+  }
+  #box1, #box2{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background: rgb(0,0,0);
+  }
+  #box2{
+    background: #ea2e2e;
+  }
+</style>
+<body>
+  <div id="box1"></div>
+  <div id="box2"></div>
+</body>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./three.js-r155/three.module.min.js",
+    "three/addons/": "./three.js-r155/jsm/"
+  }
+}
+</script>
+<script type="module">
+// GUI
+import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+const gui = new GUI()
+gui.domElement.style.right = 0
+gui.domElement.style.width = '300px'
+const obj = {
+  r: 0,
+  g: 0,
+  b: 0,
+  color: '#ea2e2e'
+}
+const box1 = document.getElementById('box1')
+const box2 = document.getElementById('box2')
+function changeBox1Bg(){
+  box1.style.background = `rgb(${obj.r},${obj.g},${obj.b})`
+}
+gui.add(obj,'r',0,255).name('红').step(1).onChange(()=>{
+  changeBox1Bg()
+})
+gui.add(obj,'g',0,255).name('绿').step(1).onChange(()=>{
+  changeBox1Bg()
+})
+gui.add(obj,'b',0,255).name('蓝').step(1).onChange(()=>{
+  changeBox1Bg()
+})
+gui.addColor(obj,'color').onChange((value)=>{
+  console.log(value)
+  box2.style.background = value
+})
+</script>
+</html>

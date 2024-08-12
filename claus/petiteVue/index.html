@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>petite-vue</title>
+  <style>
+    .item-wrapper{
+      padding: 5px 0;
+    }
+    .item-class{
+      display: inline-block;
+      margin: 2px;
+      padding: 3px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<script src="./petite-vue.js"></script>
+<body>
+  <div>
+    <h1>petite-vue的基本用法</h1>
+    <h2>1.v-for便利</h2>
+    <div>
+      <button @click="addHandle">添加</button>
+      <div class="item-wrapper">
+        <span v-for="item in list" class="item-class">
+          {{item}}
+        </span>
+      </div>
+    </div>
+    <h2>2.v-model双向绑定</h2>
+    <div>
+      <input type="text" v-model="inputValue">
+      <p>{{inputValue}}</p>
+    </div>
+    
+  </div>
+</body>
+<script>
+  PetiteVue.createApp({
+    list: ['苹果','栗子','葡萄'],
+    addHandle(){
+      this.list.push(new Date().getTime())
+    },
+    inputValue: '',
+    
+  }).mount()
+</script>
+</html>

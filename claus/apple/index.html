@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一个动画</title>
+  <style>
+    .tip{
+      background-color: rgba(255,0,0,0.2);
+      position: fixed;
+      height: 1px;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+    /* 动画1 */
+    .animation1{
+      font-size: 30px;
+    }
+    /* 动画2 */
+    .animation2-wrapper{
+      background-color: azure;
+      padding: 20px;
+      overflow: hidden;
+    }
+    .anima2 {
+      --progress: 0;
+      display: flex;
+      opacity: var(--progress);
+      transform: scale(calc(1.8 - (0.8 * var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
+    }
+    .anima2 > div{
+      flex: 1;
+      text-align: center;
+      font-size: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tip"></div>
+  <div style="height: 50vh;"></div>
+  <div class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题这是一个二级标题</div>
+  <div class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题</div>
+  <div class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题</div>
+  <div class="animation1">这是一个二级标题这是一个二级标题这是一个二级标题</div>
+  <div class="animation2-wrapper">
+    <div class="anima2">
+      <div>自由</div>
+      <div></div>
+    </div>
+    <div class="anima2">
+      <div></div>
+      <div>民主</div>
+    </div>
+    <div class="anima2">
+      <div>自强</div>
+      <div></div>
+    </div>
+  </div>
+  <div style="height: 1600px;"></div>
+</body>
+<script>
+  // 视窗高度
+  let clientHeight = document.documentElement.clientHeight
+  // 开始动画的位置
+  let animPosition = clientHeight/2 - 100
+
+  document.querySelector('.tip').style.top = animPosition+'px'
+
+  // ----------------------------动画1
+  // 要移动的
+  let a1List = document.querySelectorAll('.animation1')
+  // 动画1
+  function animation1fn(){
+    for(let i=0; i<a1List.length;i++){
+      if(a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
+      && a1List[i].getBoundingClientRect().top < animPosition){
+        a1List[i].style.color = 'red'
+      } else {
+        a1List[i].style.color = '#000'
+      }
+    }
+  }
+
+  // ----------------------------动画2
+  // 获取父元素
+  let anima2Wrapper = document.querySelector('.animation2-wrapper');
+  // 要移动的
+  let a2List = document.querySelectorAll('.anima2')
+  // 动画2
+  function animation2fn(){
+    // 距离视窗高度
+    let a2WrapperTop = anima2Wrapper.getBoundingClientRect().top;
+    if (a2WrapperTop <= animPosition + 100
+      && a2WrapperTop >= animPosition-anima2Wrapper.offsetHeight-100
+    ) {
+      let scrolled = (animPosition - a2WrapperTop) / anima2Wrapper.offsetHeight
+      
+      let total = 1 / a2List.length
+      for (let index = 0; index < a2List.length; index++) {
+        let row = a2List[index]
+        let start = total * index
+        let end = total * (index + 1)
+        let progress = (scrolled - start) / (end - start)
+        if (progress >= 1) progress = 1
+        if (progress <= 0) progress = 0
+        row.style.setProperty('--progress', progress)
+      }
+    }
+  }
+  const animation = function(){
+    animation1fn()
+    animation2fn()
+  }
+  const throttleHandle = throttle(animation, 16) // 节流
+  function throttle(fn, delay) {
+    let args = arguments,
+        context = this,
+        timer = null,
+        remaining = 0,
+        previous = new Date();
+
+    return function(ttt) {
+        let now = new Date();
+        let args = arguments
+        remaining = now - previous;
+
+        if (remaining >= delay) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+
+            fn.apply(context, args);
+            previous = now;
+        } else {
+            if (!timer) {
+                timer = setTimeout(function() {
+                    fn.apply(context, args);
+                    previous = new Date();
+                }, delay - remaining);
+            }
+        }
+    };
+  }
+  window.addEventListener('scroll', throttleHandle)
+
+
+</script>
+
+</html>

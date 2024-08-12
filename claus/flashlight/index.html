@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url(https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921550320292.jpg) no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    canvas {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas></canvas>
+</body>
+<script>
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+
+  const position = {
+    x: 0,
+    y: 0,
+    r: 50
+  }
+  function render() {
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+    ctx.beginPath();
+    // 清除矩形
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // 创建圆形梯度渐变
+    var radial = ctx.createRadialGradient(position.x, position.y, position.r, position.x, position.y, position.r * 3)
+    // 设置渐变开始位置颜色
+    radial.addColorStop(0, 'rgba(255,255,255,0)');
+    // 设置渐变结束位置颜色
+    radial.addColorStop(1, 'rgba(0,0,0,0.9)');
+    ctx.fillStyle = radial;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function init() {
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+    ctx.beginPath();
+    // 清除矩形
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // 创建圆形梯度渐变
+    var radial = ctx.createRadialGradient(position.x, position.y, position.r, position.x, position.y, position.r * 3)
+    // 设置渐变结束位置颜色
+    radial.addColorStop(1, 'rgba(0,0,0,0.9)');
+    ctx.fillStyle = radial;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  document.onmousemove = e => {
+    position.x = e.clientX;
+    position.y = e.clientY;
+    render();
+  }
+  window.onload = function () {
+    init()
+  }
+
+</script>
+
+</html>

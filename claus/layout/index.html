@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .layout {
+      margin-top: 20px;
+    }
+
+    .layout article div {
+      min-height: 100px;
+    }
+
+    :root {
+      --color1: #d9ecff;
+      --color2: #e1f3d8;
+      --color3: #faecd8;
+      --mywidth: 300px;
+    }
+
+    @media (max-width: 800px) {
+      :root {
+        --mywidth: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 浮动解决方案 -->
+  <section class="layout float">
+    <style>
+      .layout.float .left {
+        float: left;
+        width: var(--mywidth);
+        background: var(--color1);
+      }
+
+      .layout.float .center {
+        background: var(--color2);
+      }
+
+      .layout.float .right {
+        float: right;
+        width: var(--mywidth);
+        background: var(--color3);
+      }
+    </style>
+    <article>
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="center">
+        <h1>浮动解决方案</h1>
+        <p>左边左浮，右边右浮，中间不管</p>
+        <p>结构上right放中间</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- 2定位解决方案 -->
+  <section class="layout absolute">
+    <style>
+      .layout.absolute .left-right-center>div {
+        position: absolute;
+      }
+
+      .layout.absolute .left {
+        left: 0;
+        width: var(--mywidth);
+        background: var(--color1);
+      }
+
+      .layout.absolute .center {
+        left: var(--mywidth);
+        right: var(--mywidth);
+        background: var(--color2);
+      }
+
+      .layout.absolute .right {
+        right: 0;
+        width: var(--mywidth);
+        background: var(--color3);
+      }
+    </style>
+    <article class="left-right-center">
+      <div class="left"></div>
+      <div class="center">
+        <h1>绝对定位解决方案</h1>
+        左中右都absolute定位，左右给300px宽度，中间给left:300px,right:300px
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+
+  <!-- 3flexbox解决方案 -->
+  <section class="layout flexbox">
+    <style>
+      .layout.flexbox {
+        margin-top: 140px;
+      }
+
+      .layout.flexbox .left-center-right {
+        display: flex;
+      }
+
+      .layout.flexbox .left {
+        width: var(--mywidth);
+        background: var(--color1);
+      }
+
+      .layout.flexbox .center {
+        flex: 1;
+        background: var(--color2);
+      }
+
+      .layout.flexbox .right {
+        width: var(--mywidth);
+        background: var(--color3);
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1>flexbox解决方案</h1>
+        父级display:flex，左右固定宽度，中间flex:1
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+
+  <!-- 4表格布局解决方案 -->
+  <section class="layout table">
+    <style>
+      .layout.table .left-center-right {
+        display: table;
+        width: 100%;
+        height: 100px;
+      }
+
+      .layout.table .left-center-right>div {
+        display: table-cell;
+      }
+
+      .layout.table .left {
+        width: var(--mywidth);
+        background: var(--color1);
+      }
+
+      .layout.table .center {
+        background: var(--color2);
+      }
+
+      .layout.table .right {
+        width: var(--mywidth);
+        background: var(--color3);
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1>表格布局</h1>
+        父级display: table;左中右都display: table-cell;
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+
+  <!-- 5网格布局 -->
+  <section class="layout grid">
+    <style>
+      .layout.grid .left-center-right {
+        display: grid;
+        width: 100%;
+        grid-template-rows: 100px;
+        grid-template-columns: var(--mywidth) auto var(--mywidth);
+      }
+
+      .layout.grid .left {
+        background: var(--color1);
+      }
+
+      .layout.grid .center {
+        background: var(--color2);
+      }
+
+      .layout.grid .right {
+        background: var(--color3);
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1>网格布局解决方案</h1>
+        <p>父级display: grid;grid-template-rows: 100px;grid-template-columns: 300px auto 300px;</p>
+        <p>子级不管</p>
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+</body>
+
+</html>

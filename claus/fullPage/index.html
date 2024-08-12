@@ -1,0 +1,242 @@
+<!-- pc端监听鼠标事件，移动端监听touch事件，滑动的时候利用js让页面滚动到相应的位置 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #all {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      transition: top 1s;
+    }
+
+    .page-item {
+      height: 100vh;
+      background-size: cover;
+    }
+    /* 导航 */
+    #nav {
+      position: fixed;
+      top: 50%;
+      right: 50px;
+      transform: translateY(-50%);
+    }
+    .nav-line{
+      position: absolute;
+      top: -40px;
+      right: 8px;
+      width: 2px;
+      height: calc(100% + 80px);
+      background-color: rgba(255,255,255,0.2);
+    }
+    .nav-line::before{
+      display: block;
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: 6px;
+      height: 6px;
+      background-color: rgba(255,255,255,0.2);
+      transform: rotate(45deg);
+    }
+    .nav-line::after{
+      display: block;
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: -2px;
+      width: 6px;
+      height: 6px;
+      background-color: rgba(255,255,255,0.2);
+      transform: rotate(45deg);
+    }
+    /* nav-item */
+    .nav-item{
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .nav-item p{
+      margin: 0 8px;
+      padding: 0 10px 0 40px;
+      font-size: 14px;
+      color: #fff;
+    }
+    .nav-item .nav-item-icon{
+      width: 18px;
+      height: 18px;
+      background-color: #fff;
+      transform: rotate(45deg) scale(0.3);
+      box-sizing: border-box;
+    }
+    /* 选中 */
+    .nav-item--active p{
+      background-color: #fff;
+      color: #283849;
+    }
+    .nav-item--active .nav-item-icon{
+      padding: 4px;
+      background: rgba(18,51,77,0.4);
+      border: #fff 1px solid;
+      transform: rotate(45deg) scale(1);
+    }
+    .nav-item--active .nav-item-icon::after{
+      display: block;
+      content: '';
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div onmousewheel="mousewheelHandle(event)" id="all">
+    <div class="page-item" style="background-image: url('https://ys.mihoyo.com/main/_nuxt/img/5c125a1.png');">
+    </div>
+    <div class="page-item"
+      style="background-image: url('https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921550320292.jpg');">
+    </div>
+    <div class="page-item"
+      style="background-image: url('https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921552395638.jpg');">
+    </div>
+    <div class="page-item"
+      style="background-image: url('https://uploadstatic.mihoyo.com/contentweb/20210719/2021071918001232800.jpg');">
+    </div>
+    <div class="page-item"
+      style="background-image: url('https://webstatic.mihoyo.com/upload/contentweb/2022/08/15/8969f683b92839ac427c875d0d742be2_4825576482548821743.jpg');">
+    </div>
+    <div class="page-item"
+      style="background-image: url('https://act-webstatic.mihoyo.com/upload/contentweb/hk4e/721a74c43614d7aeb25b046cabfb57be_2012964858524199390.jpg');">
+    </div>
+  </div>
+
+
+  <div id="nav">
+    <div class="nav-line"></div>
+    <div class="nav-item nav-item--active" onclick="navClickHandle(1)">
+      <p>首页</p>
+      <div class="nav-item-icon"></div>
+    </div>
+    <div class="nav-item" onclick="navClickHandle(2)">
+      <p>德蒙</p>
+      <div class="nav-item-icon"></div>
+    </div>
+    <div class="nav-item" onclick="navClickHandle(3)">
+      <p>璃月</p>
+      <div class="nav-item-icon"></div>
+    </div>
+    <div class="nav-item" onclick="navClickHandle(4)">
+      <p>稻妻</p>
+      <div class="nav-item-icon"></div>
+    </div>
+    <div class="nav-item" onclick="navClickHandle(5)">
+      <p>须弥</p>
+      <div class="nav-item-icon"></div>
+    </div>
+    <div class="nav-item" onclick="navClickHandle(6)">
+      <p>枫丹</p>
+      <div class="nav-item-icon"></div>
+    </div>
+  </div>
+</body>
+<!-- <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script> -->
+<script>
+  // var vConsole = new window.VConsole();
+  // 获取节点
+  const allWrapper = document.getElementById('all')
+  // 图片总数
+  const picLength = allWrapper.querySelectorAll('.page-item').length
+  allWrapper.style.height = picLength * 100 + 'vh'
+  // 计数--第几张图片
+  let index = 1;
+  // pc滚动事件： 通过dom绑定的onmousewheel，监听鼠标的滚动事件，并且需要做一下节流处理
+  function mousewheelHandle(e) {
+    throttleHandle(e.wheelDeltaY)
+  }
+  // 移动端touch
+  // 移动端的实现需要借助监听touchstart和touchend两个事件，两个点相减得到的距离正负判断是向上还是向下滑动
+  let start, end
+  allWrapper.addEventListener('touchstart', function (e) {
+    console.log('touchstart')
+    e.preventDefault()
+    start = e.touches[0]?.pageY || e.changedTouches[0]?.pageY
+  })
+  allWrapper.addEventListener('touchend', function (ev) {
+    ev.preventDefault()
+    end = ev.touches[0]?.pageY || ev.changedTouches[0]?.pageY
+    const distance = start - end
+    if (distance > 50 || distance < -50) {
+      move(-distance)
+    }
+  })
+  const navWrapper = document.getElementById('nav')
+  const navItems = navWrapper.querySelectorAll('.nav-item')
+  function move(value) {
+    // 向下
+    if (value < 0 && index < picLength) {
+      index += 1
+    } // 向上
+    else if (value > 0 && index > 1) {
+      index -= 1
+    }
+    // nav导航指示器的样式修改
+    navItems.forEach(item=>item.className = 'nav-item')
+    navItems[index-1].className = 'nav-item nav-item--active'
+    // 页面滚动
+    allWrapper.style.top = '-100' * (index - 1) + 'vh';
+  }
+  // 点击跳转到对应位置
+  function navClickHandle(value){
+    index = value
+    navItems.forEach(item=>item.className = 'nav-item')
+    navItems[index-1].className = 'nav-item nav-item--active'
+    allWrapper.style.top = '-100' * (index - 1) + 'vh';
+  }
+  const throttleHandle = throttle(move, 1000)
+  // 节流函数
+  function throttle(fn, delay) {
+    let args = arguments,
+      context = this,
+      timer = null,
+      remaining = 0,
+      previous = new Date();
+
+    return function (ttt) {
+      let now = new Date();
+      let args = arguments
+      remaining = now - previous;
+
+      if (remaining >= delay) {
+        if (timer) {
+          clearTimeout(timer);
+        }
+
+        fn.apply(context, args);
+        previous = now;
+      } else {
+        if (!timer) {
+          timer = setTimeout(function () {
+            fn.apply(context, args);
+            previous = new Date();
+          }, delay - remaining);
+        }
+      }
+    };
+  }
+</script>
+
+</html>

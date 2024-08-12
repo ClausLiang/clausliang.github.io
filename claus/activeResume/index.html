@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会动的简历</title>
+  <script src="./vue2.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="styleEditor moveEditor" v-html="styleShow" ref="styleEditor"></div>
+    <div class="resumeEditor" v-html="resumeShow"></div>
+    <div style="display: none;" v-html="codeInStyleTag"></div>
+  </div>
+  <script>
+    let styleStr =
+      `/*
+* Inspired by http://strml.net/
+* 大家好，我是claus
+* 发现一个动态的简历很炫啊，我也做一个吧。
+*/
+
+/* 首先给所有元素加上过渡效果 */
+* {
+  transition: all .3s;
+}
+/* 白色背景太单调了，我们来点背景 */
+html {
+  color: rgb(222,222,222);
+  background: rgb(0,43,54);
+}
+/* 文字离边框太近了 */
+.styleEditor {
+  padding: .5em;
+  border: 1px solid;
+  margin: .5em;
+  overflow: auto;
+  width: 45vw;
+  height: 90vh;
+}
+
+/* 加点 3D 效果呗 */
+html{
+  perspective: 1000px;
+}
+.styleEditor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  -webkit-transition: none;
+  transition: none;
+  transform: rotateY(10deg) translateZ(-100px);
+}
+/* 挪到右边呗 */
+.moveEditor {
+  position: absolute;
+  transform: translateX(115%);
+  transform: translateX(115%) rotateY(-10deg);
+  transform: translateX(115%) rotateY(-10deg) translateZ(-100px);
+}
+/* 接下来我给自己准备一个编辑器 */
+.resumeEditor{
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: .5em;
+  margin: .5em;
+  width: 48vw;
+  height: 90vh;
+  border: 1px solid;
+  background: white;
+  color: #222;
+  overflow: auto;
+}
+/* 好了，我开始写简历了 */
+`
+    let docs =
+      `<h1>claus liang</h1>
+<div class="doc-title">技能</div>
+<p>前端开发</p>
+<p>跑马拉松</p>
+<div class="doc-title">工作经历</div>
+<p>1.xxx</p>
+<p>2.xxx</p>
+<div class="doc-title">爱好</div>
+<p>阅读</p>
+<p>看电影</p>
+<div class="doc-title">链接</div>
+<p><a href="http://liangyonggang.com">liangyonggang.com</a></p>
+<p>如果对我感兴趣可以给我发邮件哦：yonggangliang@sina.cn</p>
+`
+    let docStyle =
+      `
+/* 
+ * 这个简历好像有点丑
+ * 那我给它加点样式吧
+ */
+.doc-title{
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+p{
+  margin: 0.5em;
+}
+a{
+  text-decoration: none;
+  color: #1890ff;
+}
+
+/* 
+ * 现在是不是好点了呢
+ */
+`
+    new Vue({
+      el: '#app',
+      data: {
+        styleShow: '',
+        styleReal: '',
+        resumeShow: ''
+      },
+      methods: {
+        coreRenderStyle(string) {
+          return new Promise((resolve, reject) => {
+            let n = 0
+            let renderStyle = () => {
+              this.styleShow += string[n] === "\n" ? "<br>" : string[n];
+              this.styleReal += string[n] === "\n" ? "" : string[n];
+              if (n < string.length - 1) {
+                n += 1;
+                if (n > 10) {
+                  this.$refs.styleEditor.scrollTop = 100000
+                }
+                setTimeout(() => {
+                  renderStyle()
+                }, 30);
+              } else {
+                resolve()
+              }
+            }
+            renderStyle()
+          })
+        },
+        coreRenderResume() {
+          return new Promise((resolve, reject) => {
+            let n = 0
+            let renderResume = () => {
+              this.resumeShow += docs[n]
+              if (n < docs.length - 1) {
+                n += 1
+                setTimeout(() => {
+                  renderResume()
+                }, 30);
+              } else {
+                resolve()
+              }
+            }
+            renderResume()
+          })
+        }
+      },
+      async created() {
+        await this.coreRenderStyle(styleStr)
+        await this.coreRenderResume()
+        await this.coreRenderStyle(docStyle)
+      },
+      computed: {
+        codeInStyleTag: function () {
+          return `<style>${this.styleReal}</style>`
+        }
+      },
+    })
+
+  </script>
+</body>
+
+</html>

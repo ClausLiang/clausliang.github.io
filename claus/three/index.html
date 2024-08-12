@@ -1,0 +1,127 @@
+<!-- 初识threejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body{
+    margin: 0;
+  }
+</style>
+<body>
+</body>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./three.js-r155/three.module.min.js",
+    "three/addons/": "./three.js-r155/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+// 1. 创建渲染器,指定渲染的分辨率和尺寸,然后添加到body中
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.pixelRatio = window.devicePixelRatio;
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.append(renderer.domElement);
+
+// 2.创建场景
+const scene = new THREE.Scene();
+
+// 3.创建相机
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+// 移动相机位置
+camera.position.set(0, 20, 20);
+// 设置相机看向原点的方向
+camera.lookAt(0, 0, 0);
+
+// 4. 创建物体
+// 创建坐标轴
+const axis = new THREE.AxesHelper(5);
+scene.add(axis);
+
+
+// 添加立方体
+const geometry = new THREE.BoxGeometry(4, 4, 4);
+// 材质
+// MeshBasicMaterial不受光源的影响 MeshStandardMaterial受光源的影响
+const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+// 将集合体和材质组合为Mesh对象
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// 5. 渲染
+// renderer.render(scene, camera);
+function animate() {
+  requestAnimationFrame(animate);
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+animate();
+
+// 6.添加交互
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+
+// 7.添加光源
+// 7.1添加一个白色透明度为0.4的环境光
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambientLight);
+
+// 7.2添加一个白色的方向光（平行光），方向光从(10, 5, 10)照向原点
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(10, 5, 10); 
+scene.add(directionalLight);
+
+// 方向光的辅助线
+const directionalLightHelper = new THREE.DirectionalLightHelper(
+  directionalLight
+);
+scene.add(directionalLightHelper);
+
+// 7.3 点光源(颜色，光照强度，光源照射的最大距离，沿着关照距离的衰变量)
+const pointLight = new THREE.PointLight(0xffffff, 1000, 100, 2)
+pointLight.position.set( 10, 10, 5 );
+scene.add(pointLight);
+// 辅助线
+const sphereSize = 1;
+const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+scene.add( pointLightHelper );
+
+// 8.阴影
+// 8.1. 渲染器能够渲染阴影效果
+renderer.shadowMap.enabled = true;
+// 8.2. 该方向会投射阴影效果
+directionalLight.castShadow = true;
+// 8.3. cube.castShadow = true, 表示该立方体会产生阴影效果；
+cube.castShadow = true;
+
+// 8.4. 新建了一个平面，该平面能够接受投射过来的阴影效果
+const planeGeometry = new THREE.PlaneGeometry(20, 20);
+const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+planeMesh.rotation.x = -0.5 * Math.PI; // PI代表180度。
+planeMesh.position.set(0, -3, 0);
+planeMesh.receiveShadow = true;
+scene.add(planeMesh);
+
+
+
+// 9. 浏览器缩放
+window.onresize = function(){
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix()
+}
+</script>
+</html>
