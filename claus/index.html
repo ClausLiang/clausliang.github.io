@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>欢迎来到梁永刚的个人网站 - 作品</title>
+  <meta name="keywords" content="梁永刚,liangyonggang">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background-color: #f4f5f5;
+    }
+
+    /* 导航 */
+    .nav {
+      background-color: #fff;
+    }
+
+    .nav-inner {
+      width: 1000px;
+      height: 52px;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    /* 主区域 */
+    .wrapper {
+      width: 1000px;
+      min-height: 400px;
+      margin: 16px auto;
+      padding: 10px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+
+    .list-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      margin: 6px;
+      width: 100px;
+      height: 61.8px;
+      box-sizing: border-box;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      overflow: hidden;
+      color: #1677ff;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+      position: relative;
+    }
+
+    .item .item-title {
+      z-index: 1;
+    }
+
+    .item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* 手机 */
+    @media (max-width: 1000px) {
+      .nav-inner {
+        width: 100%
+      }
+
+      .nav-inner>div {
+        left: 16px !important;
+      }
+
+      .wrapper {
+        width: 94%
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div style="height: 52px; position: absolute; top: 0; left: 0;">
+        <a href="http://liangyonggang.com"
+          style="text-decoration: none; line-height: 52px; font-size: 20px; color: #363636;">
+          <img width="20" height="16" src="../images/icon_home.png" alt="">
+          梁永刚的个人网站
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="wrapper">
+    <h4 style="margin-top: 0;">项目</h4>
+    <div class="list-wrapper">
+      <a href="./snake/index.html">
+        <div class="item">
+          <div class="item-title">
+            贪吃蛇游戏
+          </div>
+        </div>
+      </a>
+      <a href="https://clausliang.gitee.io/claus-ui-docs/">
+        <div class="item">
+          <div class="item-title">
+            claus-ui
+          </div>
+        </div>
+      </a>
+      <a href="./vue3-cdn/index.html">
+        <div class="item">
+          <div class="item-title">
+            cdn方式引入vue3的后台列表
+          </div>
+        </div>
+      </a>
+      <a href="./activeResume/index.html">
+        <div class="item">
+          <div class="item-title">
+            会动的简历
+          </div>
+        </div>
+      </a>
+    </div>
+    
+    <h4>效果</h4>
+    <div class="list-wrapper">
+      <a href="./loading/index.html">
+        <div class="item">
+          <div class="item-title">
+            自定义一个loading
+          </div>
+        </div>
+      </a>
+      <a href="./layout/index.html">
+        <div class="item">
+          <div class="item-title">
+            左中右三栏布局的5种方案
+          </div>
+        </div>
+      </a>
+      <a href="./print/index.html">
+        <div class="item">
+          <div class="item-title">
+            调用浏览器打印
+          </div>
+        </div>
+      </a>
+      <a href="./fullPage/index.html">
+        <div class="item">
+          <div class="item-title">
+            全屏滚动（js版）
+          </div>
+        </div>
+      </a>
+      <a href="./fullPage/index.html">
+        <div class="item">
+          <div class="item-title">
+            全屏滚动（css版）
+          </div>
+        </div>
+      </a>
+      <a href="./flashlight/index.html">
+        <div class="item">
+          <div class="item-title">
+            手电筒效果
+          </div>
+        </div>
+      </a>
+      <a href="./dark/dark.html">
+        <div class="item">
+          <div class="item-title">
+            自动以及手动改变主题色
+          </div>
+        </div>
+      </a>
+      <a href="./drag/index.html">
+        <div class="item">
+          <div class="item-title">
+            一个简单的拖拽
+          </div>
+        </div>
+      </a>
+      <a href="./apple/index.html">
+        <div class="item">
+          <div class="item-title">
+            一个简单的苹果动画
+          </div>
+        </div>
+      </a>
+      <a href="./petiteVue/index.html">
+        <div class="item">
+          <div class="item-title">
+            petite-vue
+          </div>
+        </div>
+      </a>
+      <a href="./scrollReveal/index.html">
+        <div class="item">
+          <div class="item-title">
+            scrollReveal滚动动画
+          </div>
+        </div>
+      </a>
+      <a href="./exportword/index.html">
+        <div class="item">
+          <div class="item-title">
+            前端导出word
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <h4>学习threeJs</h4>
+    <div class="list-wrapper">
+      <a href="./three/index.html">
+        <div class="item">
+          <div class="item-title">
+            初识threejs
+          </div>
+        </div>
+      </a>
+      <a href="./three/index2.html">
+        <div class="item">
+          <div class="item-title">
+            100个正方体
+          </div>
+        </div>
+      </a>
+      <a href="./three/index3.html">
+        <div class="item">
+          <div class="item-title">
+            gui工具的使用
+          </div>
+        </div>
+      </a>
+      <a href="./three/index4.html">
+        <div class="item">
+          <div class="item-title">
+            点、线、面
+          </div>
+        </div>
+      </a>
+      <a href="./three/index5.html">
+        <div class="item">
+          <div class="item-title">
+            构建一个几何体，定义顶点法线
+          </div>
+        </div>
+      </a>
+      <a href="./three/index6.html">
+        <div class="item">
+          <div class="item-title">
+            认识几何体的框架
+          </div>
+        </div>
+      </a>
+      <a href="./three/index7.html">
+        <div class="item">
+          <div class="item-title">
+            创建纹理贴图
+          </div>
+        </div>
+      </a>
+    </div>
+    <a href="./wardrobe/index.html">
+      <h4 style="text-align: right; color: #666; font-style: oblique;">电子衣橱</h4>
+    </a>
+  </div>
+
+</body>
+
+</html>

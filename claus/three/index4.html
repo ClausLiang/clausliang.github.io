@@ -1,0 +1,129 @@
+<!-- 认识几何体 -->
+<!-- 点模型 -->
+<!-- 线模型 -->
+<!-- 面模型 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body{
+    margin: 0;
+  }
+</style>
+<body>
+</body>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./three.js-r155/three.module.min.js",
+    "three/addons/": "./three.js-r155/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+// 1. 创建渲染器,指定渲染的分辨率和尺寸,然后添加到body中
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.pixelRatio = window.devicePixelRatio;
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.append(renderer.domElement);
+
+// 2.创建场景
+const scene = new THREE.Scene();
+
+// 3.创建相机
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+// 移动相机位置
+camera.position.set(5, 20, 16);
+// 设置相机看向原点的方向
+camera.lookAt(0, 0, 0);
+
+// 4. 创建物体
+// 创建坐标轴
+const axis = new THREE.AxesHelper(5);
+scene.add(axis);
+
+// 创建一个空的几何体对象
+// bufferGeometry是基础类，boxGeometry立方体、sphereGeometry球体等几何体都是基于bufferGeometry构建的。
+const geometry = new THREE.BufferGeometry(); 
+// 类型化数组创建顶点数据
+const vertices = new Float32Array([
+    0, 0, 0, // 顶点1坐标
+    10, 0, 0,
+    0, 0, 5,
+    10, 0, 8,
+    0, 0, 10, // 5
+    4, 6, 10,
+    0, 10, 0,
+]);
+// 创建属性缓冲区对象
+// 3个为一组，表示一个顶点的xyz坐标
+const attribue = new THREE.BufferAttribute(vertices, 3); 
+// 设置几何体attributes属性的位置属性
+geometry.attributes.position = attribue;
+
+//^^^^^^^^^^^^^^^^^^^^^以上是定义几何体^^^^^^^^^^^^^^^^^^
+
+// 点--材质对象
+const material = new THREE.PointsMaterial({
+    color: 0xffff00,
+    size: 0.4 //点对象像素尺寸
+});
+// 点--对象
+const points = new THREE.Points(geometry, material); //点模型对象
+scene.add(points);
+
+// 线--材质对象
+const material2 = new THREE.LineBasicMaterial({
+    color: 0xff0000 //线条颜色
+});
+// 创建线模型对象
+// Line: 从起点按顺序一条线连到终点
+// LineLoop: 从起点按顺序一条线连到终点，再连到起点
+// LineSegments: 每两个点连线 12连成线，34连成线
+const line = new THREE.Line(geometry, material2);
+scene.add(line);
+
+// 面--材质对象
+const material3 = new THREE.MeshBasicMaterial({
+  color: 0x0000ff,
+  side: THREE.DoubleSide // 双面能看 默认正面能看FrontSide 还有一个背面能看BackSide
+});
+// 用网格模型mesh渲染自定义的几何体
+const mesh = new THREE.Mesh(geometry, material3)
+
+scene.add(mesh);
+
+
+
+// 5. 渲染
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
+
+// 6.添加交互
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+
+
+
+// 9. 浏览器缩放
+window.onresize = function(){
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix()
+}
+</script>
+</html>
