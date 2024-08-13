@@ -32,6 +32,26 @@
       transform: scale(calc(1 - var(--progress)));
     }
 
+    #navbar{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      line-height: 40px;
+      background-color: rgba(0, 0, 0, 0.4);
+      font-size: 16px;
+      a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0 10px
+      }
+      span {
+        padding: 0 10px;
+        color: #fff;
+      }
+    }
+
     /* 介绍 */
     #intro {
       padding: 20px;
@@ -142,17 +162,6 @@
     #page4 .blog-enter a{
       color: #fff;
     }
-    #page4 .product-enter{
-      position: absolute;
-      bottom: 51px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 16px;
-    }
-    #page4 .product-enter a{
-      color: #aaa;
-    }
     /* 页脚 */
     .page-footer {
       height: 30px;
@@ -172,6 +181,11 @@
 <body>
   <!-- 大背景 -->
   <img src="./images/bg3.jpg" id="bg" alt="">
+  <div id="navbar">
+    <span>首页</span>
+    <a href="./myblog">博客</a>
+    <a href="./claus">作品集</a>
+  </div>
   <!-- 简介 -->
   <div id="intro">
     <h2>你好啊，我是</h2>
@@ -204,9 +218,6 @@
     <p class="page4-text">欢迎阅读我的blog</p>
     <div class="blog-enter">
       <a href="http://blog.liangyonggang.com">点此进入</a>
-    </div>
-    <div class="product-enter">
-      <a href="http://clausliang.github.io/claus">我的前端作品</a>
     </div>
   </div>
   <!-- 页脚 -->
