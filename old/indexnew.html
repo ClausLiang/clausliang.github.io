@@ -7,7 +7,434 @@
   <meta name="keywords" content="梁永刚,liangyonggang">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./indexnew.css?t=2023080911">
+  <style>
+    body {
+      margin: 0;
+      a {
+        text-decoration: none;
+      }
+    }
+
+    /* 背景图 */
+    .back-img {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      /* filter: blur(2px); */
+      font-size: 0;
+
+      .home-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    @keyframes mymove {
+      0% {
+        width: 56px;
+      }
+
+      50% {
+        width: 48px
+      }
+
+      100% {
+        width: 56px;
+      }
+    }
+
+    /* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
+    .page-content {
+      min-height: 100vh;
+      /* 为了解决高度塌陷问题 */
+      border-top: 1px solid transparent;
+      box-sizing: border-box;
+
+      .change-version {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 99;
+        cursor: pointer;
+      }
+
+      /* 内容 */
+      .content {
+        margin: 0 auto;
+        padding-top: 20px;
+        width: 970px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        /* 第一部分 */
+        .blog-wrapper {
+          width: 450px;
+          background: rgba(0, 0, 0, 0.3);
+          margin-bottom: 30px;
+          padding: 15px 40px 0;
+          border-radius: 10px;
+          box-sizing: border-box;
+          color: #fefefe;
+          overflow: hidden;
+
+          .blog-head {
+            position: relative;
+            text-align: center;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+            padding-bottom: 10px;
+
+            h1 {
+              font-size: 24px;
+              line-height: 25px;
+              margin: 12px 0 10px 0;
+            }
+
+            .sub-title {
+              margin: 0 0 8px 0;
+              font-size: 14px;
+              line-height: 20px;
+              font-weight: normal;
+            }
+          }
+
+          .blog-container {
+            text-align: center;
+            font-size: 40px;
+            color: #fcfcfc;
+            height: 300px;
+            letter-spacing: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .finger-wrapper {
+              height: 68px;
+            }
+
+            .finger {
+              animation: mymove 1.2s infinite;
+            }
+          }
+
+        }
+
+        /* 通用卡片 */
+        .card-wrapper {
+          width: 450px;
+          margin-bottom: 30px;
+          padding: 0 40px 30px;
+          border-radius: 10px;
+          box-sizing: border-box;
+          color: #fefefe;
+          background: rgba(0, 0, 0, 0.3);
+          max-height: 500px;
+          overflow: hidden;
+          transition: all 0.6s;
+
+          &.fold {
+            max-height: 34px;
+
+            .card-head {
+              .symbol {
+                opacity: 0;
+                transition: opacity 0.6s;
+              }
+
+              .card-title {
+                opacity: 0;
+                transition: opacity 0.6s;
+              }
+            }
+          }
+
+          &.unfold {
+            max-height: 500px;
+            padding-top: 10px;
+
+            .card-head {
+              .symbol {
+                opacity: 1;
+                transition: opacity 0.6s;
+              }
+
+              .card-title {
+                opacity: 1;
+                transition: opacity 0.6s;
+              }
+            }
+          }
+
+          /* 卡片标题 */
+          .card-head {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 35px;
+            box-sizing: border-box;
+            padding: 5px;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+            cursor: pointer;
+
+            .fold-unfold {
+              position: absolute;
+              top: 5px;
+              right: -30px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .symbol {
+              font-size: 12px;
+              margin-right: 10px;
+            }
+          }
+
+          /* 视频部分 */
+          .video-list {
+            padding: 20px 0 0;
+
+            .video-item {
+              margin-bottom: 25px;
+              font-size: 0;
+              display: flex;
+              border-radius: 4px;
+
+              .video-img-wrapper {
+                position: relative;
+
+                img {
+                  width: 154px;
+                  height: 96px;
+                  border-radius: 6px;
+                  object-fit: cover;
+                }
+
+                .duration {
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  height: 20px;
+                  line-height: 20px;
+                  padding: 0 4px;
+                  color: #fff;
+                  background: rgba(0, 0, 0, .5);
+                  border-radius: 6px 0 6px 0;
+                  font-size: 12px;
+                }
+              }
+
+              .video-item-content {
+                margin-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .video-item-title {
+                  font-size: 18px;
+                  color: #fff;
+                  font-weight: bold;
+                }
+
+                .video-item-tags {
+                  display: flex;
+
+                  .tag {
+                    height: 20px;
+                    margin-right: 5px;
+                    padding: 0 8px;
+                    line-height: 20px;
+                    font-size: 13px;
+                    box-sizing: border-box;
+                    background: rgba(255, 255, 255, 0.4);
+                    color: #666;
+                    border-radius: 4px;
+                  }
+                }
+
+                .video-item-time {
+                  font-size: 14px;
+                  color: #fff;
+                }
+              }
+            }
+          }
+
+          /* 更多 */
+          .video-more-wrapper {
+            position: relative;
+            height: 2px;
+
+            .video-more {
+              position: absolute;
+              right: 0;
+              top: 0;
+              font-size: 14px;
+
+              a {
+                font-style: oblique;
+                color: #fefefe;
+              }
+            }
+          }
+
+          /* 作品部分 */
+          .project-list {
+            line-height: 150px;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+          }
+
+          /* 文章部分 */
+          .life-list {
+            ol {
+              padding-left: 20px;
+
+              li {
+                margin-top: 10px;
+
+                a {
+                  color: #fff;
+                  padding-bottom: 2px;
+                  border-bottom: 1px solid #eee;
+                }
+                .time {
+                  display: inline-block;
+                  width: 100px;
+                  color: rgba(255, 255, 255, 0.7);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      /* 诗 */
+      .poetry1 {
+        margin: 60px 0 10px;
+        text-align: center;
+      }
+
+      .poetry2 {
+        margin: 10px 0 80px;
+        text-align: center;
+      }
+
+    }
+
+    /* 适配手机 */
+    @media (max-width: 500px) {
+      .page-content {
+        .content {
+          width: 90%;
+
+          &.down {
+            margin: 40px auto 0;
+          }
+
+          &.up {
+            margin: 10px auto 0;
+          }
+
+          .blog-wrapper {
+            margin-top: 20px;
+            margin-bottom: 0;
+          }
+
+          .card-wrapper {
+            padding: 0 30px 30px 30px;
+            margin: 30px 0 0;
+
+            .card-head {
+              .fold-unfold {
+                right: -20px;
+              }
+            }
+
+            /* 视频 */
+            .video-list {
+              .video-item {
+                .video-img-wrapper {
+                  img {
+                    width: 123px;
+                    height: 76px;
+                    border-radius: 6px;
+                    object-fit: cover;
+                  }
+                }
+
+                .video-item-content {
+                  margin-left: 10px;
+
+                  .video-item-tags {
+                    .tag {
+                      font-size: 10px;
+                      padding: 0 2px;
+                      height: 18px;
+                      margin-right: 4px;
+                      line-height: 18px;
+                    }
+                  }
+
+                  .video-item-time {
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+
+            /* 文章 */
+            .life-list {
+              ol {
+                li {
+                  .time {
+                    width: 80px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media (min-width: 501px) and (max-width: 800px) {
+      .page-content {
+        .content {
+          width: 70%;
+        }
+      }
+    }
+
+    @media (min-width: 801px) and (max-width: 1200px) {
+      .page-content {
+        .content {
+          width: 60%;
+        }
+      }
+    }
+
+    /* 页脚 */
+    .page-footer {
+      height: 30px;
+      line-height: 30px;
+      font-size: 12px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+
+      /* 页脚-备案号 */
+      a {
+        color: #fff;
+        line-height: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -182,7 +609,6 @@
   <div class="page-footer">
     <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
   </div>
-  <!-- <div style="height: 21px; background: rgba(0,0,0,0.5);"></div> -->
 </body>
 <script>
   // 折叠
@@ -210,30 +636,6 @@
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
-</script>
-<!-- 51la统计 -->
-<script>
-  !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "Jlm3fppUanuJifZL", ck: "Jlm3fppUanuJifZL" });
-</script>
-<!-- 51la数据挂件 -->
-<script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8"
-  src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
-<script>
-  var ladata = document.querySelector('.la-data-widget__container')
-  setTimeout(function () {
-    if(ladata){
-      ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-      ladata.children[2].querySelector('span').innerHTML = '首页访问量'
-    }
-  }, 100)
-</script>
-<script>
-  // 当不是部在我的域名下时，动态创建一个footer以优化样式
-  if (location.hostname != 'liangyonggang.com') {
-    const footer = document.createElement('div')
-    footer.style = 'height: 21px; background: rgba(0,0,0,0.5);'
-    document.body.appendChild(footer)
-  }
 </script>
 
 </html>

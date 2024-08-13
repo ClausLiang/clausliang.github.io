@@ -31,19 +31,6 @@
       --progress: 0;
       transform: scale(calc(1 - var(--progress)));
     }
-    @keyframes upDown {
-      0% {bottom: 4vw;}
-      50% {bottom: 0;}
-      100% {bottom: 4vw;}
-    }
-    .down-icon{
-      width: 6vmax;
-      position: fixed;
-      right: 0;
-      bottom: 4vw;
-      animation: upDown 2s infinite;
-    }
-
 
     /* 介绍 */
     #intro {
@@ -168,12 +155,11 @@
     }
     /* 页脚 */
     .page-footer {
-      position: relative;
-      margin-top: -41px;
-      height: 20px;
+      height: 30px;
+      line-height: 30px;
       font-size: 12px;
       text-align: center;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
     }
     .page-footer a {
       text-decoration: none;
@@ -184,6 +170,8 @@
 </head>
 
 <body>
+  <!-- 大背景 -->
+  <img src="./images/bg3.jpg" id="bg" alt="">
   <!-- 简介 -->
   <div id="intro">
     <h2>你好啊，我是</h2>
@@ -205,8 +193,7 @@
     <p class="animation1">戴着镣铐我依然可以跳舞。</p>
     <p class="animation1">你是做受害者还是英雄，我不管，我是要做英雄的。</p>
   </div>
-  <img src="./images/bg3.jpg" id="bg" alt="">
-  <img src="./images/icon-up-down-arrow.png" alt="" class="down-icon">
+  
   <!-- 撑开背景区域 -->
   <div id="page3"></div>
   <!-- 展示blog入口 -->
@@ -360,29 +347,5 @@
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
-</script>
-<!-- 51la统计 -->
-<script>
-  !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "Jlm3fppUanuJifZL", ck: "Jlm3fppUanuJifZL" });
-</script>
-<!-- 51la数据挂件 -->
-<script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8"
-  src="https://v6-widget.51.la/v6/Jlm3fppUanuJifZL/quote.js?theme=#1690FF,#999999,#999999,#FFFFFF,#FFFFFF,#1690FF,12&f=12&display=0,0,0,1,0,0,1,1"></script>
-<script>
-  setTimeout(function () {
-    const ladata = document.querySelector('.la-data-widget__container')
-    if(ladata){
-      ladata.style = 'postion: relative; display: block; height: 21px; background: rgba(0, 0, 0, 0.5); text-align: center'
-      ladata.children[2].querySelector('span').innerHTML = '首页访问量'
-    }
-  }, 100)
-</script>
-<script>
-  // 当不是部在我的域名下时，动态创建一个footer以优化样式
-  if (location.hostname != 'liangyonggang.com') {
-    const footer = document.createElement('div')
-    footer.style = 'height: 21px; background: rgba(0,0,0,0.5);'
-    document.body.appendChild(footer)
-  }
 </script>
 </html>
