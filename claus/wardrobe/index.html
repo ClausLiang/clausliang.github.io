@@ -16,13 +16,12 @@
     /* 导航 */
     .nav {
       background-color: #fff;
-    }
-
-    .nav-inner {
-      width: 1000px;
-      height: 52px;
-      position: relative;
-      margin: 0 auto;
+      .nav-inner {
+        width: 1000px;
+        height: 52px;
+        position: relative;
+        margin: 0 auto;
+      }
     }
 
     /* 主区域 */
@@ -46,16 +45,15 @@
       border-radius: 6px;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
       font-size: 0;
-    }
-    .item img{
-      width: 100px;
-      height: 133px;
-    }
-
-    .item .item-title {
-      text-align: center;
-      color: #1677ff;
-      font-size: 12px;
+      img{
+        width: 100px;
+        height: 133px;
+      }
+      .item-title {
+        text-align: center;
+        color: #1677ff;
+        font-size: 12px;
+      }
     }
 
     a {
@@ -64,14 +62,15 @@
 
     /* 手机 */
     @media (max-width: 1000px) {
-      .nav-inner {
-        width: 100%
+      .nav{
+        .nav-inner {
+          width: 100%;
+          div{
+            left: 16px !important;
+          }
+        }
       }
-
-      .nav-inner>div {
-        left: 16px !important;
-      }
-
+      
       .wrapper {
         width: 94%
       }
@@ -92,18 +91,12 @@
     </div>
   </nav>
   <div class="wrapper">
-    <h4 style="margin-top: 0;">春秋</h4>
+    <h4 style="margin-top: 0;">夏季</h4>
     <div class="list-wrapper">
       <div class="item">
         <img src="" alt="">
         <div class="item-title">
           abc
-        </div>
-      </div>
-      <div class="item">
-        <img src="" alt="">
-        <div class="item-title">
-          
         </div>
       </div>
       <div class="item">
@@ -121,17 +114,52 @@
       
     </div>
     
-    <h4>夏季</h4>
+    <h4>春秋</h4>
     <div class="list-wrapper">
-      
+      <div class="item" onclick="showBigImg(this)">
+        <img src="./summer/test.jpg" alt="">
+        <div class="item-title">
+          abc
+        </div>
+      </div>
     </div>
 
     <h4>冬季</h4>
     <div class="list-wrapper">
-      
+      <div class="item" onclick="showBigImg(this)">
+        <img src="./summer/test.jpg" alt="">
+        <div class="item-title">
+          abc
+        </div>
+      </div>
+    </div>
+    
+    <h4>跑步</h4>
+    <div class="list-wrapper">
+      <div class="item" onclick="showBigImg(this)">
+        <img src="./summer/test.jpg" alt="">
+        <div class="item-title">
+          abc
+        </div>
+      </div>
     </div>
   </div>
 
 </body>
-
+<script>
+  function showBigImg(node) {
+    const img = document.createElement('img')
+    img.src = node.children[0].src
+    img.style.width = '100vw'
+    img.style.height = '100vh'
+    img.style.position = 'fixed'
+    img.style.top = '0'
+    img.style.left = '0'
+    img.style.objectFit = 'contain'
+    img.onclick = () => {
+      document.body.removeChild(img)
+    }
+    document.body.appendChild(img)
+  }
+</script>
 </html>
