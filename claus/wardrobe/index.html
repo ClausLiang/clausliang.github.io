@@ -16,12 +16,12 @@
     /* 导航 */
     .nav {
       background-color: #fff;
-      .nav-inner {
-        width: 1000px;
-        height: 52px;
-        position: relative;
-        margin: 0 auto;
-      }
+    }
+    .nav .nav-inner {
+      width: 1000px;
+      height: 52px;
+      position: relative;
+      margin: 0 auto;
     }
 
     /* 主区域 */
@@ -39,21 +39,22 @@
       flex-wrap: wrap;
     }
 
+    /* 每个卡片 */
     .item {
       width: 100px;
       margin: 0 10px 10px 0;
       border-radius: 6px;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
       font-size: 0;
-      img{
-        width: 100px;
-        height: 133px;
-      }
-      .item-title {
-        text-align: center;
-        color: #666;
-        font-size: 12px;
-      }
+    }
+    .item img{
+      width: 100px;
+      height: 133px;
+    }
+    .item .item-tip {
+      text-align: center;
+      color: #666;
+      font-size: 12px;
     }
 
     a {
@@ -62,13 +63,11 @@
 
     /* 手机 */
     @media (max-width: 1000px) {
-      .nav{
-        .nav-inner {
-          width: 100%;
-          div{
-            left: 16px !important;
-          }
-        }
+      .nav .nav-inner{
+        width: 100%;
+      }
+      .nav .nav-inner div{
+        left: 16px !important;
       }
       
       .wrapper {
@@ -95,41 +94,41 @@
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer1.jpg" alt="">
-        <div class="item-title">2022</div>
+        <div class="item-tip">2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer2.jpg" alt="">
-        <div class="item-title"><span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip"><span style="color: #1677ff;">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer3.jpg" alt="">
-        <div class="item-title">2023</div>
+        <div class="item-tip">2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer4.jpg" alt="">
-        <div class="item-title">2023</div>
+        <div class="item-tip">2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer5.jpg" alt="">
-        <div class="item-title">2022</div>
+        <div class="item-tip">2022</div>
       </div>
     </div>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer6.jpg" alt="">
-        <div class="item-title">短裤2023</div>
+        <div class="item-tip">短裤2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer7.jpg" alt="">
-        <div class="item-title">短裤<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">短裤<span style="color: #1677ff;">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer_cloth.jpg" alt="">
-        <div class="item-title">防晒</div>
+        <div class="item-tip">防晒2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer_trousers.jpg" alt="">
-        <div class="item-title">长裤<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">长裤<span style="color: #1677ff;">2024</span></div>
       </div>
     </div>
     
@@ -137,92 +136,92 @@
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring1.jpg" alt="">
-        <div class="item-title">李宁2022（灰）</div>
+        <div class="item-tip">李宁2022（灰）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring2.jpg" alt="">
-        <div class="item-title">帽衫2022</div>
+        <div class="item-tip">帽衫2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring4.jpg" alt="">
-        <div class="item-title">唯一衬衣</div>
+        <div class="item-tip">唯一衬衣</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring5.jpg" alt="">
-        <div class="item-title">李宁2022（白）</div>
+        <div class="item-tip">李宁2022（白）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring6.jpg" alt="">
-        <div class="item-title">jackjones<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">jackjones<span style="color: #1677ff;">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring7.jpg" alt="">
-        <div class="item-title">nautica<span style="color: #1677ff;">2025</span></div>
+        <div class="item-tip">nautica<span style="color: #1677ff;">2025</span></div>
       </div>
     </div>
     <!-- 裤子 -->
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/t1.jpg" alt="">
-        <div class="item-title">李宁 dw</div>
+        <div class="item-tip">李宁 dw</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/t2.jpg" alt="">
-        <div class="item-title">no me</div>
+        <div class="item-tip">no me</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/t3.jpg" alt="">
-        <div class="item-title">冠军 9分（2022）</div>
+        <div class="item-tip">冠军 9分（2022）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/t4.jpg" alt="">
-        <div class="item-title">跑步的</div>
+        <div class="item-tip">跑步的</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/t5.jpg" alt="">
-        <div class="item-title">jackjones<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">jackjones<span style="color: #1677ff;">2024</span></div>
       </div>
     </div>
     <!-- 外套 -->
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/c1.jpg" alt="">
-        <div class="item-title">1</div>
+        <div class="item-tip">1</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/c2.jpg" alt="">
-        <div class="item-title">2022</div>
+        <div class="item-tip">2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/c3.jpg" alt="">
-        <div class="item-title">3</div>
+        <div class="item-tip">3</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/c4.jpg" alt="">
-        <div class="item-title">NY<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">NY<span style="color: #1677ff;">2024</span></div>
       </div>
     </div>
     <h4>冬季</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./winter/t5.jpg" alt="">
-        <div class="item-title">李宁2023（偏薄）</div>
+        <div class="item-tip">李宁2023（偏薄）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./winter/t1.jpg" alt="">
-        <div class="item-title">阿迪</div>
+        <div class="item-tip">阿迪</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./winter/t2.jpg" alt="">
-        <div class="item-title">冠军</div>
+        <div class="item-tip">冠军</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./winter/t3.jpg" alt="">
-        <div class="item-title">李宁</div>
+        <div class="item-tip">李宁</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./winter/t4.jpg" alt="">
-        <div class="item-title">李宁2023</div>
+        <div class="item-tip">李宁2023</div>
       </div>
     </div>
     
