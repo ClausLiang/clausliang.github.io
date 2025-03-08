@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>js全屏滚动</title>
   <style>
     body {
       margin: 0;
@@ -104,24 +104,22 @@
 </head>
 
 <body>
+  <!-- 参考地址https://ys.mihoyo.com/main/map -->
   <div onmousewheel="mousewheelHandle(event)" id="all">
-    <div class="page-item" style="background-image: url('https://ys.mihoyo.com/main/_nuxt/img/5c125a1.png');">
-    </div>
-    <div class="page-item"
-      style="background-image: url('https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921550320292.jpg');">
-    </div>
-    <div class="page-item"
-      style="background-image: url('https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921552395638.jpg');">
-    </div>
-    <div class="page-item"
-      style="background-image: url('https://uploadstatic.mihoyo.com/contentweb/20210719/2021071918001232800.jpg');">
-    </div>
-    <div class="page-item"
-      style="background-image: url('https://webstatic.mihoyo.com/upload/contentweb/2022/08/15/8969f683b92839ac427c875d0d742be2_4825576482548821743.jpg');">
-    </div>
-    <div class="page-item"
-      style="background-image: url('https://act-webstatic.mihoyo.com/upload/contentweb/hk4e/721a74c43614d7aeb25b046cabfb57be_2012964858524199390.jpg');">
-    </div>
+    <!-- https://ys.mihoyo.com/main/_nuxt/img/s1.5c125a1.png -->
+    <div class="page-item" style="background-image: url('./image/1.png');"></div>
+    <!-- https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921550320292.jpg -->
+    <div class="page-item" style="background-image: url('./image/2.jpg');"></div>
+    <!-- https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921552395638.jpg -->
+    <div class="page-item" style="background-image: url('./image/3.jpg');"></div>
+    <!-- https://uploadstatic.mihoyo.com/contentweb/20210719/2021071918001232800.jpg -->
+    <div class="page-item" style="background-image: url('./image/4.jpg');"></div>
+    <!-- https://webstatic.mihoyo.com/upload/contentweb/2022/08/15/8969f683b92839ac427c875d0d742be2_4825576482548821743.jpg -->
+    <div class="page-item" style="background-image: url('./image/5.jpg');"></div>
+    <!-- https://act-webstatic.mihoyo.com/upload/contentweb/hk4e/721a74c43614d7aeb25b046cabfb57be_2012964858524199390.jpg -->
+    <div class="page-item" style="background-image: url('./image/6.jpg');"></div>
+    <!-- https://fastcdn.mihoyo.com/content-v2/hk4e/125133/b86e153b41b5106f287d7bcb0e801a14_1435745599367653211.jpg -->
+    <div class="page-item" style="background-image: url('./image/7.jpg');"></div>
   </div>
 
 
@@ -149,6 +147,10 @@
     </div>
     <div class="nav-item" onclick="navClickHandle(6)">
       <p>枫丹</p>
+      <div class="nav-item-icon"></div>
+    </div>
+    <div class="nav-item" onclick="navClickHandle(7)">
+      <p>纳塔</p>
       <div class="nav-item-icon"></div>
     </div>
   </div>
