@@ -477,19 +477,19 @@
           const result = [{ key: 'detail', name: '查看', myHandle: showDetail }]
           //发货：待发或部分发货，且提前完结状态是待申请或已拒绝
           if ((item.status == 20 || item.status == 31) && (item.deliveryApprovalAuditStatus == null || item.deliveryApprovalAuditStatus == 3)) {
-            result.push({ key: 'sendGood', name: '发货', myHandle: sendGood })
+            result.push({ key: 'sendGood', name: '发货', myHandle: showDetail })
           }
           //申请提前完结：支付方式是先货后款，状态是部分发货，且提前完结状态是待申请或已拒绝
           if (item.paymentTypeId == 2 && item.status == 31 && (item.deliveryApprovalAuditStatus == null || item.deliveryApprovalAuditStatus == 3)) {
-            result.push({ key: 'showEarly', name: '申请提前完结', myHandle: showEarly })
+            result.push({ key: 'showEarly', name: '申请提前完结', myHandle: showDetail })
           }
           // 审核完结申请：支付方式是先货后款，状态是部分发货，且提前完结状态是待审核
           if (item.paymentTypeId == 2 && item.status == 31 && item.deliveryApprovalAuditStatus == 1 && item.deliveryApprovalType == 1) {
-            result.push({ key: 'showAudit', name: '审核提前完结', myHandle: showAudit })
+            result.push({ key: 'showAudit', name: '审核提前完结', myHandle: showDetail })
           }
           //拒绝原因：状态是部分发货，且提前完结状态是已拒绝
           if (item.status == 31 && item.deliveryApprovalAuditStatus == 3) {
-            result.push({ key: 'showRefuseReason', name: '拒绝原因', myHandle: showRefuseReason })
+            result.push({ key: 'showRefuseReason', name: '拒绝原因', myHandle: showDetail })
           }
           result.push({ key: 'showRemark', name: '备注', myHandle: showRemark })
           result.push({ key: 'toPrint', name: '打印', myHandle: toPrint })
@@ -653,6 +653,10 @@
         const cancelMark = () => {
           markFormRef.value.resetFields(['sellerRemark'])
         }
+        // --------------------------------查看详情---------------
+        const showDetail = (record) => {
+          
+        }
 
         onMounted(() => {
           data.shopId = getCookie('Scmmall-Shop')
@@ -679,6 +683,8 @@
           confirmMark,
           markFormRef,
           cancelMark,
+          // ------------查看详情-------
+          showDetail,
         }
       },
     }).use(vueAntd).mount('#SellerAdminApp')
