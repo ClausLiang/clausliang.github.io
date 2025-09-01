@@ -53,23 +53,28 @@
     }
 
     /* 介绍 */
-    #intro {
+    #page1 {
       padding: 20px;
       height: var(--myheight);
       display: flex;
       flex-direction: column;
       justify-content: center;
       box-sizing: border-box;
-      background: rgba(0, 0, 0, 0.4);
       color: #fff;
     }
+    @media (min-width: 1201px){
+      #page1{
+        width: 1200px;
+        margin: 0 auto;
+      }
+    }
 
-    #intro h2 {
+    #page1 h2 {
       margin: 0;
       font-size: 3.25vmax;
     }
 
-    #intro h1 {
+    #page1 h1 {
       margin: 0;
       font-size: 7.25vmax;
       background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
@@ -78,7 +83,7 @@
       color: transparent;
     }
 
-    #intro h3 {
+    #page1 h3 {
       margin: 0;
       font-size: 1.85vmax;
       background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
@@ -87,15 +92,15 @@
       color: transparent;
     }
 
-    #intro .introduce {
+    #page1 .introduce {
       margin: 10px 0;
     }
 
-    #intro h4 {
+    #page1 h4 {
       margin: 0;
     }
 
-    #intro .school {
+    #page1 .school {
       margin: 0.5em 0;
     }
 
@@ -104,14 +109,20 @@
       padding: 20px;
       height: var(--myheight);
       box-sizing: border-box;
-      background: rgba(0, 0, 0, 0.4);
       color: #fff;
     }
     #page2 p{
       font-size: 4vmax;
       margin: 0.3em 0;
-      width: 90%;
+      background: rgba(0, 0, 0, 0.4);
     }
+    @media (min-width: 1201px){
+      #page2 p{
+        width: 1200px;
+        margin: 0.3em auto;
+      }
+    }
+    /* 第3页 撑开背景 */
     #page3{
       height: calc(1.2 * var(--myheight));
     }
@@ -188,7 +199,7 @@
     <a href="./claus/wardrobe/index.html">电子衣橱</a>
   </div>
   <!-- 简介 -->
-  <div id="intro">
+  <div id="page1">
     <h2>你好啊，我是</h2>
     <h1>liangyonggang</h1>
     <h3>前端开发</h3>
@@ -206,7 +217,7 @@
     <p class="animation1">如果说生命的尽头是一场虚无，也对也不对。</p>
     <p class="animation1">尼采说过生命中每一个不曾起舞的日子都是对生命的辜负。</p>
     <p class="animation1">戴着镣铐我依然可以跳舞。</p>
-    <p class="animation1">你是做受害者还是英雄，我不管，我是要做英雄的。</p>
+    <!-- 你是做受害者还是英雄，我不管，我是要做英雄的。 -->
   </div>
   
   <!-- 撑开背景区域 -->
