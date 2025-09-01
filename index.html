@@ -12,9 +12,7 @@
       margin: 0;
       font-size: 0;
     }
-    body{
-      --myheight: 100vh;
-    }
+    
     body div{
       font-size: 22px;
     }
@@ -25,7 +23,7 @@
       left: 0;
       right: 0;
       width: 100vw;
-      height: var(--myheight);
+      height: 100vh;
       z-index: -1;
       object-fit: cover;
       --progress: 0;
@@ -55,7 +53,7 @@
     /* 介绍 */
     #page1 {
       padding: 20px;
-      height: var(--myheight);
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -107,7 +105,7 @@
     /* 第二页 */
     #page2 {
       padding: 20px;
-      height: var(--myheight);
+      height: 100vh;
       box-sizing: border-box;
       color: #fff;
     }
@@ -124,11 +122,11 @@
     }
     /* 第3页 撑开背景 */
     #page3{
-      height: calc(1.2 * var(--myheight));
+      height: 120vh;
     }
     /* 第四页 */
     #page4{
-      height: calc(2 * var(--myheight));
+      height: 200vh;
       background: rgba(0, 0, 0, 0.4);
       --scale: 0;
       position: relative;
@@ -139,7 +137,7 @@
       font-size: 3vmax;
       text-align: center;
       color: #fff;
-      top: calc(0.15 * var(--myheight));
+      top: 15vh;
       left: 0;
       width: 100%;
       transform: scale(calc(1 + var(--scale)));
@@ -149,7 +147,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: var(--myheight);
+      height: 100vh;
       background-image: url('./images/bg2.jpg');
       background-size: cover;
       background-position: center center;
@@ -163,7 +161,7 @@
     #page4 .blog-enter{
       display: none;
       position: fixed;
-      bottom: calc(0.25 * var(--myheight));
+      bottom: 25vh;
       left: 0;
       right: 0;
       text-align: center;
