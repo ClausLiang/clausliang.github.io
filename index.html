@@ -225,13 +225,14 @@
   </div>
 </body>
 <script>
-  // 动画1--视线中间的字高亮
+  // 动画1--视线中间的字高亮（page2的动画）
   // 要移动的
   let a1List = document.querySelectorAll('.animation1')
   function animation1fn(clientHeight) {
     // 开始动画的位置
     let animPosition = clientHeight / 2 - 100
     for (let i = 0; i < a1List.length; i++) {
+      // 元素的上边距经过开始动画位置改变颜色，出了开始动画位置颜色还原
       if (a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
         && a1List[i].getBoundingClientRect().top < animPosition) {
         a1List[i].style.color = '#fff'
