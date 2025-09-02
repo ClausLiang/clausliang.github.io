@@ -44,7 +44,7 @@
       }
     }
 
-    /* 介绍 */
+    /* 第一页 介绍 */
     #page1 {
       padding: 20px;
       height: 100vh;
@@ -53,6 +53,12 @@
       justify-content: center;
       box-sizing: border-box;
       color: #fff;
+    }
+    @media (min-width: 1201px){
+      #page1{
+        width: 1200px;
+        margin: 0 auto;
+      }
     }
 
     #page1 h2 {
@@ -91,10 +97,10 @@
       }
     }
 
-    /* 第二页 */
+    /* 第二页 名言警句 */
     #page2 {
       padding: 20px;
-      height: 100vh;
+      height: 60vh;
       box-sizing: border-box;
       color: #fff;
     }
@@ -110,18 +116,15 @@
         margin: 0.5em auto;
       }
     }
-    /* 第3页 撑开背景 */
+    
+    /* 第三页 blog入口 */
     #page3{
-      height: 120vh;
-    }
-    /* 第四页 */
-    #page4{
       height: 200vh;
       background: rgba(0, 0, 0, 0.4);
       --scale: 0;
       position: relative;
     }
-    #page4 p{
+    #page3 p{
       position: fixed;
       display: none;
       font-size: 20px;
@@ -132,7 +135,7 @@
       width: 100%;
       transform: scale(calc(1 + var(--scale)));
     }
-    #page4 .page4-bg{
+    #page3 .page3-bg{
       position: absolute;
       top: 0;
       left: 0;
@@ -148,7 +151,7 @@
       50% {transform: scale(1.1);}
       100% {transform: scale(1);}
     }
-    #page4 .blog-enter{
+    #page3 .blog-enter{
       display: none;
       position: fixed;
       bottom: 25vh;
@@ -158,7 +161,7 @@
       font-size: 24px;
       animation: mymove 2s infinite;
     }
-    #page4 .blog-enter a{
+    #page3 .blog-enter a{
       color: #fff;
     }
     /* 页脚 */
@@ -207,14 +210,12 @@
     <!-- 你是做受害者还是英雄，我不管，我是要做英雄的。 -->
   </div>
   
-  <!-- 撑开背景区域 -->
-  <div id="page3"></div>
   <!-- 展示blog入口 -->
-  <div id="page4">
-    <div class="page4-bg" alt=""></div>
-    <p class="page4-text">不仅是程序员</p>
-    <p class="page4-text">也想成为一个逍遥自在的诗人</p>
-    <p class="page4-text">欢迎阅读我的blog</p>
+  <div id="page3">
+    <div class="page3-bg" alt=""></div>
+    <p class="page3-text">不仅是程序员</p>
+    <p class="page3-text">也想成为一个逍遥自在的诗人</p>
+    <p class="page3-text">欢迎阅读我的blog</p>
     <div class="blog-enter">
       <a href="./myblog">点此进入</a>
     </div>
@@ -226,8 +227,11 @@
 </body>
 <script>
   // 动画1--视线中间的字高亮（page2的动画）
-  // 要移动的
-  let a1List = document.querySelectorAll('.animation1')
+  // 要高亮的字 名言警句
+  const a1List = document.querySelectorAll('.animation1')
+  // 背景图的缩放
+  let bgscale = 0
+  const bg = document.getElementById('bg')
   function animation1fn(clientHeight) {
     // 开始动画的位置
     let animPosition = clientHeight / 2 - 100
@@ -240,72 +244,68 @@
         a1List[i].style.color = '#e4e4e44d'
       }
     }
-  }
-
-  // 动画2--背景图缩放
-  let bg = document.getElementById('bg')
-  let scale2 = 0
-  function animation2fn(clientHeight){
-    if(document.documentElement.scrollTop > clientHeight * 2){
-      scale2 = (document.documentElement.scrollTop - clientHeight * 2) / clientHeight
-      if(scale2 >= 0.2) scale2 = 0.2
+    // 超过开始动画的位置背景图开始缩放
+    if(document.documentElement.scrollTop > animPosition){
+      bgscale = (document.documentElement.scrollTop - clientHeight) / clientHeight
+      if(bgscale >= 0.12) bgscale = 0.12
       bg.style.borderRadius = '30px'
-      bg.style.setProperty('--progress', scale2)
-      if(scale2 >= 0.2){
+      bg.style.setProperty('--progress', bgscale)
+      if(bgscale >= 0.12){
         bg.style.position = 'absolute'
-        bg.style.top = clientHeight * 2.2 + 'px'
+        bg.style.top = clientHeight * 0.6 + 'px'
       } else {
         bg.style.position = 'fixed'
         bg.style.top = 0
       }
     } else {
-      scale2 = 0
+      bgscale = 0
       bg.style.borderRadius = 0
-      bg.style.setProperty('--progress', scale2)
+      bg.style.setProperty('--progress', bgscale)
     }
   }
 
-  // 动画3--动态展示字幕
+  // 动画2--blog区域动态展示字幕
   let scale3 = 0
-  let page4Wrapper = document.getElementById('page4')
-  let page4TextList = document.querySelectorAll('.page4-text')
-  let page4bg = document.querySelector('.page4-bg')
-  let blogEnter = document.querySelector('.blog-enter')
-  function animation3fn(clientHeight){
-    if(document.documentElement.scrollTop > clientHeight * 3.2){
+  const page3Wrapper = document.getElementById('page3')
+  const page3TextList = document.querySelectorAll('.page3-text')
+  const page3bg = document.querySelector('.page3-bg')
+  const blogEnter = document.querySelector('.blog-enter')
+  function animation2fn(clientHeight){
+    // 滚动到page3才开始动画
+    if(document.documentElement.scrollTop > clientHeight * 1.6){
       // 计算滚动的比例
-      scale3 = (document.documentElement.scrollTop - clientHeight * 3.2) / clientHeight
-      // 开始移动时给page4的背景fixed定位
-      page4bg.style.position = 'fixed'
+      scale3 = (document.documentElement.scrollTop - clientHeight * 1.6) / clientHeight
+      // 开始移动时给page3的背景fixed定位
+      page3bg.style.position = 'fixed'
 
       // 文字缩放
-      page4Wrapper.style.setProperty('--scale',scale3-0.1)
+      page3Wrapper.style.setProperty('--scale',scale3-0.1)
       if(scale3 > 0 && scale3 < 0.15){
-        page4TextList[0].style.display = 'block'
-        page4TextList[1].style.display = 'none'
-        page4TextList[2].style.display = 'none'
+        page3TextList[0].style.display = 'block'
+        page3TextList[1].style.display = 'none'
+        page3TextList[2].style.display = 'none'
         blogEnter.style.display = 'none'
       } else if(scale3 > 0.15 && scale3 < 0.3){
-        page4TextList[0].style.display = 'none'
-        page4TextList[1].style.display = 'block'
-        page4TextList[2].style.display = 'none'
+        page3TextList[0].style.display = 'none'
+        page3TextList[1].style.display = 'block'
+        page3TextList[2].style.display = 'none'
         blogEnter.style.display = 'none'
       } else if(scale3 > 0.3 && scale3 < 0.55){
-        page4TextList[0].style.display = 'none'
-        page4TextList[1].style.display = 'none'
-        page4TextList[2].style.display = 'block'
+        page3TextList[0].style.display = 'none'
+        page3TextList[1].style.display = 'none'
+        page3TextList[2].style.display = 'block'
         blogEnter.style.display = 'none'
       } else {
-        page4TextList[0].style.display = 'none'
-        page4TextList[1].style.display = 'none'
-        page4TextList[2].style.display = 'block'
+        page3TextList[0].style.display = 'none'
+        page3TextList[1].style.display = 'none'
+        page3TextList[2].style.display = 'block'
         blogEnter.style.display = 'block'
       }
     } else {
-      page4bg.style.position = 'absolute'
-      page4TextList[0].style.display = 'none'
-      page4TextList[1].style.display = 'none'
-      page4TextList[2].style.display = 'none'
+      page3bg.style.position = 'absolute'
+      page3TextList[0].style.display = 'none'
+      page3TextList[1].style.display = 'none'
+      page3TextList[2].style.display = 'none'
     }
   }
   // 视窗高度
@@ -315,9 +315,9 @@
     let clientHeight = getClientHeight()
     animation1fn(clientHeight)
     animation2fn(clientHeight)
-    animation3fn(clientHeight)
   }
-  const throttleHandle = throttle(scrollAnimation, 16) // 节流
+  const throttleHandle = throttle(scrollAnimation, 16)
+  // 节流函数 每多少毫秒执行一次 不能太频繁
   function throttle(fn, delay) {
     let args = arguments,
       context = this,
