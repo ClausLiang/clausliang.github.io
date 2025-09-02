@@ -6,7 +6,6 @@
   <meta name="keywords" content="梁永刚,liangyonggang,clausliang">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <style>
     html, body{
       margin: 0;
@@ -54,13 +53,11 @@
       box-sizing: border-box;
       color: #fff;
     }
-    @media (min-width: 1201px){
-      #page1{
-        width: 1200px;
-        margin: 0 auto;
-      }
+    #page1 #typed {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #fff;
     }
-
     #page1 h2 {
       margin: 0;
       margin-bottom: 10px;
@@ -191,6 +188,7 @@
   </div>
   <!-- 简介 -->
   <div id="page1">
+    <span id="typed"></span>
     <h2>你好，我是</h2>
     <h1><span>前端开发</span> clausliang</h1>
     <h3>个人简介</h3>
@@ -225,7 +223,17 @@
     <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
   </div>
 </body>
+<script src="./claus/lib/typed.js"></script>
 <script>
+  // 打字动画
+  new Typed('#typed', {
+    strings: ['欢迎访问我的个人网站，welcome!'],
+    typeSpeed: 80,
+    backSpeed: 80,
+    startDelay: 300,
+    loop: true,
+    loopCount: Infinity,
+  });
   // 动画1--视线中间的字高亮（page2的动画）
   // 要高亮的字 名言警句
   const a1List = document.querySelectorAll('.animation1')
