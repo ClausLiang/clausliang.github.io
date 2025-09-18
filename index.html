@@ -83,6 +83,18 @@
     }
     #page1 .introduce {
       font-size: 20px;
+      p{
+        align-items: center;
+      }
+      a {
+        font-size: 22px;
+        padding: 4px;
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
     }
     #page1 .school {
       margin: 0.5em 0;
@@ -91,6 +103,13 @@
       #page1{
         width: 1200px;
         margin: 0 auto;
+      }
+    }
+    @media (min-width: 800px){
+      #page1{
+        p{
+          display: flex;
+        }
       }
     }
 
@@ -194,8 +213,15 @@
     <h3>个人简介</h3>
     <div class="introduce">
       <p class="school">山西大学 ｜ 计算机科学与技术 ｜ 2009-2013</p>
-      <p>工作10年+的程序员</p>
-      <p>但愿软件开发是一个能干到老的职业，不躺不卷，持续学习，持续提升。</p>
+      <p>工作10年+的程序员，经验丰富，六边形战士</p>
+      <p>
+        闲暇之余还喜欢做抖音，邀请你关注
+        <a href="https://v.douyin.com/bbMhkU4nPK4/">
+          <span>哈喽尼克</span>
+          <img src="./images/douyin.png" width="40" height="40" alt="">
+        </a>
+      </p>
+      <p>并且坚持记录技术博客，请访问：<a href="./myblog">liangyonggang.com/myblog/</a></p>
     </div>
   </div>
   <!-- 警世名言 -->
