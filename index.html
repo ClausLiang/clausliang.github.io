@@ -7,9 +7,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* 媒体查询都跟在了对应样式的后面，方便修改，没有集中放到最后 */
     html, body{
       margin: 0;
       font-size: 0;
+    }
+    /* 标记线，方便调试，后续可以删除 */
+    .mark-line{
+      position: fixed;
+      top: calc(50vh - 100px);
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: rgba(0, 255, 0, 0.3);
+      z-index: 9;
     }
     #bg {
       position: fixed;
@@ -198,6 +209,7 @@
 </head>
 
 <body>
+  <div class="mark-line"></div>
   <!-- 大背景 -->
   <img src="./images/bg3.jpg" id="bg" alt="">
   <div id="navbar">
