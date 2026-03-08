@@ -77,12 +77,12 @@
 
     /* 第一页 介绍 */
     .pageone {
-      height: 100vh;
+      height: 90vh;
       position: relative;
     }
 
     #page1 {
-      height: 100vh;
+      height: 90vh;
       padding: 20px;
       position: fixed;
       top: 0;
@@ -169,14 +169,15 @@
     #page2 {
       position: relative;
       z-index: 2;
-      padding: 20px;
+      padding: 0 20px;
       box-sizing: border-box;
-      color: #fff;
+      color: #e4e4e44d;
 
       .animation1 {
         font-size: 22px;
-        padding: 0.5em 6px;
-        margin: 0.5em 0;
+        padding: 1em 10px;
+        margin: 0 0 0.5em;
+        border-radius: 10px;
         background: rgba(0, 0, 0, 0.6);
       }
     }
@@ -257,8 +258,8 @@
 <body>
   <div class="mark-line"></div>
   <!-- 大背景 -->
-  <img id="bg1" src="./images/bg3.jpg" alt="">
-  <img id="bg2" src="./images/bg2.jpg" alt="">
+  <img id="bg1" src="./images/bg2.jpg" alt="">
+  <img id="bg2" src="./images/bg1.jpg" alt="">
   <nav id="navbar">
     <span>首页</span>
     <a href="./myblog">博客</a>
@@ -343,10 +344,9 @@
       }
     }
     // document滚动超过开始动画的位置背景图开始缩放
-    if (document.documentElement.scrollTop > animPosition) {
-      // 一开始会减出来一个负数，背景会先放大，再缩小
-      bgscale = (document.documentElement.scrollTop - clientHeight) / clientHeight
-      if (bgscale >= 0.3) bgscale = 0.3
+    if (document.documentElement.scrollTop + 0.1 * clientHeight > animPosition) {
+      bgscale = (document.documentElement.scrollTop + 0.1 * clientHeight - animPosition) / clientHeight
+      if (bgscale >= 0.9) bgscale = 1
       bg1.style.borderRadius = '30px'
       bg1.style.setProperty('--bgsca', bgscale)
     } else {
