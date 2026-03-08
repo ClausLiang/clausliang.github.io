@@ -8,21 +8,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* 媒体查询都跟在了对应样式的后面，方便修改，没有集中放到最后 */
-    html, body{
+    html,
+    body {
       margin: 0;
       font-size: 0;
     }
+
     /* 标记线，方便调试，后续可以删除 */
-    .mark-line{
+    .mark-line {
       position: fixed;
-      top: calc(50vh - 100px);
+      top: 50vh;
       left: 0;
       right: 0;
       height: 1px;
       background-color: rgba(0, 255, 0, 0.3);
-      z-index: 9;
+      z-index: 1;
     }
-    #bg {
+
+    /* 大背景图，两个图叠在一起，滚动时第一个图缩放，第二个图不变，制造出一种视差的感觉 */
+    #bg1 {
       position: fixed;
       top: 0;
       left: 0;
@@ -34,8 +38,23 @@
       --bgsca: 0;
       transform: scale(calc(1 - var(--bgsca)));
     }
-    #navbar{
+
+    /* 第二个图不变，制造出一种视差的感觉 */
+    #bg2 {
       position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -2;
+      object-fit: cover;
+    }
+
+    /* 导航栏 */
+    #navbar {
+      position: fixed;
+      z-index: 0;
       top: 0;
       left: 0;
       right: 0;
@@ -43,11 +62,13 @@
       line-height: 40px;
       background-color: rgba(0, 0, 0, 0.4);
       font-size: 16px;
+
       a {
         color: #fff;
         text-decoration: none;
         padding: 0 10px
       }
+
       span {
         padding: 0 10px;
         color: #fff;
@@ -55,71 +76,90 @@
     }
 
     /* 第一页 介绍 */
-    #page1 {
-      padding: 20px;
+    .pageone {
       height: 100vh;
+      position: relative;
+    }
+
+    #page1 {
+      height: 100vh;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       box-sizing: border-box;
       color: #fff;
-    }
-    #page1 #typed {
-      font-size: 20px;
-      height: 28px;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    #page1 h2 {
-      margin: 0;
-      margin-bottom: 10px;
-      font-size: 28px;
+
+      #typed {
+        font-size: 20px;
+        height: 28px;
+        margin-bottom: 10px;
+        color: #fff;
+      }
+
+      h2 {
+        margin: 0;
+        margin-bottom: 10px;
+        font-size: 28px;
+      }
+
+      h1 {
+        margin: 0;
+        margin-bottom: 18px;
+        font-size: 34px;
+        background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+
+        span {
+          font-size: 30px;
+        }
+      }
+
+      h3 {
+        margin: 0;
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+
+      /* 个人介绍 */
+      .introduce {
+        font-size: 20px;
+
+        .school {
+          margin: 0.5em 0;
+        }
+
+        p {
+          align-items: center;
+
+          a {
+            font-size: 22px;
+            padding: 4px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+          }
+        }
+      }
     }
 
-    #page1 h1 {
-      margin: 0;
-      margin-bottom: 18px;
-      font-size: 34px;
-      background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-    #page1 h1 span{
-      font-size: 30px;
-    }
-    #page1 h3 {
-      margin: 0;
-      margin-bottom: 8px;
-      font-size: 20px;
-    }
-    #page1 .introduce {
-      font-size: 20px;
-      p{
-        align-items: center;
-      }
-      a {
-        font-size: 22px;
-        padding: 4px;
-        background-color: rgba(255, 255, 255, 0.6);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-    }
-    #page1 .school {
-      margin: 0.5em 0;
-    }
-    @media (min-width: 1201px){
-      #page1{
+    @media (min-width: 1201px) {
+      #page1 {
         width: 1200px;
         margin: 0 auto;
       }
     }
-    @media (min-width: 800px){
-      #page1{
-        p{
+
+    @media (min-width: 800px) {
+      #page1 {
+        p {
           display: flex;
         }
       }
@@ -127,32 +167,36 @@
 
     /* 第二页 名言警句 */
     #page2 {
+      position: relative;
+      z-index: 2;
       padding: 20px;
-      height: 60vh;
       box-sizing: border-box;
       color: #fff;
+
+      .animation1 {
+        font-size: 22px;
+        padding: 0.5em 6px;
+        margin: 0.5em 0;
+        background: rgba(0, 0, 0, 0.6);
+      }
     }
-    #page2 p{
-      font-size: 22px;
-      padding: 0.5em 6px;
-      margin: 0.5em 0;
-      background: rgba(0, 0, 0, 0.4);
-    }
-    @media (min-width: 1201px){
-      #page2 p{
+
+    @media (min-width: 1201px) {
+      #page2 p {
         width: 1200px;
         margin: 0.5em auto;
       }
     }
-    
+
     /* 第三页 blog入口 */
-    #page3{
+    #page3 {
       height: 200vh;
       background: rgba(0, 0, 0, 0.4);
       --scale: 0;
       position: relative;
     }
-    #page3 p{
+
+    #page3 p {
       position: fixed;
       display: none;
       font-size: 20px;
@@ -163,23 +207,22 @@
       width: 100%;
       transform: scale(calc(1 + var(--scale)));
     }
-    #page3 .page3-bg{
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 100vh;
-      background-image: url('./images/bg2.jpg');
-      background-size: cover;
-      background-position: center center;
-      z-index: -9;
+
+    @keyframes mymove {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
-    @keyframes mymove{
-      0% {transform: scale(1);}
-      50% {transform: scale(1.2);}
-      100% {transform: scale(1);}
-    }
-    #page3 .blog-enter{
+
+    #page3 .blog-enter {
       display: none;
       position: fixed;
       bottom: 25vh;
@@ -189,9 +232,11 @@
       font-size: 24px;
       animation: mymove 2s infinite;
     }
-    #page3 .blog-enter a{
+
+    #page3 .blog-enter a {
       color: #fff;
     }
+
     /* 页脚 */
     .page-footer {
       height: 30px;
@@ -200,6 +245,7 @@
       text-align: center;
       background: rgba(0, 0, 0, 0.7);
     }
+
     .page-footer a {
       text-decoration: none;
       color: #fff;
@@ -211,32 +257,36 @@
 <body>
   <div class="mark-line"></div>
   <!-- 大背景 -->
-  <img src="./images/bg3.jpg" id="bg" alt="">
-  <div id="navbar">
+  <img id="bg1" src="./images/bg3.jpg" alt="">
+  <img id="bg2" src="./images/bg2.jpg" alt="">
+  <nav id="navbar">
     <span>首页</span>
     <a href="./myblog">博客</a>
     <a href="./claus/index.html">作品集</a>
     <!-- <a href="./claus/wardrobe/index.html">电子衣橱</a> -->
-  </div>
+  </nav>
   <!-- 简介 -->
-  <div id="page1">
-    <span id="typed"></span>
-    <h2>你好，我是</h2>
-    <h1><span>前端开发</span> clausliang</h1>
-    <h3>个人简介</h3>
-    <div class="introduce">
-      <p class="school">山西大学 ｜ 计算机科学与技术 ｜ 2009-2013</p>
-      <p>工作10年+的程序员，经验丰富，六边形战士</p>
-      <p>
-        闲暇之余还喜欢做抖音，邀请你关注
-        <a href="https://v.douyin.com/bbMhkU4nPK4/">
-          <span>尼克只是个名字</span>
-          <img src="./images/douyin.png" width="40" height="40" alt="">
-        </a>
-      </p>
-      <p>并且坚持记录技术博客，请访问：<a href="./myblog">liangyonggang.com/myblog/</a></p>
+  <div class="pageone">
+    <div id="page1">
+      <span id="typed"></span>
+      <h2>你好，我是</h2>
+      <h1><span>前端开发</span> clausliang</h1>
+      <h3>个人简介</h3>
+      <div class="introduce">
+        <p class="school">山西大学 ｜ 计算机科学与技术 ｜ 2009-2013</p>
+        <p>工作10年+的程序员，经验丰富，六边形战士</p>
+        <p>
+          闲暇之余还喜欢做抖音，邀请你关注
+          <a href="https://v.douyin.com/bbMhkU4nPK4/">
+            <span>尼克只是个名字</span>
+            <img src="./images/douyin.png" width="40" height="40" alt="">
+          </a>
+        </p>
+        <p>并且坚持记录技术博客，请访问：<a href="./myblog">liangyonggang.com/myblog/</a></p>
+      </div>
     </div>
   </div>
+
   <!-- 警世名言 -->
   <div id="page2">
     <p class="animation1">我最近看到一句醒世警句：悲观者永远正确，乐观者永远前行。</p>
@@ -246,10 +296,9 @@
     <p class="animation1">戴着镣铐我依然可以跳舞。</p>
     <!-- 你是做受害者还是英雄，我不管，我是要做英雄的。 -->
   </div>
-  
+
   <!-- 展示blog入口 -->
   <div id="page3">
-    <div class="page3-bg" alt=""></div>
     <p class="page3-text">不仅是程序员</p>
     <p class="page3-text">也想成为一个逍遥自在的诗人</p>
     <p class="page3-text">欢迎阅读我的blog</p>
@@ -278,30 +327,32 @@
   const a1List = document.querySelectorAll('.animation1')
   // 背景图的缩放
   let bgscale = 0
-  const bg = document.getElementById('bg')
+  const bg1 = document.getElementById('bg1')
   function animation1fn(clientHeight) {
     // 开始动画的位置
-    let animPosition = clientHeight / 2 - 100
+    let animPosition = clientHeight / 2
     for (let i = 0; i < a1List.length; i++) {
       // 元素的上边距经过开始动画位置改变颜色，出了开始动画位置颜色还原
       if (a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
         && a1List[i].getBoundingClientRect().top < animPosition) {
         a1List[i].style.color = '#fff'
+        a1List[i].style.backgroundColor = 'rgba(0, 0, 0, 0.8)'
       } else {
         a1List[i].style.color = '#e4e4e44d'
+        a1List[i].style.backgroundColor = 'rgba(0, 0, 0, 0.6)'
       }
     }
     // document滚动超过开始动画的位置背景图开始缩放
-    if(document.documentElement.scrollTop > animPosition){
+    if (document.documentElement.scrollTop > animPosition) {
       // 一开始会减出来一个负数，背景会先放大，再缩小
       bgscale = (document.documentElement.scrollTop - clientHeight) / clientHeight
-      if(bgscale >= 0.3) bgscale = 0.3
-      bg.style.borderRadius = '30px'
-      bg.style.setProperty('--bgsca', bgscale)
+      if (bgscale >= 0.3) bgscale = 0.3
+      bg1.style.borderRadius = '30px'
+      bg1.style.setProperty('--bgsca', bgscale)
     } else {
       bgscale = 0
-      bg.style.borderRadius = 0
-      bg.style.setProperty('--bgsca', bgscale)
+      bg1.style.borderRadius = 0
+      bg1.style.setProperty('--bgsca', bgscale)
     }
   }
 
@@ -309,29 +360,27 @@
   let scale3 = 0
   const page3Wrapper = document.getElementById('page3')
   const page3TextList = document.querySelectorAll('.page3-text')
-  const page3bg = document.querySelector('.page3-bg')
+
   const blogEnter = document.querySelector('.blog-enter')
-  function animation2fn(clientHeight){
+  function animation2fn(clientHeight) {
     // 快滚动到page3，开始动画
-    if(document.documentElement.scrollTop > clientHeight * 1.4){
+    if (document.documentElement.scrollTop > clientHeight * 1.4) {
       // 计算滚动的比例
       scale3 = (document.documentElement.scrollTop - clientHeight * 1.4) / clientHeight
-      // 开始移动时给page3的背景fixed定位
-      page3bg.style.position = 'fixed'
 
       // 文字缩放
-      page3Wrapper.style.setProperty('--scale',scale3-0.1)
-      if(scale3 > 0 && scale3 < 0.15){
+      page3Wrapper.style.setProperty('--scale', scale3 - 0.1)
+      if (scale3 > 0 && scale3 < 0.15) {
         page3TextList[0].style.display = 'block'
         page3TextList[1].style.display = 'none'
         page3TextList[2].style.display = 'none'
         blogEnter.style.display = 'none'
-      } else if(scale3 > 0.15 && scale3 < 0.3){
+      } else if (scale3 > 0.15 && scale3 < 0.3) {
         page3TextList[0].style.display = 'none'
         page3TextList[1].style.display = 'block'
         page3TextList[2].style.display = 'none'
         blogEnter.style.display = 'none'
-      } else if(scale3 > 0.3 && scale3 < 0.55){
+      } else if (scale3 > 0.3 && scale3 < 0.55) {
         page3TextList[0].style.display = 'none'
         page3TextList[1].style.display = 'none'
         page3TextList[2].style.display = 'block'
@@ -343,7 +392,6 @@
         blogEnter.style.display = 'block'
       }
     } else {
-      page3bg.style.position = 'absolute'
       page3TextList[0].style.display = 'none'
       page3TextList[1].style.display = 'none'
       page3TextList[2].style.display = 'none'
@@ -400,4 +448,5 @@
     s.parentNode.insertBefore(hm, s);
   })();
 </script>
+
 </html>
