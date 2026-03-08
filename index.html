@@ -21,7 +21,7 @@
       left: 0;
       right: 0;
       height: 1px;
-      background-color: rgba(0, 255, 0, 0.3);
+      background-color: rgba(0, 255, 0, 0.5);
       z-index: 1;
     }
 
@@ -190,25 +190,6 @@
     }
 
     /* 第三页 blog入口 */
-    #page3 {
-      height: 200vh;
-      background: rgba(0, 0, 0, 0.4);
-      --scale: 0;
-      position: relative;
-    }
-
-    #page3 p {
-      position: fixed;
-      display: none;
-      font-size: 20px;
-      text-align: center;
-      color: #fff;
-      top: 22vh;
-      left: 0;
-      width: 100%;
-      transform: scale(calc(1 + var(--scale)));
-    }
-
     @keyframes mymove {
       0% {
         transform: scale(1);
@@ -223,19 +204,39 @@
       }
     }
 
-    #page3 .blog-enter {
-      display: none;
-      position: fixed;
-      bottom: 25vh;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 24px;
-      animation: mymove 2s infinite;
-    }
+    #page3 {
+      height: 140vh;
+      background: rgba(0, 0, 0, 0.4);
+      --scale: 0;
+      position: relative;
 
-    #page3 .blog-enter a {
-      color: #fff;
+      p {
+        position: fixed;
+        display: none;
+        font-size: 20px;
+        text-align: center;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.6);
+        top: 48vh;
+        left: 0;
+        width: 100%;
+        transform: scale(calc(1 + var(--scale)));
+      }
+
+      .blog-enter {
+        display: none;
+        position: fixed;
+        bottom: 25vh;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 24px;
+        animation: mymove 2s infinite;
+
+        a {
+          color: #fff;
+        }
+      }
     }
 
     /* 页脚 */
@@ -245,12 +246,12 @@
       font-size: 12px;
       text-align: center;
       background: rgba(0, 0, 0, 0.7);
-    }
 
-    .page-footer a {
-      text-decoration: none;
-      color: #fff;
-      line-height: 20px;
+      a {
+        text-decoration: none;
+        color: #fff;
+        line-height: 20px;
+      }
     }
   </style>
 </head>
@@ -291,11 +292,9 @@
   <!-- 警世名言 -->
   <div id="page2">
     <p class="animation1">我最近看到一句醒世警句：悲观者永远正确，乐观者永远前行。</p>
-    <!-- 悲观者永远正确是没有用的，我宁愿做一个经常犯错的乐观者，也不要做一个经常正确的悲观者。 -->
     <p class="animation1">如果说生命的尽头是一场虚无，也对也不对。</p>
     <p class="animation1">尼采说过生命中每一个不曾起舞的日子都是对生命的辜负。</p>
     <p class="animation1">戴着镣铐我依然可以跳舞。</p>
-    <!-- 你是做受害者还是英雄，我不管，我是要做英雄的。 -->
   </div>
 
   <!-- 展示blog入口 -->
@@ -314,6 +313,8 @@
 </body>
 <script src="./claus/lib/typed.js"></script>
 <script>
+  // 视窗高度
+  let getClientHeight = () => window.innerHeight
   // 打字动画
   new Typed('#typed', {
     strings: ['欢迎访问我的个人网站，welcome!'],
@@ -329,9 +330,9 @@
   // 背景图的缩放
   let bgscale = 0
   const bg1 = document.getElementById('bg1')
+  // 开始动画的位置
+  let animPosition = getClientHeight() / 2
   function animation1fn(clientHeight) {
-    // 开始动画的位置
-    let animPosition = clientHeight / 2
     for (let i = 0; i < a1List.length; i++) {
       // 元素的上边距经过开始动画位置改变颜色，出了开始动画位置颜色还原
       if (a1List[i].getBoundingClientRect().top > animPosition - a1List[i].offsetHeight
@@ -363,10 +364,12 @@
 
   const blogEnter = document.querySelector('.blog-enter')
   function animation2fn(clientHeight) {
-    // 快滚动到page3，开始动画
-    if (document.documentElement.scrollTop > clientHeight * 1.4) {
+    // page3滚动超过标线，开始动画
+    // page3Wrapper.getBoundingClientRect().top元素上边距距离视口顶部的距离
+    if (page3Wrapper.getBoundingClientRect().top <= animPosition) {
       // 计算滚动的比例
-      scale3 = (document.documentElement.scrollTop - clientHeight * 1.4) / clientHeight
+      // 以标线为基准，滚动超过标线的部分占视窗高度的比例
+      scale3 = (clientHeight / 2 - page3Wrapper.getBoundingClientRect().top) / clientHeight
 
       // 文字缩放
       page3Wrapper.style.setProperty('--scale', scale3 - 0.1)
@@ -397,8 +400,7 @@
       page3TextList[2].style.display = 'none'
     }
   }
-  // 视窗高度
-  let getClientHeight = () => window.innerHeight
+
   // 滚动动画
   const scrollAnimation = function () {
     let clientHeight = getClientHeight()
