@@ -54,7 +54,7 @@
     /* 导航栏 */
     #navbar {
       position: fixed;
-      z-index: 0;
+      z-index: 9;
       top: 0;
       left: 0;
       right: 0;
@@ -77,74 +77,76 @@
 
     /* 第一页 介绍 */
     .pageone {
-      height: 90vh;
+      height: 80vh;
       position: relative;
-    }
 
-    #page1 {
-      height: 90vh;
-      padding: 20px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-sizing: border-box;
-      color: #fff;
-
-      #typed {
-        font-size: 20px;
-        height: 28px;
-        margin-bottom: 10px;
+      #page1 {
+        height: 80vh;
+        width: 100vw;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
         color: #fff;
-      }
+        background: rgba(0, 0, 0, 0.3);
 
-      h2 {
-        margin: 0;
-        margin-bottom: 10px;
-        font-size: 28px;
-      }
-
-      h1 {
-        margin: 0;
-        margin-bottom: 18px;
-        font-size: 34px;
-        background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-
-        span {
-          font-size: 30px;
-        }
-      }
-
-      h3 {
-        margin: 0;
-        margin-bottom: 8px;
-        font-size: 20px;
-      }
-
-      /* 个人介绍 */
-      .introduce {
-        font-size: 20px;
-
-        .school {
-          margin: 0.5em 0;
+        #typed {
+          font-size: 20px;
+          height: 28px;
+          margin-bottom: 10px;
+          color: #fff;
         }
 
-        p {
-          align-items: center;
+        h2 {
+          margin: 0;
+          margin-bottom: 10px;
+          font-size: 28px;
+        }
 
-          a {
-            font-size: 22px;
-            padding: 4px;
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 8px;
-            display: flex;
+        h1 {
+          margin: 0;
+          margin-bottom: 18px;
+          font-size: 34px;
+          background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+
+          span {
+            font-size: 30px;
+          }
+        }
+
+        h3 {
+          margin: 0;
+          margin-bottom: 8px;
+          font-size: 20px;
+        }
+
+        /* 个人介绍 */
+        .introduce {
+          font-size: 20px;
+
+          .school {
+            margin: 0.5em 0;
+          }
+
+          p {
             align-items: center;
-            gap: 6px;
+
+            a {
+              font-size: 22px;
+              padding: 4px;
+              background-color: rgba(255, 255, 255, 0.6);
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+            }
           }
         }
       }
@@ -183,9 +185,9 @@
     }
 
     @media (min-width: 1201px) {
-      #page2 p {
+      #page2 .animation1 {
         width: 1200px;
-        margin: 0.5em auto;
+        margin: 0 auto 0.5em;
       }
     }
 
@@ -216,7 +218,7 @@
         font-size: 20px;
         text-align: center;
         color: #fff;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.7);
         top: 48vh;
         left: 0;
         width: 100%;
@@ -259,8 +261,8 @@
 <body>
   <div class="mark-line"></div>
   <!-- 大背景 -->
-  <img id="bg1" src="./images/bg2.jpg" alt="">
-  <img id="bg2" src="./images/bg1.jpg" alt="">
+  <img id="bg1" src="./images/bg1.jpg" alt="">
+  <img id="bg2" src="./images/bg2.jpg" alt="">
   <nav id="navbar">
     <span>首页</span>
     <a href="./myblog">博客</a>
@@ -276,7 +278,7 @@
       <h3>个人简介</h3>
       <div class="introduce">
         <p class="school">山西大学 ｜ 计算机科学与技术 ｜ 2009-2013</p>
-        <p>工作10年+的程序员，经验丰富，六边形战士</p>
+        <p>工作10年+的程序员，六边形战士</p>
         <p>
           闲暇之余还喜欢做抖音，邀请你关注
           <a href="https://v.douyin.com/bbMhkU4nPK4/">
