@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>梁永刚 · 前端开发简历</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #eef2f5;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .resume {
+      max-width: 1000px;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(145deg, #1e2b3a, #0f1a24);
+      color: white;
+      padding: 30px 40px;
+    }
+    .header h1 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .header .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+    .contact-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 18px;
+      font-size: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 18px;
+    }
+    .contact-bar span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .contact-bar a {
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(255,255,255,0.4);
+    }
+    .main {
+      padding: 40px;
+    }
+    .section {
+      margin-bottom: 32px;
+    }
+    .section h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #1e2b3a;
+      border-left: 6px solid #1e2b3a;
+      padding-left: 18px;
+      margin-bottom: 20px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+      margin-top: 10px;
+    }
+    .skill-tag {
+      background-color: #edf2f7;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      color: #1e2b3a;
+      font-weight: 500;
+    }
+    .job {
+      margin-bottom: 28px;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .job-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0f1a24;
+    }
+    .company {
+      font-weight: 500;
+      color: #2c3e50;
+    }
+    .date {
+      color: #64748b;
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+    .project {
+      margin-top: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed #dde3e9;
+    }
+    .project:last-child {
+      border-bottom: none;
+    }
+    .project-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1e2b3a;
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .project-stack {
+      background-color: #e6edf5;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      color: #1e3a5f;
+      font-weight: 500;
+    }
+    .project ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+    .project li {
+      margin-bottom: 8px;
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.5;
+      color: #2d3a4a;
+    }
+    .project li::before {
+      content: "▹";
+      position: absolute;
+      left: 4px;
+      color: #1e2b3a;
+      font-weight: bold;
+    }
+    .blog-link {
+      background-color: #f0f4fa;
+      padding: 12px 18px;
+      border-radius: 10px;
+      margin: 15px 0 5px;
+      font-size: 1rem;
+    }
+    .blog-link a {
+      color: #1e2b3a;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid #1e2b3a;
+    }
+    .education {
+      background-color: #f8fafc;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+    @media (max-width: 700px) {
+      .header { padding: 20px; }
+      .main { padding: 25px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .contact-bar { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="resume">
+  <div class="header">
+    <h1>梁永刚</h1>
+    <div class="subtitle">前端开发工程师 · 全栈基础</div>
+    <div class="contact-bar">
+      <span>📞 176****8891</span>
+      <span>✉️ <a href="mailto:yonggangliang@sina.cn">yonggangliang@sina.cn</a></span>
+      <span>🌐 <a href="https://liangyonggang.com" target="_blank">liangyonggang.com</a></span>
+      <span>📅 本科 · 计算机科学与技术</span>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- 专业技能 -->
+    <div class="section">
+      <h2>专业技能</h2>
+      <div class="skill-items">
+        <span class="skill-tag">Vue3 / Vue2</span>
+        <span class="skill-tag">Ant Design Vue</span>
+        <span class="skill-tag">微信小程序</span>
+        <span class="skill-tag">鸿蒙 ArkTS</span>
+        <span class="skill-tag">组件化/复用</span>
+        <span class="skill-tag">qiankun 微前端</span>
+        <span class="skill-tag">axios 封装</span>
+        <span class="skill-tag">Vuex / Pinia</span>
+        <span class="skill-tag">权限控制</span>
+        <span class="skill-tag">移动端适配</span>
+        <span class="skill-tag">前端工程化</span>
+        <span class="skill-tag">AI提效</span>
+      </div>
+      <div class="blog-link">
+        ⭐ 热爱分享 · 个人博客：<a href="https://liangyonggang.com" target="_blank">https://liangyonggang.com</a> (技术积累/前端笔记)
+      </div>
+    </div>
+
+    <!-- 工作经历 -->
+    <div class="section">
+      <h2>工作经历</h2>
+      <div class="job">
+        <div class="job-header">
+          <span class="job-title">前端工程师</span>
+          <span class="company">蜂采优选（北京）科技有限公司</span>
+          <span class="date">2023.03 – 2026.02</span>
+        </div>
+      </div>
+      <div class="job">
+        <div class="job-header">
+          <span class="job-title">前端工程师</span>
+          <span class="company">优选好生活科技（北京）有限公司</span>
+          <span class="date">2018.08 – 2022.10</span>
+        </div>
+      </div>
+      <div class="job">
+        <div class="job-header">
+          <span class="job-title">前端工程师</span>
+          <span class="company">家园网络科技（北京）有限公司</span>
+          <span class="date">2016.05 – 2018.07</span>
+        </div>
+      </div>
+      <div class="job">
+        <div class="job-header">
+          <span class="job-title">全栈工程师</span>
+          <span class="company">广州中软信息技术有限公司</span>
+          <span class="date">2013.04 – 2016.03</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目经验 -->
+    <div class="section">
+      <h2>项目经验</h2>
+
+      <!-- 蜂采优选 -->
+      <div class="project">
+        <div class="project-name">蜂采优选自建站 (SaaS平台) <span class="project-stack">Vue3 + AntDV + 小程序</span></div>
+        <ul>
+          <li>作为前端主力参与从0到1搭建，负责技术调研、任务分配及核心模块开发。</li>
+          <li>开发通用小程序模板，支持商家入驻后通过微信授权快速上线小程序。</li>
+          <li>对接企业微信，实现员工管理与店铺管理的一体化整合。</li>
+          <li>实现复杂交互：商品多SKU逻辑、店铺装修、审批流等。</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-name">SRM采购系统 (正大集团) <span class="project-stack">Vue3 + AntDV</span></div>
+        <ul>
+          <li>为农牧事业部采购部门开发，支持采购单直达商城。</li>
+          <li>参与权限控制、开立采购单等核心模块开发，提升操作效率。</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-name">蜂采优选APP鸿蒙版 <span class="project-stack">ArkTS + HarmonyOS</span></div>
+        <ul>
+          <li>主动申请鸿蒙APP开发，快速掌握ArkTS并完成应用开发与适配。</li>
+        </ul>
+      </div>
+
+      <!-- 优选好生活 -->
+      <div class="project">
+        <div class="project-name">好房运营后台管理系统 <span class="project-stack">Vue + Element + qiankun</span></div>
+        <ul>
+          <li>封装axios拦截器、公共方法（时间/脱敏/数字），统一接口处理。</li>
+          <li>基于权限动态渲染菜单，使用Vuex实现数据权限控制。</li>
+          <li>封装tags+keep-alive优化多标签体验，后期引入qiankun微前端改造。</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-name">好生活UI组件库 <span class="project-stack">Vue + VuePress + npm</span></div>
+        <ul>
+          <li>定义基础/业务组件，封装install方法并发布至npm，支持按需引入。</li>
+          <li>使用VuePress搭建组件库文档，提升团队协作效率。</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-name">内嵌APP的H5 <span class="project-stack">Vue + postcss-px-to-viewport + AntV</span></div>
+        <ul>
+          <li>移动端适配使用postcss-px-to-viewport，与原生APP实现双向交互。</li>
+          <li>从SPA改为多页应用，提升解耦性；使用AntV快速搭建可视化页面。</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-name">珠江好房/微楼盘/经纪人小程序 <span class="project-stack">微信小程序原生</span></div>
+        <ul>
+          <li>自定义底部tabbar和返回按钮，优化交互体验。</li>
+          <li>封装请求、公共方法、wxS，实现微信登录/手机号获取/静默登录流程。</li>
+          <li>构建可复用组件与模板，提升开发效率。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 教育经历 -->
+    <div class="section">
+      <h2>教育经历</h2>
+      <div class="education">
+        <strong>本科 · 计算机科学与技术</strong>  |  毕业院校（待补充）  |  时间（待补充）
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
