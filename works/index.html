@@ -8,89 +8,169 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --container: 1120px;
+      --bg: #f5f6f8;
+      --card: #ffffff;
+      --card-muted: #f9fafb;
+      --card-hover: #f3f7ff;
+      --text: #111827;
+      --muted: rgba(17, 24, 39, 0.60);
+      --border: rgba(17, 24, 39, 0.12);
+      --primary: #1677ff;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
-      background-color: #f4f5f5;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
     }
 
     /* 导航 */
     .nav {
-      background-color: #fff;
+      background-color: var(--card);
+      border-bottom: 1px solid rgba(17, 24, 39, 0.10);
     }
 
     .nav-inner {
-      width: 1000px;
       height: 52px;
       position: relative;
+      width: min(var(--container), calc(100vw - 32px));
       margin: 0 auto;
+    }
+
+    .brand {
+      height: 52px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: rgba(17, 24, 39, 0.88);
+      text-decoration: none;
+    }
+
+    .brand img {
+      display: block;
     }
 
     /* 主区域 */
     .wrapper {
-      width: 1000px;
       min-height: 400px;
-      margin: 16px auto;
-      padding: 10px;
-      background-color: #fff;
-      box-sizing: border-box;
+      width: min(var(--container), calc(100vw - 32px));
+      margin: 18px auto 40px;
+      padding: 22px;
+      background-color: var(--card);
+      border: 1px solid rgba(17, 24, 39, 0.10);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
     }
 
     .list-wrapper {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
     .item {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 5px;
-      margin: 6px;
-      width: 100px;
-      height: 61.8px;
-      box-sizing: border-box;
-      font-size: 12px;
-      font-weight: bold;
-      border-radius: 6px;
+      padding: 14px 12px;
+      min-height: 92px;
+      font-size: 13px;
+      font-weight: 650;
+      border-radius: var(--radius-md);
       overflow: hidden;
-      color: #1677ff;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center center;
-      position: relative;
+      color: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      background: var(--card-muted);
+      user-select: none;
     }
 
     .item .item-title {
-      z-index: 1;
-    }
-
-    .item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      word-break: break-word;
+      display: -webkit-box;
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.25;
     }
 
     a {
       text-decoration: none;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* 手机 */
-    @media (max-width: 1000px) {
-      .nav-inner {
-        width: 100%
-      }
+    a:hover .item {
+      border-color: rgba(22, 119, 255, 0.55);
+      background: var(--card-hover);
+    }
 
-      .nav-inner>div {
-        left: 16px !important;
-      }
+    a:focus-visible .item {
+      outline: 2px solid rgba(22, 119, 255, 0.55);
+      outline-offset: 3px;
+    }
 
+    .section-title {
+      margin: 14px 0 12px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: rgba(17, 24, 39, 0.78);
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+    }
+
+    .section-title.first {
+      margin-top: 0;
+    }
+
+    .link-quiet {
+      color: var(--muted);
+      font-style: oblique;
+      text-align: right;
+      letter-spacing: 0.02em;
+    }
+
+    .link-quiet:hover {
+      color: rgba(17, 24, 39, 0.78);
+    }
+
+    @media (max-width: 520px) {
       .wrapper {
-        width: 94%
+        padding: 16px;
+      }
+
+      .list-wrapper {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+      }
+
+      .brand {
+        font-size: 16px;
       }
     }
   </style>
@@ -99,17 +179,14 @@
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <div style="height: 52px; position: absolute; top: 0; left: 0;">
-        <a href="http://liangyonggang.com"
-          style="text-decoration: none; line-height: 52px; font-size: 20px; color: #363636;">
-          <img width="20" height="16" src="../images/icon_home.png" alt="">
-          梁永刚的个人网站
-        </a>
-      </div>
+      <a class="brand" href="http://liangyonggang.com">
+        <img width="20" height="16" src="../images/icon_home.png" alt="">
+        梁永刚的个人网站
+      </a>
     </div>
   </nav>
   <div class="wrapper">
-    <h4 style="margin-top: 0;">项目</h4>
+    <h4 class="section-title first">项目</h4>
     <div class="list-wrapper">
       <a href="./snake/index.html">
         <div class="item">
@@ -150,7 +227,7 @@
     </div>
       
 
-    <h4>css效果</h4>
+    <h4 class="section-title">css效果</h4>
     <div class="list-wrapper">
       <a href="./loading/index.html">
         <div class="item">
@@ -210,7 +287,7 @@
       </a>
     </div>
 
-    <h4>js效果</h4>
+    <h4 class="section-title">js效果</h4>
     <div class="list-wrapper">
       <a href="./print/index.html">
         <div class="item">
@@ -235,7 +312,7 @@
       </a>
     </div>
 
-    <h4>学习threeJs</h4>
+    <h4 class="section-title">学习threeJs</h4>
     <div class="list-wrapper">
       <a href="./three/index.html">
         <div class="item">
@@ -288,7 +365,7 @@
       </a>
     </div>
     <a href="./wardrobe/index.html">
-      <h4 style="text-align: right; color: #666; font-style: oblique;">电子衣橱</h4>
+      <h4 class="section-title link-quiet">电子衣橱</h4>
     </a>
   </div>
 
