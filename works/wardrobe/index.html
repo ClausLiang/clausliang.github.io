@@ -153,14 +153,123 @@
       z-index: 999;
     }
 
+    .viewer-inner {
+      position: relative;
+      width: min(1100px, calc(100vw - 36px));
+      height: calc(100vh - 36px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* 移动端滑动切换：我们自己处理横向手势 */
+      touch-action: pan-y;
+    }
+
     .viewer img {
-      max-width: min(1100px, calc(100vw - 36px));
-      max-height: calc(100vh - 36px);
+      max-width: 100%;
+      max-height: 100%;
       width: auto;
       height: auto;
       object-fit: contain;
       background: rgba(0, 0, 0, 0.15);
       border-radius: 10px;
+    }
+
+    /* 图片切换动效：轻量“左右翻卡片”（仅 transform + opacity） */
+    .viewer-img {
+      --shift: 42px;
+      --rot: 16deg;
+      --scale: 0.99;
+      transition:
+        transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 200ms ease-out;
+      /* 性能优先：不要常驻 will-change（会占用更多内存/合成资源） */
+      will-change: auto;
+      transform: translate3d(0, 0, 0);
+      position: relative;
+      z-index: 1;
+    }
+
+    .viewer-img.is-animating {
+      will-change: transform, opacity;
+    }
+
+    .viewer-img.out-left {
+      transform: translate3d(calc(-1 * var(--shift)), 0, 0) rotateY(calc(-1 * var(--rot))) scale(var(--scale));
+      opacity: 0;
+    }
+
+    .viewer-img.out-right {
+      transform: translate3d(var(--shift), 0, 0) rotateY(var(--rot)) scale(var(--scale));
+      opacity: 0;
+    }
+
+    .viewer-img.in-from-left {
+      transform: translate3d(calc(-1 * var(--shift)), 0, 0) rotateY(calc(-1 * var(--rot))) scale(var(--scale));
+      opacity: 0;
+    }
+
+    .viewer-img.in-from-right {
+      transform: translate3d(var(--shift), 0, 0) rotateY(var(--rot)) scale(var(--scale));
+      opacity: 0;
+    }
+
+    @media (max-width: 520px) {
+      .viewer-img {
+        --shift: 32px;
+        /* iOS Safari 上 rotateY 更容易掉帧：手机端默认降级为 2D */
+        --rot: 0deg;
+        transition-duration: 220ms;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .viewer-img {
+        transition: none !important;
+      }
+    }
+
+    .viewer-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 40px;
+      min-width: 40px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+      line-height: 40px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 2;
+    }
+
+    .viewer-btn:hover {
+      border-color: rgba(255, 255, 255, 0.40);
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .viewer-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .viewer-btn.prev {
+      left: 10px;
+    }
+
+    .viewer-btn.next {
+      right: 10px;
+    }
+
+    .viewer-btn.close {
+      top: 10px;
+      right: 10px;
+      transform: none;
+      height: 36px;
+      line-height: 36px;
     }
 
     .no-scroll {
@@ -186,6 +295,50 @@
 
       .brand {
         font-size: 16px;
+      }
+
+      /* 预览按钮在手机上防遮挡（含安全区） */
+      .viewer {
+        --sat: env(safe-area-inset-top);
+        --sar: env(safe-area-inset-right);
+        --sab: env(safe-area-inset-bottom);
+        --sal: env(safe-area-inset-left);
+        padding-top: calc(12px + var(--sat));
+        padding-right: calc(12px + var(--sar));
+        padding-bottom: calc(12px + var(--sab));
+        padding-left: calc(12px + var(--sal));
+      }
+
+      .viewer-inner {
+        width: calc(100vw - 24px - var(--sal) - var(--sar));
+        height: calc(100vh - 24px - var(--sat) - var(--sab));
+      }
+
+      .viewer-btn {
+        height: 52px;
+        line-height: 52px;
+        font-size: 14px;
+        padding: 0 14px;
+      }
+
+      .viewer-btn.prev,
+      .viewer-btn.next {
+        top: auto;
+        bottom: calc(30px + env(safe-area-inset-bottom));
+        transform: none;
+      }
+
+      .viewer-btn.prev {
+        left: 6px;
+      }
+
+      .viewer-btn.next {
+        right: 6px;
+      }
+
+      .viewer-btn.close {
+        top: 30px;
+        right: 10px;
       }
     }
   </style>
@@ -337,16 +490,154 @@
     // 避免重复打开
     if (document.querySelector('.viewer')) return
 
+    const imgs = Array.from(document.querySelectorAll('.item img'))
+    const srcList = imgs.map((i) => i.src)
+    let idx = Math.max(0, srcList.indexOf(src))
+
     const overlay = document.createElement('div')
     overlay.className = 'viewer'
     overlay.setAttribute('role', 'dialog')
     overlay.setAttribute('aria-label', '图片预览，点击关闭')
 
     const img = document.createElement('img')
-    img.src = src
+    img.src = srcList[idx] || src
     img.alt = ''
+    img.className = 'viewer-img'
 
-    overlay.appendChild(img)
+    const inner = document.createElement('div')
+    inner.className = 'viewer-inner'
+
+    const prevBtn = document.createElement('button')
+    prevBtn.type = 'button'
+    prevBtn.className = 'viewer-btn prev'
+    prevBtn.textContent = '上一张'
+    prevBtn.addEventListener('click', (e) => e.stopPropagation())
+
+    const nextBtn = document.createElement('button')
+    nextBtn.type = 'button'
+    nextBtn.className = 'viewer-btn next'
+    nextBtn.textContent = '下一张'
+    nextBtn.addEventListener('click', (e) => e.stopPropagation())
+
+    const closeBtn = document.createElement('button')
+    closeBtn.type = 'button'
+    closeBtn.className = 'viewer-btn close'
+    closeBtn.textContent = '关闭'
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      overlay.remove()
+      document.body.classList.remove('no-scroll')
+    })
+
+    function sync() {
+      img.src = srcList[idx]
+      prevBtn.disabled = idx <= 0
+      nextBtn.disabled = idx >= srcList.length - 1
+    }
+
+    let animating = false
+    function changeBy(delta) {
+      if (animating) return
+      const nextIdx = idx + delta
+      if (nextIdx < 0 || nextIdx >= srcList.length) return
+
+      animating = true
+      const outClass = delta > 0 ? 'out-left' : 'out-right'
+      const inClass = delta > 0 ? 'in-from-right' : 'in-from-left'
+
+      img.classList.add('is-animating')
+      img.classList.add(outClass)
+      const onOutEnd = () => {
+        img.removeEventListener('transitionend', onOutEnd)
+        img.classList.remove(outClass)
+        idx = nextIdx
+        sync()
+
+        img.classList.add(inClass)
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            img.classList.remove(inClass)
+            const onInEnd = () => {
+              img.removeEventListener('transitionend', onInEnd)
+              img.classList.remove('is-animating')
+              animating = false
+            }
+            img.addEventListener('transitionend', onInEnd, { once: true })
+          })
+        })
+      }
+      img.addEventListener('transitionend', onOutEnd, { once: true })
+    }
+
+    // 移动端左右滑动切换
+    let touchX = 0
+    let touchY = 0
+    let touching = false
+    let lockedAxis = ''
+
+    inner.addEventListener('touchstart', (e) => {
+      const t = e.touches && e.touches[0]
+      if (!t) return
+      touching = true
+      lockedAxis = ''
+      touchX = t.clientX
+      touchY = t.clientY
+    }, { passive: true })
+
+    inner.addEventListener('touchmove', (e) => {
+      if (!touching) return
+      const t = e.touches && e.touches[0]
+      if (!t) return
+      const dx = t.clientX - touchX
+      const dy = t.clientY - touchY
+
+      if (!lockedAxis) {
+        lockedAxis = Math.abs(dx) > Math.abs(dy) * 1.2 ? 'x' : 'y'
+      }
+
+      // 横向滑动时阻止浏览器默认手势（避免回弹/页面滚动干扰）
+      if (lockedAxis === 'x') {
+        e.preventDefault()
+      }
+    }, { passive: false })
+
+    inner.addEventListener('touchend', (e) => {
+      if (!touching) return
+      touching = false
+      const t = e.changedTouches && e.changedTouches[0]
+      if (!t) return
+      const dx = t.clientX - touchX
+      const dy = t.clientY - touchY
+
+      // 只响应明显的横向滑动
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.2) return
+
+      if (dx > 0 && idx > 0) {
+        changeBy(-1)
+      } else if (dx < 0 && idx < srcList.length - 1) {
+        changeBy(1)
+      }
+    }, { passive: true })
+
+    prevBtn.addEventListener('click', () => {
+      changeBy(-1)
+    })
+
+    nextBtn.addEventListener('click', () => {
+      changeBy(1)
+    })
+
+    img.addEventListener('click', () => {
+      overlay.remove()
+      document.body.classList.remove('no-scroll')
+    })
+
+    inner.appendChild(prevBtn)
+    inner.appendChild(img)
+    inner.appendChild(nextBtn)
+    inner.appendChild(closeBtn)
+    overlay.appendChild(inner)
+
     overlay.addEventListener('click', () => {
       overlay.remove()
       document.body.classList.remove('no-scroll')
@@ -354,16 +645,31 @@
 
     document.body.classList.add('no-scroll')
     document.body.appendChild(overlay)
+    sync()
 
     // ESC 关闭（只注册一次）
     if (!window.__wardrobeEscBound) {
       window.__wardrobeEscBound = true
       window.addEventListener('keydown', (e) => {
-        if (e.key !== 'Escape') return
         const v = document.querySelector('.viewer')
-        if (v) {
+        if (!v) return
+
+        if (e.key === 'Escape') {
           v.remove()
           document.body.classList.remove('no-scroll')
+          return
+        }
+
+        if (e.key === 'ArrowLeft') {
+          const p = v.querySelector('.viewer-btn.prev')
+          if (p && !p.disabled) p.click()
+          return
+        }
+
+        if (e.key === 'ArrowRight') {
+          const n = v.querySelector('.viewer-btn.next')
+          if (n && !n.disabled) n.click()
+          return
         }
       })
     }
