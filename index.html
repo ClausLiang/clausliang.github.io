@@ -96,7 +96,8 @@
 
     #bg2 {
       z-index: -2;
-      filter: blur(2px) saturate(0.95) brightness(0.92);
+      /* 全屏 blur 很吃性能：默认关掉，仅在桌面端轻量开启 */
+      filter: saturate(0.95) brightness(0.92);
       transform: scale(1.03);
     }
 
@@ -110,6 +111,40 @@
         radial-gradient(1200px 700px at 10% 10%, rgba(161, 140, 209, 0.35), transparent 60%),
         radial-gradient(1100px 600px at 90% 15%, rgba(251, 194, 235, 0.22), transparent 55%),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.85));
+    }
+
+    /* 性能降级：老设备 / Safari 上更稳 */
+    body.perf-low #bg2 {
+      /* 作为兜底背景保留，避免 #bg1 缩放后露出纯黑底 */
+      display: block;
+      filter: none;
+      transform: scale(1.02);
+    }
+
+    body.perf-low #bg1 {
+      filter: none;
+      transition: none;
+      will-change: transform;
+    }
+
+    body.perf-low::before {
+      background:
+        radial-gradient(900px 520px at 15% 12%, rgba(161, 140, 209, 0.18), transparent 60%),
+        radial-gradient(900px 520px at 85% 10%, rgba(251, 194, 235, 0.12), transparent 55%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.92));
+    }
+
+    body.perf-low #navbar,
+    body.perf-low #page1::before,
+    body.perf-low #page3 p,
+    body.perf-low .page-footer {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.30) !important;
+    }
+
+    body.perf-low #page1::before {
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.38) !important;
     }
 
     /* 导航栏：毛玻璃 + hover反馈 */
@@ -128,8 +163,6 @@
       border: 1px solid var(--border);
       border-radius: 999px;
       background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       box-shadow: var(--shadow-md);
       user-select: none;
     }
@@ -192,8 +225,6 @@
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.55));
       border: 1px solid var(--border);
       box-shadow: var(--shadow-lg);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       z-index: -1;
     }
 
@@ -356,8 +387,6 @@
       background: rgba(0, 0, 0, 0.62);
       border: 1px solid rgba(255, 255, 255, 0.14);
       box-shadow: var(--shadow-md);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
 
     #page3 p.is-visible {
@@ -413,8 +442,6 @@
       font-size: 12px;
       background: rgba(0, 0, 0, 0.55);
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
 
     .page-footer a {
@@ -424,6 +451,31 @@
 
     .page-footer a:hover {
       color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* 仅在桌面端（更稳的输入设备）启用毛玻璃/轻微模糊 */
+    @media (min-width: 960px) and (hover: hover) and (pointer: fine) {
+      @supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+        #navbar {
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+        #page1::before {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+        #page3 p {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+        .page-footer {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+      }
+      #bg2 {
+        filter: blur(1px) saturate(0.95) brightness(0.92);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -497,6 +549,72 @@
 </body>
 <script src="./claus/lib/typed.js"></script>
 <script>
+  // 性能降级（跨浏览器）：先按硬件/用户偏好预判；再在首次滚动时按帧率自适应降级
+  ;(() => {
+    const STORAGE_KEY = 'clausliang:perf'
+    const qs = new URLSearchParams(location.search)
+    const override = (qs.get('perf') || '').toLowerCase() // ?perf=low / ?perf=high
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const cores = navigator.hardwareConcurrency || 0
+    const deviceMemory = navigator.deviceMemory || 0 // Chrome 支持，Safari 可能为 0/undefined
+    const lowCores = cores > 0 && cores <= 4
+    const lowMem = deviceMemory > 0 && deviceMemory <= 4
+
+    function setPerf(mode) {
+      document.body.classList.toggle('perf-low', mode === 'low')
+      try { localStorage.setItem(STORAGE_KEY, mode) } catch (e) {}
+    }
+
+    // 手动覆盖优先级最高
+    if (override === 'low' || override === 'high') {
+      setPerf(override)
+      return
+    }
+
+    // 记忆上次选择（避免每次都重新测）
+    let saved = ''
+    try { saved = localStorage.getItem(STORAGE_KEY) || '' } catch (e) {}
+    if (saved === 'low' || saved === 'high') {
+      setPerf(saved)
+      return
+    }
+
+    // 预判：用户减少动效 / 硬件偏弱 → 直接低性能档
+    if (reduceMotion || lowCores || lowMem) {
+      setPerf('low')
+      return
+    }
+
+    // 自适应：首次滚动时采样 ~0.6s 帧间隔，若明显掉帧则降级
+    let sampled = false
+    function sampleOnFirstScroll() {
+      if (sampled) return
+      sampled = true
+
+      const samples = []
+      let start = 0
+      let last = 0
+      function raf(t) {
+        if (!start) start = t
+        if (last) samples.push(t - last)
+        last = t
+        if (t - start < 650) {
+          requestAnimationFrame(raf)
+        } else {
+          const avg = samples.reduce((a, b) => a + b, 0) / Math.max(1, samples.length)
+          // avg > 24ms ≈ < 41fps，主观会明显卡；直接降级
+          if (avg > 24) setPerf('low')
+          else setPerf('high')
+          window.removeEventListener('scroll', sampleOnFirstScroll)
+        }
+      }
+      requestAnimationFrame(raf)
+    }
+
+    window.addEventListener('scroll', sampleOnFirstScroll, { passive: true, once: true })
+  })()
+
   // 视窗高度
   let getClientHeight = () => window.innerHeight
   // 打字动画
@@ -515,12 +633,14 @@
   let bgscale = 0
   const bg1 = document.getElementById('bg1')
   let bgRounded = false
+  let lastBgScale = -1
   // 开始动画的位置（调低一些：更接近视口下方）
   let animPosition = getClientHeight() * 0.62
   function animation1fn(clientHeight) {
     for (let i = 0; i < a1List.length; i++) {
-      const top = a1List[i].getBoundingClientRect().top
-      const height = a1List[i].getBoundingClientRect().height
+      const rect = a1List[i].getBoundingClientRect()
+      const top = rect.top
+      const height = rect.height
       // 元素的上边距经过开始动画位置改变颜色，出了开始动画位置颜色还原
       if (top > animPosition - height && top < animPosition) {
         a1List[i].classList.add('is-active')
@@ -539,14 +659,20 @@
         bgRounded = true
         bg1.style.borderRadius = '30px'
       }
-      bg1.style.setProperty('--bgsca', bgscale)
+      if (Math.abs(bgscale - lastBgScale) > 0.008) {
+        lastBgScale = bgscale
+        bg1.style.setProperty('--bgsca', bgscale)
+      }
     } else {
       bgscale = 0
       if (bgRounded) {
         bgRounded = false
         bg1.style.borderRadius = 0
       }
-      bg1.style.setProperty('--bgsca', bgscale)
+      if (lastBgScale !== 0) {
+        lastBgScale = 0
+        bg1.style.setProperty('--bgsca', bgscale)
+      }
     }
   }
 
@@ -557,6 +683,7 @@
 
   const blogEnter = document.querySelector('.blog-enter')
   let page3Stage = -1
+  let lastScale3 = -1
   function animation2fn(clientHeight) {
     const page3Top = page3Wrapper.getBoundingClientRect().top
     // page3滚动超过标线，开始动画
@@ -569,7 +696,11 @@
       if (scale3 > 1) scale3 = 1
 
       // 文字缩放
-      page3Wrapper.style.setProperty('--scale', scale3 - 0.1)
+      // 避免频繁更新，减少性能消耗
+      if (Math.abs(scale3 - lastScale3) > 0.01) {
+        lastScale3 = scale3
+        page3Wrapper.style.setProperty('--scale', scale3 - 0.1)
+      }
       let nextStage = 0
       if (scale3 < 0.15) nextStage = 0
       else if (scale3 < 0.3) nextStage = 1
@@ -589,6 +720,7 @@
       page3TextList[2].classList.remove('is-visible')
       blogEnter.classList.remove('is-visible')
       page3Stage = -1
+      lastScale3 = -1
     }
   }
 
