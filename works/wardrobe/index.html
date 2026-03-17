@@ -8,70 +8,184 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --container: 1120px;
+      --bg: #f5f6f8;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: rgba(17, 24, 39, 0.60);
+      --border: rgba(17, 24, 39, 0.12);
+      --primary: #1677ff;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
-      background-color: #f4f5f5;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+      line-height: 1.6;
     }
 
     /* 导航 */
     .nav {
-      background-color: #fff;
+      background-color: var(--card);
+      border-bottom: 1px solid rgba(17, 24, 39, 0.10);
     }
+
     .nav .nav-inner {
-      width: 1000px;
       height: 52px;
       position: relative;
+      width: min(var(--container), calc(100vw - 32px));
       margin: 0 auto;
+    }
+
+    .brand {
+      height: 52px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: rgba(17, 24, 39, 0.88);
+      text-decoration: none;
+    }
+
+    .brand img {
+      display: block;
     }
 
     /* 主区域 */
     .wrapper {
-      width: 1000px;
       min-height: 400px;
-      margin: 16px auto;
-      padding: 10px;
-      background-color: #fff;
-      box-sizing: border-box;
+      width: min(var(--container), calc(100vw - 32px));
+      margin: 18px auto 40px;
+      padding: 22px;
+      background-color: var(--card);
+      border: 1px solid rgba(17, 24, 39, 0.10);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
     }
 
     .list-wrapper {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
     /* 每个卡片 */
     .item {
-      width: 100px;
-      margin: 0 10px 10px 0;
-      border-radius: 6px;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
-      font-size: 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
     }
-    .item img{
-      width: 100px;
-      height: 133px;
+
+    .item:hover {
+      border-color: rgba(22, 119, 255, 0.45);
+      background: #f3f7ff;
     }
+
+    .item img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+    }
+
     .item .item-tip {
       text-align: center;
-      color: #666;
+      color: var(--muted);
       font-size: 12px;
+      padding: 8px 10px;
+      border-top: 1px solid rgba(17, 24, 39, 0.08);
     }
 
     a {
       text-decoration: none;
     }
 
+    .section-title {
+      margin: 14px 0 12px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: rgba(17, 24, 39, 0.78);
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+    }
+
+    .section-title.first {
+      margin-top: 0;
+    }
+
+    .tag-new {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* 大图预览 */
+    .viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+    }
+
+    .viewer img {
+      max-width: min(1100px, calc(100vw - 36px));
+      max-height: calc(100vh - 36px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+    }
+
+    .no-scroll {
+      overflow: hidden;
+    }
+
     /* 手机 */
     @media (max-width: 1000px) {
       .nav .nav-inner{
-        width: 100%;
+        width: min(var(--container), calc(100vw - 32px));
       }
-      .nav .nav-inner div{
-        left: 16px !important;
-      }
-      
+    }
+
+    @media (max-width: 520px) {
       .wrapper {
-        width: 94%
+        padding: 16px;
+      }
+
+      .list-wrapper {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+      }
+
+      .brand {
+        font-size: 16px;
       }
     }
   </style>
@@ -80,17 +194,14 @@
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <div style="height: 52px; position: absolute; top: 0; left: 0;">
-        <a href="http://liangyonggang.com"
-          style="text-decoration: none; line-height: 52px; font-size: 20px; color: #363636;">
-          <img width="20" height="16" src="../../images/icon_home.png" alt="">
-          梁永刚的个人网站 -- 我的电子衣橱
-        </a>
-      </div>
+      <a class="brand" href="http://liangyonggang.com">
+        <img width="20" height="16" src="../../images/icon_home.png" alt="">
+        梁永刚的个人网站 · 我的电子衣橱
+      </a>
     </div>
   </nav>
   <div class="wrapper">
-    <h4 style="margin-top: 0;">夏季</h4>
+    <h4 class="section-title first">夏季</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer5.jpg" alt="">
@@ -110,7 +221,7 @@
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer2.jpg" alt="">
-        <div class="item-tip"><span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip"><span class="tag-new">2024</span></div>
       </div>
     </div>
     <div class="list-wrapper">
@@ -120,7 +231,7 @@
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer7.jpg" alt="">
-        <div class="item-tip">短裤<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">短裤<span class="tag-new">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer_cloth.jpg" alt="">
@@ -128,11 +239,11 @@
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./summer/summer_trousers.jpg" alt="">
-        <div class="item-tip">长裤<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">长裤<span class="tag-new">2024</span></div>
       </div>
     </div>
     
-    <h4>春秋</h4>
+    <h4 class="section-title">春秋</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring2.jpg" alt="">
@@ -144,11 +255,11 @@
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring6.jpg" alt="">
-        <div class="item-tip">jackjones<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">jackjones<span class="tag-new">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/spring7.jpg" alt="">
-        <div class="item-tip">nautica<span style="color: #1677ff;">2025</span></div>
+        <div class="item-tip">nautica<span class="tag-new">2025</span></div>
       </div>
     </div>
     <!-- 裤子 -->
@@ -171,7 +282,7 @@
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/t5.jpg" alt="">
-        <div class="item-tip">jackjones<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">jackjones<span class="tag-new">2024</span></div>
       </div>
     </div>
     <!-- 外套 -->
@@ -190,10 +301,10 @@
       </div>
       <div class="item" onclick="showBigImg(this)">
         <img src="./spring/c4.jpg" alt="">
-        <div class="item-tip">NY<span style="color: #1677ff;">2024</span></div>
+        <div class="item-tip">NY<span class="tag-new">2024</span></div>
       </div>
     </div>
-    <h4>冬季</h4>
+    <h4 class="section-title">冬季</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
         <img src="./winter/t1.jpg" alt="">
@@ -220,19 +331,42 @@
 </body>
 <script>
   function showBigImg(node) {
+    const src = node.querySelector('img')?.src
+    if (!src) return
+
+    // 避免重复打开
+    if (document.querySelector('.viewer')) return
+
+    const overlay = document.createElement('div')
+    overlay.className = 'viewer'
+    overlay.setAttribute('role', 'dialog')
+    overlay.setAttribute('aria-label', '图片预览，点击关闭')
+
     const img = document.createElement('img')
-    img.src = node.children[0].src
-    img.style.width = '100vw'
-    img.style.height = '100vh'
-    img.style.position = 'fixed'
-    img.style.top = '0'
-    img.style.left = '0'
-    img.style.objectFit = 'contain'
-    img.style.background = 'rgba(0,0,0,0.8)'
-    img.onclick = () => {
-      document.body.removeChild(img)
+    img.src = src
+    img.alt = ''
+
+    overlay.appendChild(img)
+    overlay.addEventListener('click', () => {
+      overlay.remove()
+      document.body.classList.remove('no-scroll')
+    })
+
+    document.body.classList.add('no-scroll')
+    document.body.appendChild(overlay)
+
+    // ESC 关闭（只注册一次）
+    if (!window.__wardrobeEscBound) {
+      window.__wardrobeEscBound = true
+      window.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return
+        const v = document.querySelector('.viewer')
+        if (v) {
+          v.remove()
+          document.body.classList.remove('no-scroll')
+        }
+      })
     }
-    document.body.appendChild(img)
   }
 </script>
 </html>
