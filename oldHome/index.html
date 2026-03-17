@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>欢迎来到梁永刚的个人网站</title>
+  <meta name="keywords" content="梁永刚,liangyonggang">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    /* 背景图 */
+    .back-img {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      /* filter: blur(2px); */
+      font-size: 0;
+
+      .home-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    /* 在内容外面套了一个div 并把高度设置为100vh sticky footer */
+    .page-content {
+      min-height: 100vh;
+      /* 为了解决高度塌陷问题 */
+      border-top: 1px solid transparent;
+      box-sizing: border-box;
+
+      .change-version {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 99;
+        cursor: pointer;
+
+        .tip {
+          position: absolute;
+          left: -3px;
+          right: 25px;
+          font-weight: bold;
+          color: rgba(0, 0, 0, 0.7);
+          font-size: 12px;
+          transform: rotate(-45deg);
+        }
+      }
+
+      /* 内容 */
+      .content {
+        position: relative;
+        padding-bottom: 41px;
+        width: 40%;
+
+        &.up {
+          margin: 10px auto 0;
+          transition: margin 0.6s;
+        }
+
+        &.down {
+          margin: 90px auto 0;
+          transition: margin 0.6s;
+        }
+
+        .up-down {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+
+        /* 目录 */
+        .catalogue-wrapper {
+          background: rgba(0, 0, 0, 0.3);
+          padding: 15px 40px 0;
+          border-radius: 10px;
+          box-sizing: border-box;
+          color: #fefefe;
+          overflow: hidden;
+
+          &.up {
+            height: 45px;
+            padding-top: 0;
+            transition: all 0.6s;
+          }
+
+          &.down {
+            height: 345px;
+            transition: all 0.6s;
+          }
+
+          .catalogue-head {
+            position: relative;
+            text-align: center;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+            padding-bottom: 10px;
+
+            h1 {
+              font-size: 24px;
+              line-height: 25px;
+              margin: 12px 0 10px 0;
+            }
+
+            .sub-title {
+              margin: 0 0 8px 0;
+              font-size: 14px;
+              line-height: 20px;
+              font-weight: normal;
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              top: -30px;
+              bottom: 0;
+              left: -40px;
+              right: -40px;
+              z-index: 0;
+              cursor: pointer;
+            }
+          }
+
+          /* 目录-内容区 */
+          .catalogue-container {
+            border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+
+            ul {
+              margin: 0;
+              padding: 30px 0 15px 0;
+              list-style: none;
+
+              li {
+                margin-bottom: 15px;
+                font-size: 16px;
+                height: 35px;
+                line-height: 35px;
+                background: rgba(0, 0, 0, 0.4);
+                border-radius: 5px;
+                padding-left: 10px;
+
+                a,
+                b {
+                  width: 100%;
+                  color: #fefefe;
+                  display: flex;
+                  align-items: center;
+                  font-weight: normal;
+                  cursor: pointer;
+
+                  .symbol {
+                    font-size: 12px;
+                    margin-right: 10px;
+                  }
+                }
+
+                &:hover {
+                  background: rgba(250, 250, 250, 0.9);
+
+                  a,
+                  b {
+                    color: #333;
+                    font-weight: bold;
+                  }
+                }
+              }
+            }
+          }
+
+          /* 目录-脚 */
+          .catalogue-footer {
+            margin-top: 10px;
+            text-align: right;
+            font-size: 14px;
+            line-height: 30px;
+
+            .contact-btn {
+              padding: 5px;
+              border-radius: 3px;
+              cursor: pointer;
+
+              &:hover {
+                background: rgba(250, 250, 250, 0.7);
+                color: #333;
+                font-weight: bold;
+              }
+            }
+
+            .contact-url {
+              padding-left: 5px;
+            }
+          }
+        }
+
+        /* 视频/文章 */
+        .other-wrapper {
+          margin: 20px 0 20px;
+          padding: 0 40px 30px 40px;
+          border-radius: 10px;
+          box-sizing: border-box;
+          color: #fefefe;
+          background: rgba(0, 0, 0, 0.3);
+          max-height: 500px;
+          overflow: hidden;
+          transition: all 0.6s;
+
+          &.fold {
+            max-height: 34px;
+          }
+
+          &.unfold {
+            max-height: 500px;
+            padding-top: 10px;
+          }
+
+          /* 标题 */
+          .other-head {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 35px;
+            box-sizing: border-box;
+            padding: 5px;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.6);
+            cursor: pointer;
+
+            .fold-unfold {
+              position: absolute;
+              top: 5px;
+              right: -30px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .symbol {
+              font-size: 12px;
+              margin-right: 10px;
+            }
+          }
+
+          .video-list {
+            padding: 20px 0 0;
+
+            .video-item {
+              margin-bottom: 25px;
+              font-size: 0;
+              display: flex;
+              border-radius: 4px;
+
+              .video-img-wrapper {
+                position: relative;
+
+                img {
+                  width: 154px;
+                  height: 96px;
+                  border-radius: 6px;
+                  object-fit: cover;
+                }
+
+                .duration {
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  height: 20px;
+                  line-height: 20px;
+                  padding: 0 4px;
+                  color: #fff;
+                  background: rgba(0, 0, 0, .5);
+                  border-radius: 6px 0 6px 0;
+                  font-size: 12px;
+                }
+              }
+
+              .video-item-content {
+                margin-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .video-item-title {
+                  font-size: 18px;
+                  color: #fff;
+                  font-weight: bold;
+                }
+
+                .video-item-tags {
+                  display: flex;
+
+                  .tag {
+                    height: 20px;
+                    margin-right: 5px;
+                    padding: 0 8px;
+                    line-height: 20px;
+                    font-size: 13px;
+                    box-sizing: border-box;
+                    background: rgba(255, 255, 255, 0.4);
+                    color: #666;
+                    border-radius: 4px;
+                  }
+                }
+
+                .video-item-time {
+                  font-size: 14px;
+                  color: #fff;
+                }
+              }
+            }
+          }
+
+          /* 更多 */
+          .video-more-wrapper {
+            position: relative;
+            height: 2px;
+
+            .video-more {
+              position: absolute;
+              right: 0;
+              top: 0;
+              font-size: 14px;
+
+              a {
+                font-style: oblique;
+                color: #fefefe;
+              }
+            }
+          }
+
+          .article-wrapper {
+            ol {
+              padding-left: 20px;
+
+              li {
+                margin-top: 10px;
+
+                a {
+                  color: #fff;
+                  padding-bottom: 2px;
+                  border-bottom: 1px solid #eee;
+                  
+                }
+                .time {
+                  display: inline-block;
+                  width: 100px;
+                  color: rgba(255, 255, 255, 0.7);
+                }
+                
+              }
+            }
+          }
+        }
+
+        /* 诗 */
+        .poetry1 {
+          margin: 60px 0 10px;
+          text-align: center;
+        }
+
+        .poetry2 {
+          margin: 10px 0 40px;
+          text-align: center;
+        }
+      }
+
+    }
+
+    @media (max-width: 500px) {
+      .page-content {
+        .change-version {
+          .tip {
+            font-size: 10px;
+          }
+        }
+
+        .content {
+          width: 90%;
+
+          &.down {
+            margin: 40px auto 0;
+          }
+
+          &.up {
+            margin: 10px auto 0;
+          }
+
+          .catalogue-wrapper {
+            padding: 15px 30px 0;
+          }
+
+          .other-wrapper {
+            padding: 0 30px 30px 30px;
+
+            .other-head {
+              .fold-unfold {
+                right: -20px;
+              }
+            }
+            /* 视频 */
+            .video-list {
+              .video-item {
+                .video-img-wrapper {
+                  img {
+                    width: 123px;
+                    height: 76px;
+                    border-radius: 6px;
+                    object-fit: cover;
+                  }
+                }
+
+                .video-item-content {
+                  margin-left: 10px;
+
+                  .video-item-tags {
+                    .tag {
+                      font-size: 10px;
+                      padding: 0 2px;
+                      height: 18px;
+                      margin-right: 4px;
+                      line-height: 18px;
+                    }
+                  }
+
+                  .video-item-time {
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+            /* 文章 */
+            .article-wrapper {
+              ol {
+                li {
+                  .time {
+                    width: 80px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media (min-width: 501px) and (max-width: 800px) {
+      .page-content {
+        .content {
+          width: 70%;
+        }
+      }
+    }
+
+    @media (min-width: 801px) and (max-width: 1200px) {
+      .page-content {
+        .content {
+          width: 60%;
+        }
+      }
+    }
+
+    /* 页脚 */
+    .page-footer {
+      position: relative;
+      margin-top: -30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 12px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+
+      /* 页脚-备案号 */
+      a {
+        color: #fff;
+        line-height: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="back-img">
+    <img class="home-img" src="../images/bg2.jpg" alt="bg">
+  </div>
+  <!-- 内容外面又套了一个div 高度100vh sticky footer -->
+  <div class="page-content">
+    <a href="./indexnew.html" class="change-version">
+      <img src="../images/icon-change-page.png" width="60" alt="">
+      <span class="tip">NEW</span>
+    </a>
+    <div class="content down">
+      <div class="up-down">
+        <img src="../images/icon_up_white.png" width="24" alt="icon" style="cursor: n-resize"
+          class="up-icon">
+        <img src="../images/icon_down_white.png" width="24" alt="icon"
+          style="cursor: s-resize; display: none;" class="down-icon">
+      </div>
+      <div class="catalogue-wrapper down">
+        <div class="catalogue-head" onclick="upHandle()">
+          <h1>梁永刚的个人网站</h1>
+          <h2 class="sub-title">clausliang's website</h2>
+        </div>
+        <div class="catalogue-container">
+          <ul>
+            <li>
+              <a href="http://liangyonggang.com/myblog">
+                <span class="symbol">&gt;</span>技术文章｜工作总结
+              </a>
+            </li>
+            <li>
+              <a href="https://clausliang.github.io/works/">
+                <span class="symbol">&gt;</span>作品库
+              </a>
+            </li>
+            <li>
+              <b onclick="changeVideo(1)">
+                <span class="symbol">&gt;</span>视频
+              </b>
+            </li>
+            <li>
+              <b onclick="changeVideo(2)">
+                <span class="symbol">&gt;</span>生活感悟
+              </b>
+            </li>
+          </ul>
+        </div>
+        <div class="catalogue-footer">
+          <span class="contact-btn" onclick="contact()">contact me</span> | <span
+            class="contact-url">liangyonggang.com</span>
+        </div>
+      </div>
+      <div class="other-wrapper fold">
+        <div class="other-head" onclick="foldHandle()">
+          <span class="symbol">&gt;</span>
+          <span class="other-title">视频</span>
+          <div class="fold-unfold">
+            <img src="../images/icon_up_white.png" alt="icon" width="24"
+              style="cursor: n-resize; display: none" class="fold-icon">
+            <img src="../images/icon_down_white.png" alt="icon" width="24" style="cursor: s-resize;"
+              class="unfold-icon">
+          </div>
+        </div>
+        <!-- 视频列表 -->
+        <div class="video-wrapper">
+          <div class="video-list">
+            <a href="https://www.bilibili.com/video/BV1Eu41177YF/" target="_blank">
+              <div class="video-item">
+                <div class="video-img-wrapper">
+                  <img src="../images/video4-cbd-23-8.avif" alt="">
+                  <div class="duration">01:16</div>
+                </div>
+                <div class="video-item-content">
+                  <div class="video-item-title">带你俯瞰北京CBD</div>
+                  <div class="video-item-tags">
+                    <div class="tag">北京</div>
+                    <div class="tag">CBD</div>
+                    <div class="tag">风景</div>
+                  </div>
+                  <div></div>
+                  <div class="video-item-time">2023-08-17</div>
+                </div>
+              </div>
+            </a>
+            <a href="https://www.bilibili.com/video/BV1vV4y1S7vg/" target="_blank">
+              <div class="video-item">
+                <div class="video-img-wrapper">
+                  <img src="../images/video3-tianjin-23-4-2.jpg" alt="">
+                  <div class="duration">04:03</div>
+                </div>
+                <div class="video-item-content">
+                  <div class="video-item-title">天津一日游</div>
+                  <div class="video-item-tags">
+                    <div class="tag">旅游</div>
+                    <div class="tag">天津</div>
+                    <div class="tag">春游户外</div>
+                  </div>
+                  <div></div>
+                  <div class="video-item-time">2023-04-02 22:49:56</div>
+                </div>
+              </div>
+            </a>
+            
+          </div>
+          <div class="video-more-wrapper">
+            <div class="video-more"><a href="https://space.bilibili.com/550034433" target="_blank">更多</a></div>
+          </div>
+        </div>
+        <!-- 文章列表 -->
+        <div class="article-wrapper" style="display: none">
+          <ol>
+            <li>
+              <a href="https://mp.weixin.qq.com/s/rm-Vk9KMBK3XrVZk3--tzQ" target="_blank">
+                <span class="time">2023-09-11</span>
+                工资不涨真的是因为不够努力吗？
+              </a>
+            </li>
+            <li>
+              <a href="https://mp.weixin.qq.com/s/I5RxSMQKNPlDb47gDCNitA" target="_blank">
+                <span class="time">2023-01-01</span>
+                生活那么不顺，但我其实可以选择乐观
+              </a>
+            </li>
+            <li>
+              <a href="https://mp.weixin.qq.com/s/Xu_SQuVHJFJAh68n-2xzeg" target="_blank">
+                <span class="time">2022-12-21</span>
+                那么多可以改变人生的机会，一次都没有把握
+              </a>
+            </li>
+            <li>
+              <a href="https://mp.weixin.qq.com/s/JYbq7iCuACr_HBIZoG76UA" target="_blank">
+                <span class="time">2022-10-09</span>
+                在北京的这几年
+              </a>
+            </li>
+            <li>
+              <a href="https://mp.weixin.qq.com/s/VDM9dWOxCMSJu9z3yK_KeQ" target="_blank">
+                <span class="time">2020-01-05</span>
+                分享一个减肥10kg的经历
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="poetry1">春有百花秋有月，夏有凉风冬有雪。</div>
+      <div class="poetry2">若无闲事挂心头，便是人间好时节。</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
+  </div>
+</body>
+<script>
+  function contact() {
+    alert('send me email: yonggangliang@sina.cn')
+  }
+  var content = document.querySelector('.content') // 总的内容
+  var catalogue = document.querySelector('.catalogue-wrapper') // 目录
+  var upIcon = document.querySelector('.up-icon')
+  var downIcon = document.querySelector('.down-icon')
+
+  var other = document.querySelector('.other-wrapper') // 视频/文章
+  var foldIcon = document.querySelector('.fold-icon')
+  var unfoldIcon = document.querySelector('.unfold-icon')
+
+  // 折叠目录
+  function upHandle() {
+    if (content.className == 'content down') {
+      content.className = 'content up' // 总的内容折起来
+      catalogue.className = 'catalogue-wrapper up' // 目录折起来
+      upIcon.style.display = 'none'
+      downIcon.style.display = 'block'
+      other.className = 'other-wrapper fold' // 视频折起来
+      foldIcon.style.display = 'none'
+      unfoldIcon.style.display = 'block'
+    } else {
+      content.className = 'content down'
+      catalogue.className = 'catalogue-wrapper down'
+      upIcon.style.display = 'block'
+      downIcon.style.display = 'none'
+    }
+  }
+  // 折叠视频
+  function foldHandle() {
+    if (other.className == 'other-wrapper unfold') {
+      other.className = 'other-wrapper fold' // 视频折起来
+      foldIcon.style.display = 'none'
+      unfoldIcon.style.display = 'block'
+    } else {
+      other.className = 'other-wrapper unfold'
+      foldIcon.style.display = 'block'
+      unfoldIcon.style.display = 'none'
+    }
+
+  }
+  function changeVideo(type) {
+    var title = document.querySelector('.other-title')
+    var videoList = document.querySelector('.video-wrapper')
+    var articleList = document.querySelector('.article-wrapper')
+    if (type == 1) {
+      title.innerHTML = '视频'
+      videoList.style.display = 'block'
+      articleList.style.display = 'none'
+    } else {
+      title.innerHTML = '生活感悟'
+      videoList.style.display = 'none'
+      articleList.style.display = 'block'
+    }
+    other.className = 'other-wrapper unfold'
+    foldIcon.style.display = 'block'
+    unfoldIcon.style.display = 'none'
+  }
+</script>
+<!-- 百度统计 -->
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+</html>
