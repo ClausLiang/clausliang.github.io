@@ -275,6 +275,21 @@
       line-height: 36px;
     }
 
+    .viewer-counter {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(0, 0, 0, 0.35);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 12px;
+      line-height: 1;
+      z-index: 2;
+      user-select: none;
+    }
+
     .no-scroll {
       overflow: hidden;
     }
@@ -342,6 +357,13 @@
       .viewer-btn.close {
         top: 30px;
         right: 10px;
+      }
+
+      .viewer-counter {
+        right: auto;
+        left: 50%;
+        bottom: calc(30px + env(safe-area-inset-bottom));
+        transform: translateX(-50%);
       }
     }
   </style>
@@ -539,10 +561,15 @@
       document.body.classList.remove('no-scroll')
     })
 
+    const counter = document.createElement('div')
+    counter.className = 'viewer-counter'
+    counter.addEventListener('click', (e) => e.stopPropagation())
+
     function sync() {
       img.src = srcList[idx]
       prevBtn.disabled = idx <= 0
       nextBtn.disabled = idx >= srcList.length - 1
+      counter.textContent = `${idx + 1}/${srcList.length}`
       // 预加载相邻图片，弱网切换更顺
       preload(idx - 1)
       preload(idx + 1)
@@ -649,6 +676,7 @@
     inner.appendChild(img)
     inner.appendChild(nextBtn)
     inner.appendChild(closeBtn)
+    inner.appendChild(counter)
     overlay.appendChild(inner)
 
     overlay.addEventListener('click', () => {
