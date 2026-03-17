@@ -65,7 +65,7 @@
     .mark-line {
       display: none;
       position: fixed;
-      top: 50vh;
+      top: 62vh;
       left: 0;
       right: 0;
       height: 1px;
@@ -514,6 +514,7 @@
   // 背景图的缩放
   let bgscale = 0
   const bg1 = document.getElementById('bg1')
+  let bgRounded = false
   // 开始动画的位置（调低一些：更接近视口下方）
   let animPosition = getClientHeight() * 0.62
   function animation1fn(clientHeight) {
@@ -528,14 +529,23 @@
       }
     }
     // document滚动超过开始动画的位置背景图开始缩放
-    if (document.documentElement.scrollTop + 0.1 * clientHeight > animPosition) {
-      bgscale = (document.documentElement.scrollTop + 0.1 * clientHeight - animPosition) / clientHeight
+    // 提前一点开始缩放：避免“启动太晚”的感觉
+    const bgStartOffset = 0.22 * clientHeight
+    const bgStartPoint = document.documentElement.scrollTop + bgStartOffset
+    if (bgStartPoint > animPosition) {
+      bgscale = (bgStartPoint - animPosition) / clientHeight
       if (bgscale >= 0.9) bgscale = 1
-      bg1.style.borderRadius = '30px'
+      if (!bgRounded) {
+        bgRounded = true
+        bg1.style.borderRadius = '30px'
+      }
       bg1.style.setProperty('--bgsca', bgscale)
     } else {
       bgscale = 0
-      bg1.style.borderRadius = 0
+      if (bgRounded) {
+        bgRounded = false
+        bg1.style.borderRadius = 0
+      }
       bg1.style.setProperty('--bgsca', bgscale)
     }
   }
@@ -546,6 +556,7 @@
   const page3TextList = document.querySelectorAll('.page3-text')
 
   const blogEnter = document.querySelector('.blog-enter')
+  let page3Stage = -1
   function animation2fn(clientHeight) {
     const page3Top = page3Wrapper.getBoundingClientRect().top
     // page3滚动超过标线，开始动画
@@ -553,36 +564,31 @@
     if (page3Top <= animPosition) {
       // 计算滚动的比例
       // 以标线为基准，滚动超过标线的部分占视窗高度的比例
-      scale3 = (clientHeight / 2 - page3Top) / clientHeight
+      scale3 = (animPosition - page3Top) / clientHeight
+      if (scale3 < 0) scale3 = 0
+      if (scale3 > 1) scale3 = 1
 
       // 文字缩放
       page3Wrapper.style.setProperty('--scale', scale3 - 0.1)
-      if (scale3 > 0 && scale3 < 0.15) {
-        page3TextList[0].classList.add('is-visible')
-        page3TextList[1].classList.remove('is-visible')
-        page3TextList[2].classList.remove('is-visible')
-        blogEnter.classList.remove('is-visible')
-      } else if (scale3 > 0.15 && scale3 < 0.3) {
-        page3TextList[0].classList.remove('is-visible')
-        page3TextList[1].classList.add('is-visible')
-        page3TextList[2].classList.remove('is-visible')
-        blogEnter.classList.remove('is-visible')
-      } else if (scale3 > 0.3 && scale3 < 0.55) {
-        page3TextList[0].classList.remove('is-visible')
-        page3TextList[1].classList.remove('is-visible')
-        page3TextList[2].classList.add('is-visible')
-        blogEnter.classList.remove('is-visible')
-      } else {
-        page3TextList[0].classList.remove('is-visible')
-        page3TextList[1].classList.remove('is-visible')
-        page3TextList[2].classList.add('is-visible')
-        blogEnter.classList.add('is-visible')
+      let nextStage = 0
+      if (scale3 < 0.15) nextStage = 0
+      else if (scale3 < 0.3) nextStage = 1
+      else if (scale3 < 0.55) nextStage = 2
+      else nextStage = 3
+
+      if (nextStage !== page3Stage) {
+        page3Stage = nextStage
+        page3TextList[0].classList.toggle('is-visible', page3Stage === 0)
+        page3TextList[1].classList.toggle('is-visible', page3Stage === 1)
+        page3TextList[2].classList.toggle('is-visible', page3Stage >= 2)
+        blogEnter.classList.toggle('is-visible', page3Stage === 3)
       }
     } else {
       page3TextList[0].classList.remove('is-visible')
       page3TextList[1].classList.remove('is-visible')
       page3TextList[2].classList.remove('is-visible')
       blogEnter.classList.remove('is-visible')
+      page3Stage = -1
     }
   }
 
