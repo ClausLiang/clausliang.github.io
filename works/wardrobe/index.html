@@ -96,6 +96,9 @@
       overflow: hidden;
       cursor: pointer;
       user-select: none;
+      /* 性能：跳过屏幕外渲染（支持的浏览器生效） */
+      content-visibility: auto;
+      contain-intrinsic-size: 160px 220px;
     }
 
     .item:hover {
@@ -348,7 +351,7 @@
   <nav class="nav">
     <div class="nav-inner">
       <a class="brand" href="http://liangyonggang.com">
-        <img width="20" height="16" src="../../images/icon_home.png" alt="">
+        <img width="20" height="16" decoding="async" src="../../images/icon_home.png" alt="">
         梁永刚的个人网站 · 我的电子衣橱
       </a>
     </div>
@@ -357,41 +360,41 @@
     <h4 class="section-title first">夏季</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer5.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer5.jpg" alt="">
         <div class="item-tip">2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer1.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer1.jpg" alt="">
         <div class="item-tip">2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer3.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer3.jpg" alt="">
         <div class="item-tip">2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer4.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer4.jpg" alt="">
         <div class="item-tip">2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer2.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer2.jpg" alt="">
         <div class="item-tip"><span class="tag-new">2024</span></div>
       </div>
     </div>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer6.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer6.jpg" alt="">
         <div class="item-tip">短裤2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer7.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer7.jpg" alt="">
         <div class="item-tip">短裤<span class="tag-new">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer_cloth.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer_cloth.jpg" alt="">
         <div class="item-tip">防晒2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./summer/summer_trousers.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./summer/summer_trousers.jpg" alt="">
         <div class="item-tip">长裤<span class="tag-new">2024</span></div>
       </div>
     </div>
@@ -399,84 +402,84 @@
     <h4 class="section-title">春秋</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/spring2.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/spring2.jpg" alt="">
         <div class="item-tip">帽衫2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/spring5.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/spring5.jpg" alt="">
         <div class="item-tip">李宁2022（白）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/spring6.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/spring6.jpg" alt="">
         <div class="item-tip">jackjones<span class="tag-new">2024</span></div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/spring7.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/spring7.jpg" alt="">
         <div class="item-tip">nautica<span class="tag-new">2025</span></div>
       </div>
     </div>
     <!-- 裤子 -->
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/t1.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/t1.jpg" alt="">
         <div class="item-tip">李宁dw（跑步）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/t4.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/t4.jpg" alt="">
         <div class="item-tip">（跑步）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/t2.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/t2.jpg" alt="">
         <div class="item-tip">no me</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/t3.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/t3.jpg" alt="">
         <div class="item-tip">冠军 9分（2022）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/t5.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/t5.jpg" alt="">
         <div class="item-tip">jackjones<span class="tag-new">2024</span></div>
       </div>
     </div>
     <!-- 外套 -->
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/c3.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/c3.jpg" alt="">
         <div class="item-tip">牛仔外套</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/c1.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/c1.jpg" alt="">
         <div class="item-tip">军绿色</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/c2.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/c2.jpg" alt="">
         <div class="item-tip">2022</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./spring/c4.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./spring/c4.jpg" alt="">
         <div class="item-tip">NY<span class="tag-new">2024</span></div>
       </div>
     </div>
     <h4 class="section-title">冬季</h4>
     <div class="list-wrapper">
       <div class="item" onclick="showBigImg(this)">
-        <img src="./winter/t1.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./winter/t1.jpg" alt="">
         <div class="item-tip">阿迪（跑步）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./winter/t2.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./winter/t2.jpg" alt="">
         <div class="item-tip">冠军</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./winter/t5.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./winter/t5.jpg" alt="">
         <div class="item-tip">李宁2023（偏薄）</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./winter/t4.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./winter/t4.jpg" alt="">
         <div class="item-tip">李宁2023</div>
       </div>
       <div class="item" onclick="showBigImg(this)">
-        <img src="./winter/t3.jpg" alt="">
+        <img loading="lazy" decoding="async" src="./winter/t3.jpg" alt="">
         <div class="item-tip">李宁</div>
       </div>
     </div>
@@ -493,6 +496,13 @@
     const imgs = Array.from(document.querySelectorAll('.item img'))
     const srcList = imgs.map((i) => i.src)
     let idx = Math.max(0, srcList.indexOf(src))
+
+    const preload = (i) => {
+      if (i < 0 || i >= srcList.length) return
+      const im = new Image()
+      im.decoding = 'async'
+      im.src = srcList[i]
+    }
 
     const overlay = document.createElement('div')
     overlay.className = 'viewer'
@@ -533,6 +543,9 @@
       img.src = srcList[idx]
       prevBtn.disabled = idx <= 0
       nextBtn.disabled = idx >= srcList.length - 1
+      // 预加载相邻图片，弱网切换更顺
+      preload(idx - 1)
+      preload(idx + 1)
     }
 
     let animating = false
