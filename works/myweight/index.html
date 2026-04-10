@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的体重变化</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.10);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.66);
+      --accent: #4da3ff;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      background: radial-gradient(1000px 500px at 20% 10%, rgba(77, 163, 255, 0.18), transparent 60%),
+        radial-gradient(800px 480px at 80% 20%, rgba(167, 139, 250, 0.15), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+    }
+
+    .wrap {
+      width: min(1100px, calc(100vw - 32px));
+      margin: 22px auto 34px;
+      padding: 18px;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 4px 4px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      margin-bottom: 14px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    .sub {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 14px;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    #chart {
+      width: 100%;
+      height: min(64vh, 520px);
+      min-height: 360px;
+    }
+
+    .tip {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 2px 2px 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(77, 163, 255, 0.12);
+      border: 1px solid rgba(77, 163, 255, 0.22);
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+      user-select: none;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.18);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1 class="title">体重变化折线图</h1>
+      <p class="sub" id="rangeText">—</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div id="chart"></div>
+        <div class="tip">
+          <span class="pill"><span class="dot"></span> X轴：月份（每月一条数据）</span>
+          <span class="pill">Y轴：体重（kg）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+    /**
+     * 体重数据（kg）
+     * - 你只需要改这个数组即可更新图表
+     * - 每一项：{ date: 'YYYY-MM', weight: number }
+     * - 如果留空（[]），会自动生成从 2023-01 到当前月份的假数据
+     */
+    const WEIGHT_DATA = [
+      { date: "2021-03", weight: 64.0 },
+      { date: "2021-05", weight: 63.6 },
+      { date: "2021-06", weight: 62.8 },
+      { date: "2021-07", weight: 61.1 },
+      { date: "2021-08", weight: 60.4 },
+      { date: "2021-12", weight: 62.8 },
+      { date: "2022-01", weight: 64.9 },
+      { date: "2022-02", weight: 65.8 },
+      { date: "2022-03", weight: 66.3 },
+      { date: "2022-04", weight: 65.4 },
+      { date: "2022-05", weight: 66.3 },
+      { date: "2022-06", weight: 66.1 },
+      { date: "2022-07", weight: 67.1 },
+      { date: "2022-08", weight: 66.9 },
+      { date: "2022-09", weight: 63.9 },
+      { date: "2022-10", weight: 67.0 },
+      { date: "2022-11", weight: 66.9 },
+      { date: "2022-12", weight: 65.9 },
+      { date: "2023-01", weight: 64.9 },
+      { date: "2023-02", weight: 65.9 },
+      { date: "2023-03", weight: 65.2 },
+      { date: "2023-04", weight: 66.2 },
+      { date: "2023-05", weight: 67.4 },
+      { date: "2023-06", weight: 66.6 },
+      { date: "2023-07", weight: 66.1 },
+      { date: "2023-08", weight: 68.0 },
+      { date: "2023-09", weight: 68.0 },
+      { date: "2023-10", weight: 70.1 },
+      { date: "2023-11", weight: 68.3 },
+      { date: "2023-12", weight: 68.8 },
+      { date: "2024-01", weight: 70.0 },
+      { date: "2024-02", weight: 68.1 },
+      { date: "2024-03", weight: 70.3 },
+      { date: "2024-04", weight: 68.3 },
+      { date: "2024-05", weight: 66.8 },
+      { date: "2024-06", weight: 64.0 },
+      { date: "2024-07", weight: 64.3 },
+      { date: "2024-08", weight: 64.3 },
+      { date: "2024-09", weight: 61.8 },
+      { date: "2024-10", weight: 63.1 },
+      { date: "2024-11", weight: 63.4 },
+      { date: "2024-12", weight: 60.6 },
+      { date: "2025-01", weight: 59.0 },
+      { date: "2025-03", weight: 58.4 },
+      { date: "2025-04", weight: 58.8 },
+      { date: "2025-05", weight: 59.7 },
+      { date: "2025-06", weight: 59.5 },
+      { date: "2025-07", weight: 59.1 },
+      { date: "2025-08", weight: 58.2 },
+      { date: "2025-09", weight: 55.9 },
+      { date: "2025-10", weight: 55.8 },
+      { date: "2025-11", weight: 57.0 },
+      { date: "2025-12", weight: 56.2 },
+      { date: "2026-01", weight: 57.3 },
+      { date: "2026-02", weight: 57.8 },
+      { date: "2026-03", weight: 58.4 },
+      { date: "2026-04", weight: 58.5 },
+    ];
+
+    function pad2(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function addMonths(ym, delta) {
+      const [y, m] = ym.split("-").map(Number);
+      const base = new Date(y, m - 1, 1);
+      base.setMonth(base.getMonth() + delta);
+      return `${base.getFullYear()}-${pad2(base.getMonth() + 1)}`;
+    }
+
+    function monthRange(startYm, endYm) {
+      const [sy, sm] = startYm.split("-").map(Number);
+      const [ey, em] = endYm.split("-").map(Number);
+      const out = [];
+      let y = sy, m = sm;
+      while (y < ey || (y === ey && m <= em)) {
+        out.push(`${y}-${pad2(m)}`);
+        m += 1;
+        if (m === 13) { m = 1; y += 1; }
+      }
+      return out;
+    }
+
+    function clamp(v, min, max) {
+      return Math.max(min, Math.min(max, v));
+    }
+
+    function makeFakeWeights(count, startWeight) {
+      let w = startWeight;
+      const data = [];
+      for (let i = 0; i < count; i++) {
+        const season = Math.sin((i / 12) * Math.PI * 2) * 0.35;
+        const drift = -0.04;
+        const jitter = (Math.random() - 0.5) * 0.35;
+        w = w + drift + season + jitter;
+        w = clamp(w, 60.5, 78.5);
+        data.push(Number(w.toFixed(1)));
+      }
+      return data;
+    }
+
+    function makeFakeWeightData(startYm, endYm, startWeight) {
+      const months = monthRange(startYm, endYm);
+      const weights = makeFakeWeights(months.length, startWeight);
+      return months.map((date, i) => ({ date, weight: weights[i] }));
+    }
+
+    function normalizeWeightData(input) {
+      const map = new Map();
+      for (const row of input || []) {
+        if (!row || typeof row.date !== "string") continue;
+        if (typeof row.weight !== "number" || Number.isNaN(row.weight)) continue;
+        map.set(row.date, row.weight);
+      }
+
+      const dates = Array.from(map.keys()).sort();
+      if (dates.length === 0) return { months: [], weights: [], hasData: [] };
+
+      const startYm = dates[0];
+      const endYm = dates[dates.length - 1];
+      const months = monthRange(startYm, endYm);
+      const weights = months.map((m) => (map.has(m) ? map.get(m) : null));
+      const hasData = months.map((m) => map.has(m));
+      return { months, weights, hasData };
+    }
+
+    const now = new Date();
+    const endYm = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}`;
+    const data = (Array.isArray(WEIGHT_DATA) && WEIGHT_DATA.length > 0)
+      ? WEIGHT_DATA
+      : makeFakeWeightData("2023-01", endYm, 73.6);
+    const normalized = normalizeWeightData(data);
+    const months = normalized.months;
+    const weights = normalized.weights;
+    const hasData = normalized.hasData;
+    const validWeights = weights.filter((v) => typeof v === "number" && !Number.isNaN(v));
+    const dataMin = validWeights.length ? Math.min(...validWeights) : 0;
+    const dataMax = validWeights.length ? Math.max(...validWeights) : 100;
+    const pad = Math.max(0.6, (dataMax - dataMin) * 0.18);
+
+    const rangeText = document.getElementById("rangeText");
+    rangeText.textContent = `${months[0]} ~ ${months[months.length - 1]}`;
+
+    const el = document.getElementById("chart");
+    const chart = echarts.init(el, null, { renderer: "canvas" });
+
+    const option = {
+      backgroundColor: "transparent",
+      grid: { left: 52, right: 18, top: 26, bottom: 44 },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: { type: "line" },
+        backgroundColor: "rgba(17, 24, 39, 0.92)",
+        borderColor: "rgba(255, 255, 255, 0.10)",
+        textStyle: { color: "rgba(255, 255, 255, 0.92)" },
+        formatter: (params) => {
+          const p = Array.isArray(params) ? params[0] : params;
+          const v = p ? p.data : null;
+          const name = p ? p.axisValueLabel : "";
+          const valueText = (v == null) ? "无记录" : `${v} kg`;
+          return `${name}<br/>体重：${valueText}`;
+        },
+      },
+      xAxis: {
+        type: "category",
+        data: months,
+        boundaryGap: false,
+        axisLine: { lineStyle: { color: "rgba(255,255,255,0.18)" } },
+        axisTick: { show: false },
+        axisLabel: {
+          color: "rgba(255,255,255,0.66)",
+          interval: Math.ceil(months.length / 12),
+        },
+        splitLine: { show: false },
+      },
+      yAxis: {
+        type: "value",
+        name: "kg",
+        min: Math.floor((dataMin - pad) * 10) / 10,
+        max: Math.ceil((dataMax + pad) * 10) / 10,
+        nameTextStyle: { color: "rgba(255,255,255,0.58)" },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: { color: "rgba(255,255,255,0.66)" },
+        splitLine: { lineStyle: { color: "rgba(255,255,255,0.08)" } },
+      },
+      series: [
+        {
+          name: "体重",
+          type: "line",
+          data: weights,
+          smooth: true,
+          symbol: "circle",
+          connectNulls: false,
+          showSymbol: true,
+          symbolSize: (_, params) => (hasData[params.dataIndex] ? 7 : 0),
+          lineStyle: { width: 3, color: "#4da3ff" },
+          itemStyle: { color: "#4da3ff" },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "rgba(77,163,255,0.28)" },
+              { offset: 1, color: "rgba(77,163,255,0.02)" },
+            ]),
+          },
+        },
+      ],
+    };
+
+    chart.setOption(option);
+
+    window.addEventListener("resize", () => chart.resize());
+  </script>
+</body>
+</html>
