@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <title>欢迎来到梁永刚的个人网站</title>
   <meta name="keywords" content="梁永刚,liangyonggang,clausliang">
+  <meta name="description" content="clausliang（梁永刚）的个人网站 —— 前端开发，工作 10 年+，记录技术博客与作品。">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060811">
   <style>
     :root {
-      --container: 1200px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
-      --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.45);
-      --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.35);
-      --border: rgba(255, 255, 255, 0.12);
+      --accent-a: #5b9dff;
+      /* 电光蓝 */
+      --accent-b: #56cfe1;
+      /* 冷青 */
+      --accent-c: #3454c4;
+      /* 深蓝（增加电影感的纵深） */
+      --bg: #060811;
       --text: rgba(255, 255, 255, 0.92);
-      --muted: rgba(255, 255, 255, 0.60);
-      --muted2: rgba(255, 255, 255, 0.35);
-      --glass: rgba(0, 0, 0, 0.36);
-      --glass2: rgba(0, 0, 0, 0.55);
-      --accent-a: #a18cd1;
-      --accent-b: #fbc2eb;
+      --muted: rgba(255, 255, 255, 0.58);
+      --muted2: rgba(255, 255, 255, 0.40);
+      --border: rgba(255, 255, 255, 0.12);
+      --container: 1100px;
+      --shadow-md: 0 14px 44px rgba(0, 0, 0, 0.45);
     }
 
     * {
@@ -32,16 +33,16 @@
     body {
       height: 100%;
       margin: 0;
-      font-size: 16px;
-      line-height: 1.55;
-      scroll-behavior: smooth;
       color-scheme: dark;
     }
 
     body {
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      min-height: 100%;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 16px;
+      line-height: 1.6;
       color: var(--text);
-      background: #000;
+      background: var(--bg);
       overflow-x: hidden;
     }
 
@@ -51,710 +52,558 @@
     }
 
     a:focus-visible {
-      outline: 2px solid rgba(251, 194, 235, 0.85);
+      outline: 2px solid rgba(86, 207, 225, 0.85);
       outline-offset: 3px;
-      border-radius: 8px;
+      border-radius: 10px;
     }
 
-    .container {
-      width: min(var(--container), calc(100vw - 40px));
-      margin: 0 auto;
-    }
-
-    /* 标记线（调试用，默认隐藏） */
-    .mark-line {
-      display: none;
-      position: fixed;
-      top: 62vh;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background-color: rgba(0, 255, 0, 0.5);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* 背景：两张图叠加 + 柔和暗角 */
-    #bg1,
-    #bg2 {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100vh;
-      object-fit: cover;
-      transform-origin: center;
-      will-change: transform, filter, border-radius;
-    }
-
-    #bg1 {
-      z-index: -1;
-      --bgsca: 0;
-      transform: scale(calc(1 - var(--bgsca)));
-      filter: saturate(1.08) contrast(1.02);
-      transition: border-radius 240ms ease;
-    }
-
-    #bg2 {
-      z-index: -2;
-      /* 全屏 blur 很吃性能：默认关掉，仅在桌面端轻量开启 */
-      filter: saturate(0.95) brightness(0.92);
-      transform: scale(1.03);
-    }
-
-    body::before {
-      content: "";
+    /* ============ 背景：极光 + 网格 + 噪点 + 暗角（纯 CSS，无图片） ============ */
+    .bg {
       position: fixed;
       inset: 0;
       z-index: -1;
+      overflow: hidden;
       pointer-events: none;
       background:
-        radial-gradient(1200px 700px at 10% 10%, rgba(161, 140, 209, 0.35), transparent 60%),
-        radial-gradient(1100px 600px at 90% 15%, rgba(251, 194, 235, 0.22), transparent 55%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.85));
+        radial-gradient(1200px 800px at 50% -10%, rgba(91, 157, 255, 0.10), transparent 60%),
+        var(--bg);
     }
 
-    /* 性能降级：老设备 / Safari 上更稳 */
-    body.perf-low #bg2 {
-      /* 作为兜底背景保留，避免 #bg1 缩放后露出纯黑底 */
-      display: block;
-      filter: none;
-      transform: scale(1.02);
+    .aurora {
+      position: absolute;
+      width: clamp(420px, 62vw, 880px);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      opacity: 0.6;
     }
 
-    body.perf-low #bg1 {
-      filter: none;
-      transition: none;
-      will-change: transform;
+    .aurora.a1 {
+      top: -16%;
+      left: -10%;
+      background: radial-gradient(circle at 50% 50%, rgba(91, 157, 255, 0.80), transparent 62%);
+      animation: drift1 26s ease-in-out infinite alternate;
     }
 
-    body.perf-low::before {
+    .aurora.a2 {
+      top: -22%;
+      right: -14%;
+      background: radial-gradient(circle at 50% 50%, rgba(86, 207, 225, 0.50), transparent 62%);
+      animation: drift2 32s ease-in-out infinite alternate;
+    }
+
+    .aurora.a3 {
+      bottom: -28%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 50% 50%, rgba(52, 84, 196, 0.60), transparent 64%);
+      animation: drift3 38s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift1 {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(8%, 6%) scale(1.12); }
+    }
+
+    @keyframes drift2 {
+      from { transform: translate(0, 0) scale(1.05); }
+      to { transform: translate(-7%, 5%) scale(1.18); }
+    }
+
+    @keyframes drift3 {
+      from { transform: translateX(-50%) translateY(0) scale(1); }
+      to { transform: translateX(-50%) translateY(-6%) scale(1.14); }
+    }
+
+    /* 细网格，向中心淡出，增加“科技/电影”质感 */
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+      mask: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+      opacity: 0.6;
+    }
+
+    /* 胶片颗粒噪点（静态、轻量） */
+    .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* 电影暗角 */
+    .vignette {
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(900px 520px at 15% 12%, rgba(161, 140, 209, 0.18), transparent 60%),
-        radial-gradient(900px 520px at 85% 10%, rgba(251, 194, 235, 0.12), transparent 55%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.92));
+        radial-gradient(120% 90% at 50% 38%, transparent 40%, rgba(0, 0, 0, 0.55) 100%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.30), transparent 25%, transparent 70%, rgba(0, 0, 0, 0.55));
     }
 
-    body.perf-low #navbar,
-    body.perf-low #page1::before,
-    body.perf-low #page3 p,
-    body.perf-low .page-footer {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.30) !important;
-    }
-
-    body.perf-low #page1::before {
-      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.38) !important;
-    }
-
-    /* 导航栏：毛玻璃 + hover反馈 */
+    /* ============ 导航 ============ */
     #navbar {
       position: fixed;
       z-index: 9;
-      top: 12px;
+      top: 16px;
       left: 50%;
       transform: translateX(-50%);
-      width: min(var(--container), calc(100vw - 24px));
+      width: min(var(--container), calc(100vw - 32px));
       height: 52px;
-      padding: 0 10px;
+      padding: 0 8px 0 16px;
       display: flex;
       align-items: center;
-      gap: 6px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.35);
-      box-shadow: var(--shadow-md);
-      user-select: none;
+      background: rgba(12, 12, 20, 0.45);
+      box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.07);
     }
 
-    #navbar span,
-    #navbar a {
+    #navbar .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background-image: linear-gradient(120deg, var(--accent-b), var(--accent-a));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: transform 160ms ease;
+    }
+
+    #navbar .brand::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      box-shadow: 0 0 12px rgba(86, 207, 225, 0.8);
+    }
+
+    #navbar .brand:hover {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    #navbar .nav-right {
+      margin-left: auto;
+      display: flex;
+      gap: 4px;
+    }
+
+    #navbar .nav-right a {
       display: inline-flex;
       align-items: center;
       height: 38px;
-      padding: 0 14px;
+      padding: 0 16px;
       border-radius: 999px;
       font-size: 14px;
-      letter-spacing: 0.2px;
-      color: rgba(255, 255, 255, 0.86);
+      letter-spacing: 0.3px;
+      color: rgba(255, 255, 255, 0.82);
       transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
     }
 
-    #navbar span {
-      background: rgba(255, 255, 255, 0.10);
-      color: rgba(255, 255, 255, 0.92);
-    }
-
-    #navbar a:hover {
+    #navbar .nav-right a:hover {
       background: rgba(255, 255, 255, 0.10);
       transform: translateY(-1px);
-      color: rgba(255, 255, 255, 0.96);
+      color: #fff;
     }
 
-    #navbar a:active {
-      transform: translateY(0px) scale(0.98);
-      background: rgba(255, 255, 255, 0.12);
+    #navbar .nav-right a:active {
+      transform: translateY(0) scale(0.98);
     }
 
-    /* 第一页：介绍 */
-    .pageone {
-      height: 82vh;
-      position: relative;
-    }
-
-    #page1 {
-      height: 82vh;
-      width: min(var(--container), calc(100vw - 40px));
-      padding: 26px 22px;
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
+    /* ============ 主体：单屏定格 ============ */
+    .hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      gap: 6px;
-      color: var(--text);
+      text-align: center;
+      padding: 96px 24px 84px;
+      gap: 4px;
     }
 
-    #page1::before {
-      content: "";
-      position: absolute;
-      inset: 76px 0 24px 0;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.55));
+    /* 顶部状态行（打字） */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      padding: 6px 14px;
+      border-radius: 999px;
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      z-index: -1;
-    }
-
-    #typed {
-      font-size: 14px;
-      height: 22px;
-      margin-top: 72px;
-      margin-bottom: 2px;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 12.5px;
+      letter-spacing: 0.5px;
       color: var(--muted);
     }
 
-    #page1 h2 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.88);
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      box-shadow: 0 0 10px rgba(86, 207, 225, 0.85);
+      animation: pulseDot 1.8s ease-in-out infinite;
     }
 
-    #page1 h1 {
-      margin: 0;
-      font-size: clamp(30px, 4.2vw, 44px);
-      line-height: 1.15;
-      letter-spacing: -0.6px;
-      background-image: linear-gradient(to top, var(--accent-a) 0%, var(--accent-b) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.5; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); }
     }
 
-    #page1 h1 span {
-      font-size: clamp(18px, 2.2vw, 26px);
-      color: rgba(255, 255, 255, 0.85);
-      background: none;
-      -webkit-text-fill-color: rgba(255, 255, 255, 0.85);
-      margin-right: 6px;
-    }
-
-    #page1 h3 {
-      margin: 10px 0 6px;
-      font-size: 16px;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.86);
-    }
-
-    .introduce {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .introduce p {
-      margin: 0.6em 0;
-    }
-
-    .introduce .school {
-      color: var(--muted);
-    }
-
-    .introduce a {
-      color: rgba(255, 255, 255, 0.95);
-    }
-
-    .introduce p a {
+    /* eyebrow：你好，我是 */
+    .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
-    }
-
-    .introduce p a:hover {
-      transform: translateY(-1px);
-      background: rgba(255, 255, 255, 0.14);
-      border-color: rgba(255, 255, 255, 0.20);
-    }
-
-    .introduce p a:active {
-      transform: translateY(0px) scale(0.99);
-    }
-
-    @media (min-width: 860px) {
-      .introduce p {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-    }
-
-    /* 第二页：警世名言 */
-    #page2 {
-      position: relative;
-      z-index: 2;
-      padding: 2vh 20px 26px;
-      margin-top: 0;
-    }
-
-    #page2 .animation1 {
-      width: min(var(--container), calc(100vw - 40px));
-      margin: 0 auto 12px;
-      font-size: 18px;
-      padding: 16px 16px;
-      border-radius: var(--radius-md);
-      background: rgba(0, 0, 0, 0.44);
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      gap: 14px;
+      margin: 0 0 6px;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
       color: var(--muted2);
-      transform: translateY(8px);
-      opacity: 0.85;
-      transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease, color 220ms ease, opacity 220ms ease;
     }
 
-    #page2 .animation1.is-active {
-      color: rgba(255, 255, 255, 0.94);
-      background: rgba(0, 0, 0, 0.68);
-      border-color: rgba(255, 255, 255, 0.16);
-      transform: translateY(0px);
-      opacity: 1;
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
     }
 
-    #page2 .animation1:hover {
-      border-color: rgba(255, 255, 255, 0.16);
-      background: rgba(0, 0, 0, 0.60);
+    /* 主标题 */
+    .name {
+      margin: 0;
+      font-size: clamp(46px, 11vw, 124px);
+      font-weight: 200;
+      line-height: 0.98;
+      letter-spacing: clamp(2px, 1.2vw, 12px);
+      background-image: linear-gradient(180deg, #ffffff 0%, #e3eefc 42%, #b3c8e0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 60px rgba(91, 157, 255, 0.28);
     }
 
-    /* 第三页：blog 入口 */
-    @keyframes mymove {
-      0% {
-        transform: translateY(0px) scale(1);
-      }
-      50% {
-        transform: translateY(-2px) scale(1.06);
-      }
-      100% {
-        transform: translateY(0px) scale(1);
-      }
+    .name-cn {
+      margin: 14px 0 0;
+      font-size: clamp(15px, 2.4vw, 19px);
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.78);
     }
 
-    #page3 {
-      height: 140vh;
-      background: rgba(0, 0, 0, 0.20);
-      --scale: 0;
-      position: relative;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* 渐变细分割线 */
+    .rule {
+      width: 64px;
+      height: 2px;
+      margin: 26px 0 22px;
+      border-radius: 2px;
+      background: linear-gradient(to right, var(--accent-a), var(--accent-b));
+      opacity: 0.9;
     }
 
-    #page3 p {
-      position: fixed;
-      display: none;
-      top: 48vh;
-      left: 50%;
-      transform: translateX(-50%) scale(calc(1 + var(--scale)));
-      width: min(720px, calc(100vw - 40px));
-      padding: 12px 14px;
-      border-radius: var(--radius-md);
-      text-align: center;
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.92);
-      background: rgba(0, 0, 0, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: var(--shadow-md);
+    .meta {
+      margin: 0;
+      font-size: clamp(13px, 2vw, 15px);
+      color: var(--muted);
+      letter-spacing: 0.4px;
     }
 
-    #page3 p.is-visible {
-      display: block;
+    /* 轮换名言 */
+    .quote {
+      margin: 16px 0 0;
+      min-height: 1.7em;
+      max-width: 620px;
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-style: italic;
+      font-size: clamp(14px, 2.2vw, 17px);
+      color: rgba(255, 255, 255, 0.66);
+      transition: opacity 420ms ease, transform 420ms ease;
     }
 
-    #page3 .blog-enter {
-      display: none;
-      position: fixed;
-      bottom: 20vh;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      font-size: 16px;
+    .quote.is-out {
+      opacity: 0;
+      transform: translateY(6px);
     }
 
-    #page3 .blog-enter.is-visible {
-      display: block;
+    /* 行动按钮 */
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
     }
 
-    #page3 .blog-enter a {
+    .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-width: 150px;
-      height: 44px;
-      padding: 0 18px;
+      gap: 9px;
+      height: 48px;
+      padding: 0 24px;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(161, 140, 209, 0.95), rgba(251, 194, 235, 0.95));
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      transition: transform 170ms ease, background-color 170ms ease, border-color 170ms ease, filter 170ms ease;
+    }
+
+    .btn span {
+      transition: transform 200ms ease;
+    }
+
+    .btn-primary {
       color: rgba(0, 0, 0, 0.88);
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      box-shadow: 0 16px 46px rgba(161, 140, 209, 0.22);
-      animation: mymove 2s infinite;
-      transition: transform 160ms ease, filter 160ms ease;
+      background: linear-gradient(135deg, rgba(91, 157, 255, 0.98), rgba(86, 207, 225, 0.98));
+      box-shadow: 0 16px 44px rgba(91, 157, 255, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
-    #page3 .blog-enter a:hover {
-      transform: translateY(-1px) scale(1.02);
-      filter: brightness(1.02);
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.03);
     }
 
-    #page3 .blog-enter a:active {
-      transform: translateY(0px) scale(0.99);
+    .btn-primary:hover span {
+      transform: translateX(4px);
+    }
+
+    .btn-ghost {
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.10);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-icon img {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: block;
     }
 
     /* 页脚 */
     .page-footer {
-      height: 46px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
-      background: rgba(0, 0, 0, 0.55);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted2);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
     }
 
     .page-footer a {
-      color: rgba(255, 255, 255, 0.80);
+      color: rgba(255, 255, 255, 0.55);
       transition: color 160ms ease;
     }
 
     .page-footer a:hover {
-      color: rgba(255, 255, 255, 0.95);
+      color: rgba(255, 255, 255, 0.85);
     }
 
-    /* 仅在桌面端（更稳的输入设备）启用毛玻璃/轻微模糊 */
+    /* 入场动画 */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero>* {
+      animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .hero .status { animation-delay: 0.05s; }
+    .hero .eyebrow { animation-delay: 0.12s; }
+    .hero .name { animation-delay: 0.20s; }
+    .hero .name-cn { animation-delay: 0.30s; }
+    .hero .rule { animation-delay: 0.38s; }
+    .hero .meta { animation-delay: 0.44s; }
+    .hero .quote { animation-delay: 0.52s; }
+    .hero .actions { animation-delay: 0.60s; }
+
+    /* 仅桌面端开启导航毛玻璃（更稳的输入设备） */
     @media (min-width: 960px) and (hover: hover) and (pointer: fine) {
-      @supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+      @supports ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
         #navbar {
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
         }
-        #page1::before {
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-        }
-        #page3 p {
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-        }
-        .page-footer {
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-        }
-      }
-      #bg2 {
-        filter: blur(1px) saturate(0.95) brightness(0.92);
       }
     }
 
+    /* ============ 低配端降级：关掉常驻动效，静态呈现 ============ */
+    body.perf-low .aurora {
+      animation: none !important;
+      opacity: 0.5;
+    }
+
+    body.perf-low .grain {
+      display: none;
+    }
+
+    body.perf-low #navbar {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    body.perf-low .status::before {
+      animation: none;
+      opacity: 0.9;
+      transform: none;
+    }
+
+    body.perf-low .hero>* {
+      animation: none;
+    }
+
+    /* 尊重系统“减少动效” */
     @media (prefers-reduced-motion: reduce) {
-      html,
-      body {
-        scroll-behavior: auto;
-      }
       * {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="mark-line"></div>
-  <!-- 大背景 -->
-  <img id="bg1" src="./images/bg1.jpg" alt="">
-  <img id="bg2" src="./images/bg2.jpg" alt="">
+  <!-- 背景 -->
+  <div class="bg" aria-hidden="true">
+    <div class="aurora a1"></div>
+    <div class="aurora a2"></div>
+    <div class="aurora a3"></div>
+    <div class="grid"></div>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <!-- 导航 -->
   <nav id="navbar">
-    <span>首页</span>
-    <a href="./myblog">博客</a>
-    <a href="./works/index.html">作品集</a>
+    <a class="brand" href="./">clausliang</a>
+    <div class="nav-right">
+      <a href="./myblog">博客</a>
+      <a href="./works/index.html">作品集</a>
+    </div>
   </nav>
-  <!-- 简介 -->
-  <div class="pageone">
-    <div id="page1">
-      <span id="typed"></span>
-      <h2>你好，我是</h2>
-      <h1><span>前端开发</span> clausliang</h1>
-      <h3>个人简介</h3>
-      <div class="introduce">
-        <p class="school">山西大学 ｜ 计算机科学与技术 ｜ 2009-2013</p>
-        <p>工作10年+的程序员，不学习就会被淘汰</p>
-        <p>
-          闲暇之余还会做做抖音练习说话：
-          <a href="https://v.douyin.com/bbMhkU4nPK4/">
-            <span>尼克只是个名字</span>
-            <img src="./images/douyin.png" width="40" height="40" alt="">
-          </a>
-        </p>
-        <p>并且坚持记录技术博客，请访问：<a href="./myblog">liangyonggang.com/myblog/</a></p>
-      </div>
-    </div>
-  </div>
 
-  <!-- 警世名言 -->
-  <div id="page2">
-    <p class="animation1">我最近看到一句醒世警句：悲观者永远正确，乐观者永远前行。</p>
-    <p class="animation1">如果说生命的尽头是一场虚无，也对也不对。</p>
-    <p class="animation1">尼采说过生命中每一个不曾起舞的日子都是对生命的辜负。</p>
-    <p class="animation1">戴着镣铐我依然可以跳舞。</p>
-  </div>
-
-  <!-- 展示blog入口 -->
-  <div id="page3">
-    <p class="page3-text">不仅是程序员</p>
-    <p class="page3-text">也想成为一个逍遥自在的诗人</p>
-    <p class="page3-text">欢迎阅读我的blog</p>
-    <div class="blog-enter">
-      <a href="./myblog">点此进入</a>
+  <!-- 主体 -->
+  <main class="hero">
+    <p class="status"><span id="typed"></span></p>
+    <p class="eyebrow">你好，我是</p>
+    <h1 class="name">CLAUSLIANG</h1>
+    <p class="name-cn">梁永刚 · 前端开发</p>
+    <div class="rule"></div>
+    <p class="meta">山西大学 · 计算机科学与技术 · 工作 10 年+</p>
+    <p class="quote" id="quote">悲观者永远正确，乐观者永远前行。</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="./myblog">进入博客 <span>→</span></a>
+      <a class="btn btn-ghost" href="./works/index.html">作品集</a>
+      <a class="btn btn-ghost btn-icon" href="https://v.douyin.com/bbMhkU4nPK4/" target="_blank" rel="noopener">
+        <img src="./images/douyin.png" alt="">抖音
+      </a>
     </div>
-  </div>
+  </main>
+
   <!-- 页脚 -->
-  <div class="page-footer">
-    <a href="http://beian.miit.gov.cn/" target="_blank">京ICP备18012831号</a>
-  </div>
-</body>
-<script src="./works/lib/typed.js"></script>
-<script>
-  // 性能降级（跨浏览器）：先按硬件/用户偏好预判；再在首次滚动时按帧率自适应降级
-  ;(() => {
-    const STORAGE_KEY = 'clausliang:perf'
-    const qs = new URLSearchParams(location.search)
-    const override = (qs.get('perf') || '').toLowerCase() // ?perf=low / ?perf=high
+  <footer class="page-footer">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener">京ICP备18012831号</a>
+  </footer>
+
+  <script src="./works/lib/typed.js"></script>
+  <script>
+    // 性能降级判定（预测式：用户偏好 / 硬件 / 手动覆盖 / 记忆）
+    const lowPerf = (() => {
+      const STORAGE_KEY = 'clausliang:perf'
+      const qs = new URLSearchParams(location.search)
+      const override = (qs.get('perf') || '').toLowerCase() // ?perf=low / ?perf=high
+
+      function setPerf(mode) {
+        document.body.classList.toggle('perf-low', mode === 'low')
+        try { localStorage.setItem(STORAGE_KEY, mode) } catch (e) {}
+        return mode === 'low'
+      }
+
+      if (override === 'low' || override === 'high') return setPerf(override)
+
+      let saved = ''
+      try { saved = localStorage.getItem(STORAGE_KEY) || '' } catch (e) {}
+      if (saved === 'low' || saved === 'high') return setPerf(saved)
+
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const cores = navigator.hardwareConcurrency || 0
+      const mem = navigator.deviceMemory || 0
+      const weak = reduceMotion || (cores > 0 && cores <= 4) || (mem > 0 && mem <= 4)
+      return setPerf(weak ? 'low' : 'high')
+    })()
 
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const cores = navigator.hardwareConcurrency || 0
-    const deviceMemory = navigator.deviceMemory || 0 // Chrome 支持，Safari 可能为 0/undefined
-    const lowCores = cores > 0 && cores <= 4
-    const lowMem = deviceMemory > 0 && deviceMemory <= 4
 
-    function setPerf(mode) {
-      document.body.classList.toggle('perf-low', mode === 'low')
-      try { localStorage.setItem(STORAGE_KEY, mode) } catch (e) {}
-    }
-
-    // 手动覆盖优先级最高
-    if (override === 'low' || override === 'high') {
-      setPerf(override)
-      return
-    }
-
-    // 记忆上次选择（避免每次都重新测）
-    let saved = ''
-    try { saved = localStorage.getItem(STORAGE_KEY) || '' } catch (e) {}
-    if (saved === 'low' || saved === 'high') {
-      setPerf(saved)
-      return
-    }
-
-    // 预判：用户减少动效 / 硬件偏弱 → 直接低性能档
-    if (reduceMotion || lowCores || lowMem) {
-      setPerf('low')
-      return
-    }
-
-    // 自适应：首次滚动时采样 ~0.6s 帧间隔，若明显掉帧则降级
-    let sampled = false
-    function sampleOnFirstScroll() {
-      if (sampled) return
-      sampled = true
-
-      const samples = []
-      let start = 0
-      let last = 0
-      function raf(t) {
-        if (!start) start = t
-        if (last) samples.push(t - last)
-        last = t
-        if (t - start < 650) {
-          requestAnimationFrame(raf)
-        } else {
-          const avg = samples.reduce((a, b) => a + b, 0) / Math.max(1, samples.length)
-          // avg > 24ms ≈ < 41fps，主观会明显卡；直接降级
-          if (avg > 24) setPerf('low')
-          else setPerf('high')
-          window.removeEventListener('scroll', sampleOnFirstScroll)
-        }
-      }
-      requestAnimationFrame(raf)
-    }
-
-    window.addEventListener('scroll', sampleOnFirstScroll, { passive: true, once: true })
-  })()
-
-  // 视窗高度
-  let getClientHeight = () => window.innerHeight
-  // 打字动画
-  new Typed('#typed', {
-    strings: ['欢迎访问我的个人网站，welcome!'],
-    typeSpeed: 80,
-    backSpeed: 80,
-    startDelay: 300,
-    loop: true,
-    loopCount: Infinity,
-  });
-  // 动画1--视线中间的字高亮（page2的动画）
-  // 要高亮的字 名言警句
-  const a1List = document.querySelectorAll('.animation1')
-  // 背景图的缩放
-  let bgscale = 0
-  const bg1 = document.getElementById('bg1')
-  let bgRounded = false
-  let lastBgScale = -1
-  // 开始动画的位置（调低一些：更接近视口下方）
-  let animPosition = getClientHeight() * 0.62
-  function animation1fn(clientHeight) {
-    for (let i = 0; i < a1List.length; i++) {
-      const rect = a1List[i].getBoundingClientRect()
-      const top = rect.top
-      const height = rect.height
-      // 元素的上边距经过开始动画位置改变颜色，出了开始动画位置颜色还原
-      if (top > animPosition - height && top < animPosition) {
-        a1List[i].classList.add('is-active')
-      } else {
-        a1List[i].classList.remove('is-active')
-      }
-    }
-    // document滚动超过开始动画的位置背景图开始缩放
-    // 提前一点开始缩放：避免“启动太晚”的感觉
-    const bgStartOffset = 0.22 * clientHeight
-    const bgStartPoint = document.documentElement.scrollTop + bgStartOffset
-    if (bgStartPoint > animPosition) {
-      bgscale = (bgStartPoint - animPosition) / clientHeight
-      if (bgscale >= 0.9) bgscale = 1
-      if (!bgRounded) {
-        bgRounded = true
-        bg1.style.borderRadius = '30px'
-      }
-      if (Math.abs(bgscale - lastBgScale) > 0.008) {
-        lastBgScale = bgscale
-        bg1.style.setProperty('--bgsca', bgscale)
-      }
-    } else {
-      bgscale = 0
-      if (bgRounded) {
-        bgRounded = false
-        bg1.style.borderRadius = 0
-      }
-      if (lastBgScale !== 0) {
-        lastBgScale = 0
-        bg1.style.setProperty('--bgsca', bgscale)
-      }
-    }
-  }
-
-  // 动画2--blog区域动态展示字幕
-  let scale3 = 0
-  const page3Wrapper = document.getElementById('page3')
-  const page3TextList = document.querySelectorAll('.page3-text')
-
-  const blogEnter = document.querySelector('.blog-enter')
-  let page3Stage = -1
-  let lastScale3 = -1
-  function animation2fn(clientHeight) {
-    const page3Top = page3Wrapper.getBoundingClientRect().top
-    // page3滚动超过标线，开始动画
-    // page3Wrapper.getBoundingClientRect().top元素上边距距离视口顶部的距离
-    if (page3Top <= animPosition) {
-      // 计算滚动的比例
-      // 以标线为基准，滚动超过标线的部分占视窗高度的比例
-      scale3 = (animPosition - page3Top) / clientHeight
-      if (scale3 < 0) scale3 = 0
-      if (scale3 > 1) scale3 = 1
-
-      // 文字缩放
-      // 避免频繁更新，减少性能消耗
-      if (Math.abs(scale3 - lastScale3) > 0.01) {
-        lastScale3 = scale3
-        page3Wrapper.style.setProperty('--scale', scale3 - 0.1)
-      }
-      let nextStage = 0
-      if (scale3 < 0.15) nextStage = 0
-      else if (scale3 < 0.3) nextStage = 1
-      else if (scale3 < 0.55) nextStage = 2
-      else nextStage = 3
-
-      if (nextStage !== page3Stage) {
-        page3Stage = nextStage
-        page3TextList[0].classList.toggle('is-visible', page3Stage === 0)
-        page3TextList[1].classList.toggle('is-visible', page3Stage === 1)
-        page3TextList[2].classList.toggle('is-visible', page3Stage >= 2)
-        blogEnter.classList.toggle('is-visible', page3Stage === 3)
-      }
-    } else {
-      page3TextList[0].classList.remove('is-visible')
-      page3TextList[1].classList.remove('is-visible')
-      page3TextList[2].classList.remove('is-visible')
-      blogEnter.classList.remove('is-visible')
-      page3Stage = -1
-      lastScale3 = -1
-    }
-  }
-
-  // 滚动动画：用 requestAnimationFrame 合帧，避免滚动回调阻塞渲染
-  const scrollAnimation = function () {
-    const clientHeight = getClientHeight()
-    animation1fn(clientHeight)
-    animation2fn(clientHeight)
-  }
-
-  let ticking = false
-  function onScrollOrResize() {
-    if (ticking) return
-    ticking = true
-    requestAnimationFrame(() => {
-      ticking = false
-      animPosition = getClientHeight() * 0.62
-      scrollAnimation()
+    // 顶部状态行打字
+    new Typed('#typed', {
+      strings: ['欢迎访问我的个人网站，welcome!'],
+      typeSpeed: 80,
+      backSpeed: 80,
+      startDelay: 300,
+      loop: true,
+      loopCount: Infinity,
     })
-  }
 
-  window.addEventListener('scroll', onScrollOrResize, { passive: true })
-  window.addEventListener('resize', onScrollOrResize, { passive: true })
-  // 首次进入时同步一次状态，避免需要滚动才初始化
-  onScrollOrResize()
-</script>
-<!-- 百度统计 -->
-<script>
-  var _hmt = _hmt || [];
-  (function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-  })();
-</script>
+    // 名言轮换（低配端 / 减少动效：保持静态首句）
+    const quotes = [
+      '悲观者永远正确，乐观者永远前行。',
+      '如果说生命的尽头是一场虚无，也对也不对。',
+      '生命中每一个不曾起舞的日子，都是对生命的辜负。',
+      '戴着镣铐，我依然可以跳舞。',
+    ]
+    if (!lowPerf && !reduceMotion) {
+      const quoteEl = document.getElementById('quote')
+      let qi = 0
+      setInterval(() => {
+        quoteEl.classList.add('is-out')
+        setTimeout(() => {
+          qi = (qi + 1) % quotes.length
+          quoteEl.textContent = quotes[qi]
+          quoteEl.classList.remove('is-out')
+        }, 440)
+      }, 5000)
+    }
+  </script>
+
+  <!-- 百度统计 -->
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?250b5a75b16a4f869f363fc9459c2eec";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+</body>
 
 </html>
