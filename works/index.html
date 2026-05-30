@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
@@ -7,19 +7,22 @@
   <meta name="keywords" content="梁永刚,liangyonggang">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#131b2e">
   <style>
     :root {
       --container: 1120px;
-      --bg: #f5f6f8;
-      --card: #ffffff;
-      --card-muted: #f9fafb;
-      --card-hover: #f3f7ff;
-      --text: #111827;
-      --muted: rgba(17, 24, 39, 0.60);
-      --border: rgba(17, 24, 39, 0.12);
-      --primary: #1677ff;
+      --bg: #131b2e;
+      --text: rgba(255, 255, 255, 0.94);
+      --muted: rgba(255, 255, 255, 0.62);
+      --muted2: rgba(255, 255, 255, 0.44);
+      --border: rgba(255, 255, 255, 0.14);
+      --card: rgba(255, 255, 255, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.10);
+      --accent-a: #5b9dff;
+      --accent-b: #56cfe1;
       --radius-lg: 16px;
       --radius-md: 12px;
+      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
     * {
@@ -33,89 +36,13 @@
 
     body {
       margin: 0;
-      background-color: var(--bg);
+      min-height: 100%;
+      background: var(--bg);
       color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "PingFang SC", "Microsoft YaHei";
       line-height: 1.6;
       text-rendering: optimizeLegibility;
-    }
-
-    /* 导航 */
-    .nav {
-      background-color: var(--card);
-      border-bottom: 1px solid rgba(17, 24, 39, 0.10);
-    }
-
-    .nav-inner {
-      height: 52px;
-      position: relative;
-      width: min(var(--container), calc(100vw - 32px));
-      margin: 0 auto;
-    }
-
-    .brand {
-      height: 52px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      color: rgba(17, 24, 39, 0.88);
-      text-decoration: none;
-    }
-
-    .brand img {
-      display: block;
-    }
-
-    /* 主区域 */
-    .wrapper {
-      min-height: 400px;
-      width: min(var(--container), calc(100vw - 32px));
-      margin: 18px auto 40px;
-      padding: 22px;
-      background-color: var(--card);
-      border: 1px solid rgba(17, 24, 39, 0.10);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
-    }
-
-    .list-wrapper {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 12px;
-      min-height: 92px;
-      font-size: 13px;
-      font-weight: 650;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      color: rgba(17, 24, 39, 0.92);
-      border: 1px solid var(--border);
-      background: var(--card-muted);
-      user-select: none;
-    }
-
-    .item .item-title {
-      text-align: center;
-      word-break: break-word;
-      display: -webkit-box;
-      line-clamp: 2;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      line-height: 1.25;
+      overflow-x: hidden;
     }
 
     a {
@@ -124,251 +51,455 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    a:hover .item {
-      border-color: rgba(22, 119, 255, 0.55);
-      background: var(--card-hover);
+    /* 背景：径向幽光 + 细网格（静态、轻量） */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(1100px 700px at 50% -8%, rgba(120, 175, 255, 0.18), transparent 60%),
+        radial-gradient(900px 600px at 100% 0%, rgba(110, 220, 235, 0.10), transparent 55%),
+        var(--bg);
     }
 
-    a:focus-visible .item {
-      outline: 2px solid rgba(22, 119, 255, 0.55);
-      outline-offset: 3px;
+    .bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask: radial-gradient(circle at 50% 18%, #000, transparent 78%);
+      mask: radial-gradient(circle at 50% 18%, #000, transparent 78%);
+    }
+
+    /* 导航 */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      background: rgba(19, 27, 46, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      width: min(var(--container), calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      background-image: linear-gradient(120deg, var(--accent-b), var(--accent-a));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: transform 160ms ease;
+    }
+
+    .brand::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      box-shadow: 0 0 12px rgba(86, 207, 225, 0.8);
+    }
+
+    .brand:hover {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-right a,
+    .nav-right span {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 15px;
+      border-radius: 999px;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      color: rgba(255, 255, 255, 0.8);
+      transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+    }
+
+    .nav-right a:hover {
+      background: rgba(255, 255, 255, 0.10);
+      transform: translateY(-1px);
+      color: #fff;
+    }
+
+    .nav-right .current {
+      background: linear-gradient(135deg, rgba(91, 157, 255, 0.30), rgba(86, 207, 225, 0.30));
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    /* 页头 */
+    .head {
+      width: min(var(--container), calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 46px 0 26px;
+    }
+
+    .head .eyebrow {
+      margin: 0 0 10px;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--accent-b);
+      opacity: 0.85;
+    }
+
+    .head h1 {
+      margin: 0;
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      line-height: 1.05;
+      background-image: linear-gradient(180deg, #ffffff, #c3d4e8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .head p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* 主区域 */
+    .wrapper {
+      width: min(var(--container), calc(100vw - 32px));
+      margin: 0 auto 56px;
+    }
+
+    section {
+      margin-bottom: 34px;
     }
 
     .section-title {
-      margin: 14px 0 12px;
-      font-size: 16px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      font-size: 17px;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      color: rgba(17, 24, 39, 0.78);
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+      color: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--border);
     }
 
-    .section-title.first {
-      margin-top: 0;
+    .section-title .st-index {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      background-image: linear-gradient(120deg, var(--accent-a), var(--accent-b));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-title .st-count {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted2);
+    }
+
+    .grid {
+      counter-reset: item;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      counter-increment: item;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      padding: 26px 16px 16px;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--card);
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    /* 自动编号（01 02 …，代码感） */
+    .card::before {
+      content: counter(item, decimal-leading-zero);
+      position: absolute;
+      top: 11px;
+      left: 13px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--muted2);
+      transition: color 180ms ease;
+    }
+
+    /* hover 箭头 */
+    .card::after {
+      content: "↗";
+      position: absolute;
+      top: 9px;
+      right: 12px;
+      font-size: 14px;
+      color: var(--accent-b);
+      opacity: 0;
+      transform: translate(-3px, 3px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .card .item-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(91, 157, 255, 0.55);
+      background: var(--card-hover);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(91, 157, 255, 0.15) inset, 0 6px 24px rgba(91, 157, 255, 0.18);
+    }
+
+    .card:hover::before {
+      color: var(--accent-a);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    a:focus-visible .card {
+      outline: 2px solid rgba(86, 207, 225, 0.6);
+      outline-offset: 3px;
+    }
+
+    /* 页脚 */
+    .foot {
+      width: min(var(--container), calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 26px 0 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    .foot a {
+      color: var(--muted);
+      transition: color 160ms ease;
+    }
+
+    .foot a:hover {
+      color: #fff;
+    }
+
+    /* 入场：卡片轻微淡入上浮 */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid>a {
+      animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .grid>a:nth-child(1) { animation-delay: 0.02s; }
+    .grid>a:nth-child(2) { animation-delay: 0.06s; }
+    .grid>a:nth-child(3) { animation-delay: 0.10s; }
+    .grid>a:nth-child(4) { animation-delay: 0.14s; }
+    .grid>a:nth-child(5) { animation-delay: 0.18s; }
+    .grid>a:nth-child(6) { animation-delay: 0.22s; }
+    .grid>a:nth-child(n+7) { animation-delay: 0.26s; }
+
+    /* 仅桌面端开启导航毛玻璃 */
+    @media (min-width: 960px) and (hover: hover) and (pointer: fine) {
+      @supports ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+        .nav {
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+        }
+      }
     }
 
     @media (max-width: 520px) {
-      .wrapper {
-        padding: 16px;
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+        gap: 11px;
       }
 
-      .list-wrapper {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 10px;
+      .head {
+        padding: 32px 0 20px;
       }
+    }
 
-      .brand {
-        font-size: 16px;
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
       }
+    }
+
+    /* 低配端降级：与首页一致，去掉入场动画、毛玻璃与重阴影 */
+    body.perf-low .grid>a {
+      animation: none;
+    }
+
+    body.perf-low .nav {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    body.perf-low .card {
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+
+    body.perf-low .card:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(91, 157, 255, 0.55);
+      background: var(--card-hover);
     }
   </style>
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true"></div>
+
   <nav class="nav">
     <div class="nav-inner">
-      <a class="brand" href="http://liangyonggang.com">
-        <img width="20" height="16" src="../images/icon_home.png" alt="">
-        梁永刚的个人网站
-      </a>
+      <a class="brand" href="../">clausliang</a>
+      <div class="nav-right">
+        <a href="../">首页</a>
+        <a href="../myblog">博客</a>
+        <span class="current">作品集</span>
+      </div>
     </div>
   </nav>
-  <div class="wrapper">
-    <h4 class="section-title first">项目</h4>
-    <div class="list-wrapper">
-      <a href="./wardrobe/index.html">
-        <div class="item">
-          <div class="item-title">
-            电子衣橱
-          </div>
-        </div>
-      </a>
-      <a href="./myweight/index.html">
-        <div class="item">
-          <div class="item-title">
-            我的体重变化（折线图）
-          </div>
-        </div>
-      </a>
-      <a href="./snake/index.html">
-        <div class="item">
-          <div class="item-title">
-            贪吃蛇游戏
-          </div>
-        </div>
-      </a> 
-      <a href="./activeResume/index.html">
-        <div class="item">
-          <div class="item-title">
-            会动的简历
-          </div>
-        </div>
-      </a>
-      
-      <a href="./petiteVue/index.html">
-        <div class="item">
-          <div class="item-title">
-            petite-vue
-          </div>
-        </div>
-      </a>
-      <a href="./vue3-cdn/index.html">
-        <div class="item">
-          <div class="item-title">
-            cdn方式引入vue3的后台列表
-          </div>
-        </div>
-      </a>
-      <a href="http://liangyonggang.com/vue3-project">
-        <div class="item">
-          <div class="item-title">
-            vue3项目
-          </div>
-        </div>
-      </a>
-    </div>
-      
 
-    <h4 class="section-title">css效果</h4>
-    <div class="list-wrapper">
-      <a href="./loading/index.html">
-        <div class="item">
-          <div class="item-title">
-            自定义一个loading
-          </div>
-        </div>
-      </a>
-      <a href="./layout/index.html">
-        <div class="item">
-          <div class="item-title">
-            左中右三栏布局的5种方案
-          </div>
-        </div>
-      </a>
-      <a href="./fullPage/index.html">
-        <div class="item">
-          <div class="item-title">
-            全屏滚动（js版）
-          </div>
-        </div>
-      </a>
-      <a href="./fullPage/index2.html">
-        <div class="item">
-          <div class="item-title">
-            全屏滚动（css版）
-          </div>
-        </div>
-      </a>
-      <a href="./flashlight/index.html">
-        <div class="item">
-          <div class="item-title">
-            手电筒效果
-          </div>
-        </div>
-      </a>
-      <a href="./dark/dark.html">
-        <div class="item">
-          <div class="item-title">
-            自动以及手动改变主题色
-          </div>
-        </div>
-      </a>
-      <a href="./apple/index.html">
-        <div class="item">
-          <div class="item-title">
-            一个简单的苹果动画
-          </div>
-        </div>
-      </a>
-      <a href="./scrollReveal/index.html">
-        <div class="item">
-          <div class="item-title">
-            scrollReveal滚动动画
-          </div>
-        </div>
-      </a>
-    </div>
+  <header class="head">
+    <p class="eyebrow">// works &amp; experiments</p>
+    <h1>作品集</h1>
+    <p>记录平时折腾的项目、CSS / JS 小效果与 three.js 练习。</p>
+  </header>
 
-    <h4 class="section-title">js效果</h4>
-    <div class="list-wrapper">
-      <a href="./print/index.html">
-        <div class="item">
-          <div class="item-title">
-            调用浏览器打印
-          </div>
-        </div>
-      </a>
-      <a href="./drag/index.html">
-        <div class="item">
-          <div class="item-title">
-            一个简单的拖拽
-          </div>
-        </div>
-      </a>
-      <a href="./exportword/index.html">
-        <div class="item">
-          <div class="item-title">
-            前端导出word
-          </div>
-        </div>
-      </a>
-    </div>
+  <main class="wrapper">
+    <section>
+      <h2 class="section-title"><span class="st-index">01</span>项目<span class="st-count">07</span></h2>
+      <div class="grid">
+        <a href="./wardrobe/index.html"><div class="card"><span class="item-title">电子衣橱</span></div></a>
+        <a href="./myweight/index.html"><div class="card"><span class="item-title">我的体重变化（折线图）</span></div></a>
+        <a href="./snake/index.html"><div class="card"><span class="item-title">贪吃蛇游戏</span></div></a>
+        <a href="./activeResume/index.html"><div class="card"><span class="item-title">会动的简历</span></div></a>
+        <a href="./petiteVue/index.html"><div class="card"><span class="item-title">petite-vue</span></div></a>
+        <a href="./vue3-cdn/index.html"><div class="card"><span class="item-title">cdn方式引入vue3的后台列表</span></div></a>
+        <a href="http://liangyonggang.com/vue3-project"><div class="card"><span class="item-title">vue3项目</span></div></a>
+      </div>
+    </section>
 
-    <h4 class="section-title">学习threeJs</h4>
-    <div class="list-wrapper">
-      <a href="./three/index.html">
-        <div class="item">
-          <div class="item-title">
-            初识threejs
-          </div>
-        </div>
-      </a>
-      <a href="./three/index2.html">
-        <div class="item">
-          <div class="item-title">
-            100个正方体
-          </div>
-        </div>
-      </a>
-      <a href="./three/index3.html">
-        <div class="item">
-          <div class="item-title">
-            gui工具的使用
-          </div>
-        </div>
-      </a>
-      <a href="./three/index4.html">
-        <div class="item">
-          <div class="item-title">
-            点、线、面
-          </div>
-        </div>
-      </a>
-      <a href="./three/index5.html">
-        <div class="item">
-          <div class="item-title">
-            构建一个几何体，定义顶点法线
-          </div>
-        </div>
-      </a>
-      <a href="./three/index6.html">
-        <div class="item">
-          <div class="item-title">
-            认识几何体的框架
-          </div>
-        </div>
-      </a>
-      <a href="./three/index7.html">
-        <div class="item">
-          <div class="item-title">
-            创建纹理贴图
-          </div>
-        </div>
-      </a>
-    </div>
-    
-  </div>
+    <section>
+      <h2 class="section-title"><span class="st-index">02</span>css效果<span class="st-count">08</span></h2>
+      <div class="grid">
+        <a href="./loading/index.html"><div class="card"><span class="item-title">自定义一个loading</span></div></a>
+        <a href="./layout/index.html"><div class="card"><span class="item-title">左中右三栏布局的5种方案</span></div></a>
+        <a href="./fullPage/index.html"><div class="card"><span class="item-title">全屏滚动（js版）</span></div></a>
+        <a href="./fullPage/index2.html"><div class="card"><span class="item-title">全屏滚动（css版）</span></div></a>
+        <a href="./flashlight/index.html"><div class="card"><span class="item-title">手电筒效果</span></div></a>
+        <a href="./dark/dark.html"><div class="card"><span class="item-title">自动以及手动改变主题色</span></div></a>
+        <a href="./apple/index.html"><div class="card"><span class="item-title">一个简单的苹果动画</span></div></a>
+        <a href="./scrollReveal/index.html"><div class="card"><span class="item-title">scrollReveal滚动动画</span></div></a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="st-index">03</span>js效果<span class="st-count">03</span></h2>
+      <div class="grid">
+        <a href="./print/index.html"><div class="card"><span class="item-title">调用浏览器打印</span></div></a>
+        <a href="./drag/index.html"><div class="card"><span class="item-title">一个简单的拖拽</span></div></a>
+        <a href="./exportword/index.html"><div class="card"><span class="item-title">前端导出word</span></div></a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title"><span class="st-index">04</span>学习threeJs<span class="st-count">07</span></h2>
+      <div class="grid">
+        <a href="./three/index.html"><div class="card"><span class="item-title">初识threejs</span></div></a>
+        <a href="./three/index2.html"><div class="card"><span class="item-title">100个正方体</span></div></a>
+        <a href="./three/index3.html"><div class="card"><span class="item-title">gui工具的使用</span></div></a>
+        <a href="./three/index4.html"><div class="card"><span class="item-title">点、线、面</span></div></a>
+        <a href="./three/index5.html"><div class="card"><span class="item-title">构建一个几何体，定义顶点法线</span></div></a>
+        <a href="./three/index6.html"><div class="card"><span class="item-title">认识几何体的框架</span></div></a>
+        <a href="./three/index7.html"><div class="card"><span class="item-title">创建纹理贴图</span></div></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© clausliang · 梁永刚</span>
+    <a href="../">← 返回首页</a>
+  </footer>
+
+  <script>
+    // 性能降级：优先复用首页存下的判定（同一 localStorage key），否则按偏好/硬件预判。
+    // 本页无常驻动画，仅用于关闭入场动画/毛玻璃/重阴影，进一步照顾老设备。
+    (function () {
+      var KEY = 'clausliang:perf';
+      var ov = (new URLSearchParams(location.search).get('perf') || '').toLowerCase();
+      var mode = '';
+      if (ov === 'low' || ov === 'high') {
+        mode = ov;
+        try { localStorage.setItem(KEY, mode); } catch (e) {}
+      } else {
+        try { mode = localStorage.getItem(KEY) || ''; } catch (e) {}
+      }
+      if (mode !== 'low' && mode !== 'high') {
+        var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var c = navigator.hardwareConcurrency || 0;
+        var m = navigator.deviceMemory || 0;
+        mode = (rm || (c > 0 && c <= 4) || (m > 0 && m <= 4)) ? 'low' : 'high';
+      }
+      if (mode === 'low') document.body.classList.add('perf-low');
+    })();
+  </script>
 
 </body>
 

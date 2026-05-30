@@ -573,14 +573,15 @@
       loopCount: Infinity,
     })
 
-    // 名言轮换（低配端 / 减少动效：保持静态首句）
+    // 名言轮换：开销极小（每 5 秒一次单行文字切换），与重动画无关，
+    // 故不随 perf-low 关闭，手机端同样轮换；仅在系统“减少动效”时保持静态首句。
     const quotes = [
       '悲观者永远正确，乐观者永远前行。',
       '如果说生命的尽头是一场虚无，也对也不对。',
       '生命中每一个不曾起舞的日子，都是对生命的辜负。',
       '戴着镣铐，我依然可以跳舞。',
     ]
-    if (!lowPerf && !reduceMotion) {
+    if (!reduceMotion) {
       const quoteEl = document.getElementById('quote')
       let qi = 0
       setInterval(() => {
